@@ -1,0 +1,67 @@
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entorno virtual
+venv/
+env/
+ENV/
+.venv/
+
+# Variables de entorno
+.env
+
+# Archivos de Django
+db.sqlite3
+*.log
+staticfiles/
+media/
+
+# Archivos compilados / temporales
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.bak
+
+# Distribución / build
+build/
+dist/
+*.egg-info/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# IDEs / editores
+.vscode/
+.idea/
+
+# Node (si usás frontend)
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage / testing
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Archivos de PostgreSQL (por si acaso)
+*.sql
+
+# Archivos estáticos recolectados
+/staticfiles/
+
+# Gunicorn
+gunicorn.pid
+
+# Otros
+*.env
