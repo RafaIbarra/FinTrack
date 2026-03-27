@@ -21,7 +21,7 @@ config = Config(RepositoryEnv(str(env_path)))
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-molgkr$zdgsm*qvh2e8^(kam9yp6p9cttlmqtl+3-302^yk0!_'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'FinTrackApp',
     'corsheaders',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +75,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'FinTrackProject.wsgi.application'
+
+REST_FRAMEWORK = {
+    
+    
+    # Configuración de autenticación JWT
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    
+    # Configuración de permisos por defecto
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
 
 
 # Database
