@@ -17,7 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 #from FinTrackApp.Urls.admin_urls
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/admin/', include('FinTrackApp.Urls.admin_urls')),
+    path('api/sessions/', include('FinTrackApp.Urls.sesions_urls')),
 ]

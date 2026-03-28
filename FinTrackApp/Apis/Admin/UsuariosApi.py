@@ -1,31 +1,24 @@
-from datetime import datetime
-from django.utils import timezone
+
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
 from django.db import transaction
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework import serializers 
 from rest_framework.permissions import AllowAny
+
 from FinTrackApp.Serializadores.SerializadoresValidaciones.CamposRequeridosSerializers import RegistroUsuarioInputSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.UsuariosSerializer import RegistroUsuariosSerializer
-from FinTrackApp.Utils.funciones_seguridad import formato_user
+from FinTrackApp.Modelos.Usuarios import Usuarios
+from FinTrackApp.Utils.funciones_seguridad import formato_user,informacion_peticion,registrar_login
+
+
+from datetime import datetime
+
 class RegistroUsuario(APIView):
     """
-    Operaciones:\n
-    1) Registro inicial del usuario, se carga en la tabla Usuarios con estado=3 para posterior activacion
-    2) Se crea una contraseña temporal que se enviara al correo
-    
-
-    Validaciones:\n
-    1) El user name es unico
-    2) El user name no puede existir en el sistema de Django
-
-    Funciones Internas: \n
-    1) formato_user(): Para unificar el estandar que debe tener el UserName
-    2) generar_password_temp(): Generacion de clave aleatoria
-    3) registrar_password_temp(): Registro de contraseña temporal
+  
     """
     permission_classes = [AllowAny]
 
@@ -48,15 +41,20 @@ class RegistroUsuario(APIView):
             apellido = validated_data['apellido'].strip()
             user_ing = validated_data['user'].strip()
             correo = validated_data['correo']
-            
+            password = validated_data['password']
             user_reg = formato_user(user_ing)
             
+            data_peticion=informacion_peticion(request)
+            ip_peticion=data_peticion.get('Ip')
+            dispositivo=data_peticion.get('Dispositivo')
+
             
-            if User.objects.filter(username=user_reg).exists():
+            if User.objects.filter(username=user_reg).exists() or Usuarios.objects.filter(UserName=user_reg).exists():
                 return Response(
-                    {'message': {'Username': f'Ya existe el usuario {user_reg}'}}, 
+                    {'message':  f'Ya existe el usuario {user_reg}'}, 
                     status=status.HTTP_400_BAD_REQUEST
                 )
+            
             
             
             
@@ -73,20 +71,34 @@ class RegistroUsuario(APIView):
                 }
                 
                 user_serializer = RegistroUsuariosSerializer(data=data_user)
-
+                
                 if not user_serializer.is_valid():
+                    
                     errors = {'usuario': {}} 
                     for campo, detalles in user_serializer.errors.items():
                         errors['usuario'][campo] = str(detalles[0])
                     raise serializers.ValidationError(errors)
                 
                 user_serializer.save()
-
-                
+                User.objects.create_user(
+                    username=user_reg, 
+                    password=password,
+                   
+                )
+            #UNA VEZ CREADO EL USUARIO INTENTA HACER EL LOGUEO 
+            loguedo,data,mensaje=registrar_login(user_reg,password,ip_peticion,dispositivo)
             
-
-            
-            return Response({'message': 'Registro exitoso',}, status=status.HTTP_201_CREATED)
+            valores_logueo={
+                'Registro':'Registro existoso usuario',
+                'Logueado':loguedo,
+                'token': data.get('token_jwt') if data else '',  # Puede ser None
+                'refresh': data.get('refresh_jwt') if data else '',  # Puede ser None
+                'sesion': data.get('token_clasico') if data else '',  # Puede ser None
+                'user_name': user_reg.capitalize(),
+                'message':mensaje
+            }
+        
+            return Response(valores_logueo, status=status.HTTP_201_CREATED)
         
         except serializers.ValidationError as e:
             
@@ -100,3 +112,7 @@ class RegistroUsuario(APIView):
                  {'message': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+        
+
+
+
