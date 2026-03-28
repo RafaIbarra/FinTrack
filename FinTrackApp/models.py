@@ -9,4 +9,9 @@ from FinTrackApp.Modelos.Gastos import Gastos
 from FinTrackApp.Modelos.TiposIngresos import TiposIngresos
 from FinTrackApp.Modelos.Ingresos import Ingresos
 
-from FinTrackApp.Modelos.SesionesActivas import SesionesActivas 
+from FinTrackApp.Modelos.SesionesActivas import SesionesActivas
+
+from FinTrackApp.Modelos.MediosPagos import MediosPagos
+from FinTrackApp.Modelos.MovimientosGastos import MovimientosGastos
+from FinTrackApp.Modelos.MovimientosGastosDetalles import MovimientosGastosDetalles
+from FinTrackApp.Modelos.MovimientosGastosMediosPagos import MovimientosGastosMediosPagos
