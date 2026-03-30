@@ -13,29 +13,21 @@ class InfoCategoriaGastoSerializer(serializers.ModelSerializer):
 
 
 class RegistroCategoriaGastoSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = CategoriasGastos
         fields = '__all__'
 
     def validate(self, data):
-        id_categoria = self.initial_data.get('Id', 0)
         usuario_id = self.initial_data.get('Usuario')
 
-        # --- Caso actualización ---
-        if id_categoria and int(id_categoria) > 0:
-            qs = CategoriasGastos.objects.filter(Id=id_categoria, Usuario_id=usuario_id)
-            if not qs.exists():
-                raise serializers.ValidationError(
-                    {"Id": f"No existe una categoría con Id={id_categoria} para este usuario."}
-                )
-            self.instance = qs.first()
+        # Ya no necesita buscar la instancia por Id
+        # si viene de PUT, self.instance ya existe (lo asignó la vista)
+        # si viene de POST, self.instance es None
 
-        # --- Validar unicidad de nombre ---
         nombre = data.get('NombreCategoria')
         if nombre:
             queryset = CategoriasGastos.objects.filter(
-                NombreCategoria=nombre, 
+                NombreCategoria=nombre,
                 Usuario_id=usuario_id
             )
             if self.instance:
