@@ -39,7 +39,7 @@ class CategoriaGastoUsuarioApi(APIView):
             id_usuario=user_info.get('usuario_id')
 
             nombre=request.data.get('nombre').strip()
-            descripcion = request.data.get('descripcion', 'sin').strip()
+            descripcion = request.data.get('descripcion', '').strip()
         
             data_registrar={
               'Id':0,

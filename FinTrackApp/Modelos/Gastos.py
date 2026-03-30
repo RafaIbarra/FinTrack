@@ -10,7 +10,7 @@ class Gastos(models.Model):
     
     Id = models.AutoField(primary_key=True, help_text="Campo de identificacion unica autogenerado")
     NombreGasto=models.CharField(max_length=200,blank=False, help_text="Nombre completo")
-    FechaRegistro=models.DateTimeField("fecha registro", help_text="Fecha de registro de la Categoria")
+    FechaRegistro=models.DateTimeField("fecha registro", help_text="Fecha de registro de la Categoria",auto_now_add=True)
     Observacion=models.CharField(max_length=200,blank=True, help_text="Alguna observacion sobre el gasto")
     Usuario = models.ForeignKey(
         Usuarios, 
