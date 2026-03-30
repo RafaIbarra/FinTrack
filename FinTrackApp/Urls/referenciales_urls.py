@@ -8,6 +8,7 @@ urlpatterns = [
     path('CategoriaGastoUsuarioApi/<int:id_reg>/',CategoriaGastoUsuarioApi.as_view(),name="CategoriaGastoUsuarioApi"),     
     path('ListadoCageriasUser/',ListadoCageriasUser.as_view(),name="ListadoCageriasUser"),     
     path('OperacionesGastosUsuario/',OperacionesGastosUsuario.as_view(),name="OperacionesGastosUsuario"), 
+    path('OperacionesGastosUsuario/<int:idgasto>/',OperacionesGastosUsuario.as_view(),name="OperacionesGastosUsuario"), 
     path('ListarGastosUser/',ListarGastosUser.as_view(),name="ListarGastosUser"), 
     
     
