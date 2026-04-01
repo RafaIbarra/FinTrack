@@ -4,12 +4,12 @@ from rest_framework import status
 
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 
-from FinTrackApp.Modelos.Gastos import Gastos
-from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
-from FinTrackApp.Modelos.TiposGastos import TiposGastos
+from FinTrackApp.Modelos.Ingresos import Ingresos
+from FinTrackApp.Modelos.TiposIngresos import TiposIngresos
 
-from FinTrackApp.Serializadores.SerilizadoresModelos.GastosSerializers import RegistroGastoSerializer,InfoGastoSerializer
-class OperacionesGastosUsuario(APIView):
+from FinTrackApp.Serializadores.SerilizadoresModelos.IngresosSerializers import RegistroIngresoSerializer,InfoIngresoSerializer
+
+class OperacionesIngresoUsuario(APIView):
 
     @AutenticacionToken
     def post(self, request, *args, **kwargs):
@@ -20,29 +20,22 @@ class OperacionesGastosUsuario(APIView):
 
             nombre=request.data.get('nombre').strip()
             observacion = request.data.get('observacion', '').strip()
-            id_categoria=int(request.data.get('categoria'))
-            id_tipo_gasto=int(request.data.get('tipo_gasto'))
-            categoria_obj=CategoriasGastos.objects.filter(Id=id_categoria,Usuario_id=id_usuario)
-            tipogasto_obj=TiposGastos.objects.filter(Id=id_tipo_gasto)
-            if not categoria_obj.exists():
+            id_tipo_ingreso=int(request.data.get('tipo_ingreso'))
+    
+            tipo_ingreso_obj=TiposIngresos.objects.filter(Id=id_tipo_ingreso)
+            
+            if not tipo_ingreso_obj.exists():
                 return Response(
-                    {'message': f'No existe una categoría con Id={id_categoria} para este usuario.'},
-                    status=status.HTTP_404_NOT_FOUND
-                )
-            if not tipogasto_obj.exists():
-                return Response(
-                    {'message': f'No existe el tipo de gasto con Id={id_tipo_gasto}.'},
+                    {'message': f'No existe el tipo de ingreso con Id={id_tipo_ingreso}.'},
                     status=status.HTTP_404_NOT_FOUND
                 )
             data_registrar={
-              'Id':0,
-              'NombreGasto':nombre,
+              'NombreIngreso':nombre,
               'Observacion':observacion,
               'Usuario':id_usuario,
-              'Categoria':id_categoria,
-              'TipoGasto':id_tipo_gasto
+              'TipoIngreso':id_tipo_ingreso
             }
-            serializer = RegistroGastoSerializer(data=data_registrar)
+            serializer = RegistroIngresoSerializer(data=data_registrar)
             if not serializer.is_valid():
                 # Obtener todos los mensajes de error
                 errores = serializer.errors
@@ -64,8 +57,8 @@ class OperacionesGastosUsuario(APIView):
                     'detalles': serializer.errors
                 }, status=status.HTTP_400_BAD_REQUEST)
             
-            gasto = serializer.save()
-            detail_serializer = InfoGastoSerializer(gasto)
+            ingreso = serializer.save()
+            detail_serializer = InfoIngresoSerializer(ingreso)
             return Response(detail_serializer.data, status=status.HTTP_201_CREATED)
 
         except Exception as e:
@@ -76,7 +69,7 @@ class OperacionesGastosUsuario(APIView):
             )
 
     @AutenticacionToken
-    def put(self, request, idgasto,*args, **kwargs):
+    def put(self, request, idingreso,*args, **kwargs):
         try:
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
@@ -84,38 +77,35 @@ class OperacionesGastosUsuario(APIView):
 
             nombre=request.data.get('nombre').strip()
             observacion = request.data.get('observacion', '').strip()
-            id_categoria=int(request.data.get('categoria'))
-            id_tipo_gasto=int(request.data.get('tipo_gasto'))
-
-            categoria_obj=CategoriasGastos.objects.filter(Id=id_categoria,Usuario_id=id_usuario)
-            tipogasto_obj=TiposGastos.objects.filter(Id=id_tipo_gasto)
-            gastos_obj=Gastos.objects.filter(Id=idgasto,Usuario_id=id_usuario)
-            if not categoria_obj.exists():
+            id_tipo_ingreso=int(request.data.get('tipo_ingreso'))
+    
+            tipo_ingreso_obj=TiposIngresos.objects.filter(Id=id_tipo_ingreso)
+            
+            if not tipo_ingreso_obj.exists():
                 return Response(
-                    {'message': f'No existe una categoría con Id={id_categoria} para este usuario.'},
-                    status=status.HTTP_404_NOT_FOUND
-                )
-            if not gastos_obj.exists():
-                return Response(
-                    {'message': f'No existe un gasto con Id={idgasto} para este usuario.'},
-                    status=status.HTTP_404_NOT_FOUND
-                )
-            if not tipogasto_obj.exists():
-                return Response(
-                    {'message': f'No existe el tipo de gasto con Id={id_tipo_gasto}.'},
+                    {'message': f'No existe el tipo de ingreso con Id={id_tipo_ingreso}.'},
                     status=status.HTTP_404_NOT_FOUND
                 )
             
-            instancia_gasto=gastos_obj.first()
+
+            ingreso_obj=Ingresos.objects.filter(Id=idingreso,Usuario_id=id_usuario)
+               
+            if not ingreso_obj.exists():
+                return Response(
+                    {'message': f'No existe un ingreso con Id={idingreso} para este usuario.'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            
+            
+            instancia_ingreso=ingreso_obj.first()
             data_registrar={
-              'Id':idgasto,
-              'NombreGasto':nombre,
+              'Id':idingreso,
+              'NombreIngreso':nombre,
               'Observacion':observacion,
               'Usuario':id_usuario,
-              'Categoria':id_categoria,
-              'TipoGasto':id_tipo_gasto
+              'TipoIngreso':id_tipo_ingreso
             }
-            serializer = RegistroGastoSerializer(instance=instancia_gasto,data=data_registrar)
+            serializer = RegistroIngresoSerializer(instance=instancia_ingreso,data=data_registrar)
             if not serializer.is_valid():
                 # Obtener todos los mensajes de error
                 errores = serializer.errors
@@ -137,8 +127,8 @@ class OperacionesGastosUsuario(APIView):
                     'detalles': serializer.errors
                 }, status=status.HTTP_400_BAD_REQUEST)
             
-            gasto = serializer.save()
-            detail_serializer = InfoGastoSerializer(gasto)
+            ingreso = serializer.save()
+            detail_serializer = InfoIngresoSerializer(ingreso)
             return Response(detail_serializer.data, status=status.HTTP_201_CREATED)
 
         except Exception as e:
@@ -149,20 +139,20 @@ class OperacionesGastosUsuario(APIView):
             )
     
     @AutenticacionToken
-    def delete(self, request, idgasto, *args, **kwargs):
+    def delete(self, request, idingreso, *args, **kwargs):
         try:
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
             id_usuario=user_info.get('usuario_id')
-            categoria_reg=Gastos.objects.filter(Id=idgasto,Usuario_id=id_usuario)
-            if not categoria_reg.exists():
+            ingreso_obj=Ingresos.objects.filter(Id=idingreso,Usuario_id=id_usuario)
+            if not ingreso_obj.exists():
                 return Response(
-                    {'message': f'No existe un gasto con Id={idgasto} para este usuario.'},
+                    {'message': f'No existe un ingreso con Id={idingreso} para este usuario.'},
                     status=status.HTTP_404_NOT_FOUND
                 )
-            instancia_categoria=categoria_reg.first()
-            instancia_categoria.delete()
-            return Response({'message':f'El gasto con id {idgasto} ha sido eliminada'}, status=status.HTTP_201_CREATED)
+            instancia_ingreso=ingreso_obj.first()
+            instancia_ingreso.delete()
+            return Response({'message':f'El ingreso con id {idingreso} ha sido eliminada'}, status=status.HTTP_201_CREATED)
 
         except Exception as e:
             
@@ -174,7 +164,7 @@ class OperacionesGastosUsuario(APIView):
 
 
 
-class ListarGastosUser(APIView):
+class ListarIngresosUser(APIView):
 
     @AutenticacionToken
     def get(self, request, *args, **kwargs):
@@ -182,13 +172,13 @@ class ListarGastosUser(APIView):
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
             id_usuario=user_info.get('usuario_id')
-            gastos_usuario=Gastos.objects.filter(Usuario_id=id_usuario)
-            if not gastos_usuario.exists():
+            ingresos_usuario=Ingresos.objects.filter(Usuario_id=id_usuario)
+            if not ingresos_usuario.exists():
                 return Response(
                     {'message': f'El usuario no tiene categorias registradas.'},
                     status=status.HTTP_404_NOT_FOUND
                 )
-            detail_serializer = InfoGastoSerializer(gastos_usuario,many=True)
+            detail_serializer = InfoIngresoSerializer(ingresos_usuario,many=True)
             return Response(detail_serializer.data, status=status.HTTP_200_OK)
 
         except Exception as e:

@@ -19,7 +19,7 @@ class MediosPagos(models.Model):
     )
     
     IsActive=models.BooleanField(default=True)
-    FechaActualizacion=models.DateTimeField("fecha registro", help_text="Fecha de Actualizacion")
+    FechaActualizacion=models.DateTimeField("fecha registro", help_text="Fecha de Actualizacion",auto_now_add=True)
     
     class Meta:
         db_table="MediosPagos"
