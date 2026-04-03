@@ -6,7 +6,7 @@ from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
 from FinTrackApp.Serializadores.SerilizadoresModelos.CategoriaGastoSerializers import RegistroCategoriaGastoSerializer,InfoCategoriaGastoSerializer
 
-class ListadoCageriasUser(APIView):
+class ListadoCategoriasUser(APIView):
     @AutenticacionToken
     def get(self, request, *args, **kwargs):
         try:
@@ -28,7 +28,7 @@ class ListadoCageriasUser(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-class CategoriaGastoUsuarioApi(APIView):
+class OperacionesCategoriasGastosUser(APIView):
 
     @AutenticacionToken
     def post(self, request, *args, **kwargs):

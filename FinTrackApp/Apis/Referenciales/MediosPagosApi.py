@@ -28,7 +28,7 @@ class ListadoMedioPagosUser(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-class OperacionesMediosPagosUsuario(APIView):
+class OperacionesMediosPagosUser(APIView):
 
     @AutenticacionToken
     def post(self, request, *args, **kwargs):
@@ -87,7 +87,7 @@ class OperacionesMediosPagosUsuario(APIView):
             id_usuario=user_info.get('usuario_id')
 
             nombre=request.data.get('nombre').strip()
-            descripcion = request.data.get('descripcion', 'sin').strip()
+            descripcion = request.data.get('descripcion', '').strip()
             medio_pago_obj=MediosPagos.objects.filter(Id=idmedio,Usuario_id=id_usuario)
             if not medio_pago_obj.exists():
                 return Response(
@@ -132,6 +132,8 @@ class OperacionesMediosPagosUsuario(APIView):
                  {'message': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+   
+   
     @AutenticacionToken
     def delete(self, request, idmedio, *args, **kwargs):
         try:

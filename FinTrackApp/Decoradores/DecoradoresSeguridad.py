@@ -14,7 +14,7 @@ def AutenticacionToken(view_func):
             
             # 1. Extraer el header personalizado X-SESSION-USER (PRIMERO)
             x_session_user = request.META.get('HTTP_X_SESSION_USER')
-            print(x_session_user)
+            
             if not x_session_user:
                 return JsonResponse({
                     'success': False,

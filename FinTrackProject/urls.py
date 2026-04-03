@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path,include
 #from FinTrackApp.Urls.admin_urls
 #from FinTrackApp.Urls.referenciales_urls
+#from FinTrackApp.Urls.operaciones_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/admin/', include('FinTrackApp.Urls.admin_urls')),
     path('api/sessions/', include('FinTrackApp.Urls.sesions_urls')),
     path('api/ref/', include('FinTrackApp.Urls.referenciales_urls')),
+    path('api/operaciones/', include('FinTrackApp.Urls.operaciones_urls')),
 ]

@@ -9,7 +9,7 @@ from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
 from FinTrackApp.Modelos.TiposGastos import TiposGastos
 
 from FinTrackApp.Serializadores.SerilizadoresModelos.GastosSerializers import RegistroGastoSerializer,InfoGastoSerializer
-class OperacionesGastosUsuario(APIView):
+class OperacionesGastosUser(APIView):
 
     @AutenticacionToken
     def post(self, request, *args, **kwargs):

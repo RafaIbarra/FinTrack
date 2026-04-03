@@ -19,6 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env_path = BASE_DIR.parent / 'BackendConfig' / '.env'
 config = Config(RepositoryEnv(str(env_path))) 
 
+SUPABASE_URL = config('SUPABASE_URL')
+SUPABASE_KEY = config('SUPABASE_ANON_KEY')
+SUPABASE_SERVICE_KEY = config('SUPABASE_SERVICE_ROLE_KEY')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 

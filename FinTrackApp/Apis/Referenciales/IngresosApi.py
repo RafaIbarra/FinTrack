@@ -9,7 +9,7 @@ from FinTrackApp.Modelos.TiposIngresos import TiposIngresos
 
 from FinTrackApp.Serializadores.SerilizadoresModelos.IngresosSerializers import RegistroIngresoSerializer,InfoIngresoSerializer
 
-class OperacionesIngresoUsuario(APIView):
+class OperacionesIngresoUser(APIView):
 
     @AutenticacionToken
     def post(self, request, *args, **kwargs):

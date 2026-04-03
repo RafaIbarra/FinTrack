@@ -1,6 +1,7 @@
 from django.db import models
 from FinTrackApp.Modelos.Usuarios import Usuarios
-
+from django.utils import timezone
+from datetime import datetime
 
 
 # Create your models here.
@@ -8,7 +9,7 @@ from FinTrackApp.Modelos.Usuarios import Usuarios
 class MovimientosGastos(models.Model):
     
     Id = models.AutoField(primary_key=True, help_text="Campo de identificacion unica autogenerado")
-    FechaGasto=models.DateTimeField("fecha registro", help_text="Fecha de registro del gasto",auto_now_add=True)
+    FechaGasto=models.DateField("fecha Operacion", help_text="Fecha de registro del gasto")
     Observacion=models.CharField(max_length=200,blank=True, help_text="Alguna observacion sobre el gasto")
     Usuario = models.ForeignKey(
         Usuarios, 
@@ -22,6 +23,13 @@ class MovimientosGastos(models.Model):
         null=True,
         help_text="URL de la imagen en Supabase Storage"
     )
+    ObsImg = models.CharField(
+        max_length=500, 
+        blank=True, 
+        null=True,
+        
+    )
+    FechaRegistro=models.DateTimeField("fecha registro", help_text="Fecha de registro del gasto",default=timezone.now)
     def get_supabase_path(self):
         if self.UrlImg:
             # Extraer el path de la URL completa
