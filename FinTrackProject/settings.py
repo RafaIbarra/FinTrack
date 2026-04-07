@@ -23,6 +23,11 @@ SUPABASE_URL = config('SUPABASE_URL')
 SUPABASE_KEY = config('SUPABASE_ANON_KEY')
 SUPABASE_SERVICE_KEY = config('SUPABASE_SERVICE_ROLE_KEY')
 
+
+WORKER_SECRET = config('WORKER_SECRET')
+WORKER_URL = config('WORKER_URL')
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 

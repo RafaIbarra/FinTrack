@@ -4,7 +4,8 @@ from rest_framework import status
 from django.db.models import Sum
 
 from FinTrackApp.Modelos.MovimientosGastos import MovimientosGastos
-from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer
+from FinTrackApp.Modelos.MovimientosGastosDetalles import MovimientosGastosDetalles
+from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer,InfoMovimientosGastosDetallesSerializer
 
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 class ListadoMovimientoGastosUser(APIView):
@@ -26,6 +27,38 @@ class ListadoMovimientoGastosUser(APIView):
                     status=status.HTTP_404_NOT_FOUND
                 )
             detail_serializer = InfoMovimientosGastosSerializer(movimientos_gastos_usuario,many=True)
+            return Response(detail_serializer.data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            
+            return Response(
+                 {'message': f'Error interno del servidor: {str(e)}'}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class ListadoDetalleGastosUser(APIView):
+
+    @AutenticacionToken
+    def get(self, request, *args, **kwargs):
+        try:
+            user_info = getattr(request, 'user_info', {})
+            user_login = user_info["username"]
+            id_usuario=user_info.get('usuario_id')
+            
+            detalles_gastos_usuario = MovimientosGastosDetalles.objects.filter(
+                MovimientoGasto__Usuario_id=id_usuario
+            ).order_by('Id')
+
+            if not detalles_gastos_usuario.exists():
+                return Response(
+                    {'message': f'El usuario no tiene movimiento de gastos registrados.'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            total = MovimientosGastosDetalles.objects.filter(
+                MovimientoGasto__Usuario_id=id_usuario
+            ).aggregate(total=Sum('MontoGasto'))['total']
+            print(f'el total es {total}')
+            detail_serializer = InfoMovimientosGastosDetallesSerializer(detalles_gastos_usuario,many=True)
             return Response(detail_serializer.data, status=status.HTTP_200_OK)
 
         except Exception as e:

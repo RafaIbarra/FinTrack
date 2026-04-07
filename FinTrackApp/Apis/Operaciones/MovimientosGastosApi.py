@@ -1,4 +1,5 @@
 import json
+from django.db.models import Sum
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -97,7 +98,7 @@ class RegistroMovimientoGastoUser(APIView):
                 file_bytes = imagen_file.read()
                 
                 # ✅ LLAMADA CORRECTA al método que SÍ existe
-                resultado = supabase_storage.upload_product_image(
+                resultado = supabase_storage.upload_gasto_image(
                     file_bytes=file_bytes,
                     file_name=imagen_file.name  # ← nombre correcto del parámetro
                 )
@@ -141,13 +142,17 @@ class RegistroMovimientoGastoUser(APIView):
                             for medio in data_medios
                         ])
                     
-                    detail_serializer = InfoMovimientosGastosSerializer(mov_gasto)
+                    movimiento_registrado = MovimientosGastos.objects.filter(Id=mov_gasto.Id).annotate(
+                        TotalMovimiento=Sum('movimiento_gasto_cabecera_detalle__MontoGasto')).first()
+
+                    detail_serializer = InfoMovimientosGastosSerializer(movimiento_registrado)
+
                     return Response(detail_serializer.data, status=status.HTTP_201_CREATED)
             except Exception as e:
                 # opcionalmente loguear el error
                 error_archivo=""
                 if imagen_url:
-                    resultado = supabase_storage.delete_product_image(imagen_url)
+                    resultado = supabase_storage.delete_gasto_image(imagen_url)
                     if not resultado['success']:
                        error_archivo=f'; el archivo asociado no fue eliminado, el error :{ resultado.get('details', resultado.get('error'))}'
                     else:
@@ -305,7 +310,7 @@ class EditarMovimientoGastoUser(APIView):
                 fecha_actual=instancia_movimiento.FechaGasto
                 if imagen_file:
                     if imagen_url:
-                        resultado = supabase_storage.delete_product_image(imagen_url)
+                        resultado = supabase_storage.delete_gasto_image(imagen_url)
                         if not resultado['success']:
                             return Response({
                                 'message': 'Fallo al eliminar imagen asociada',
@@ -316,7 +321,7 @@ class EditarMovimientoGastoUser(APIView):
                     file_bytes = imagen_file.read()
                     
                     
-                    resultado = supabase_storage.upload_product_image(
+                    resultado = supabase_storage.upload_gasto_image(
                         file_bytes=file_bytes,
                         file_name=imagen_file.name  # ← nombre correcto del parámetro
                     )
@@ -371,7 +376,11 @@ class EditarMovimientoGastoUser(APIView):
                 # 3. Crear los nuevos detalles (bulk_create)
                 if detalles_medios_a_crear:
                     MovimientosGastosMediosPagos.objects.bulk_create(detalles_medios_a_crear)
-                movimiento_obj_act=MovimientosGastos.objects.filter(Id=idmovimiento,Usuario_id=id_usuario).first()
+
+                movimiento_obj_act=MovimientosGastos.objects.filter(Id=idmovimiento).annotate(
+                        TotalMovimiento=Sum('movimiento_gasto_cabecera_detalle__MontoGasto')
+                    ).first()
+
                 detail_serializer = InfoMovimientosGastosSerializer(movimiento_obj_act)
                 return Response(
                     {'message': f'El movimiento con id {idmovimiento} ha sido actualizado',
@@ -408,7 +417,7 @@ class EliminarMovimientoGastoUser(APIView):
                     instancia_movimiento.movimiento_gasto_cabecera_medio.all().delete() # se eliminar los medios de pagos
                     instancia_movimiento.delete() # se eliminar la cabecera
                     if imagen_url:
-                        resultado = supabase_storage.delete_product_image(imagen_url) # se elimina la imagen
+                        resultado = supabase_storage.delete_gasto_image(imagen_url) # se elimina la imagen
                     
             except Exception as e:
                 msg=f'Error al eliminar el movimiento de gasto: {str(e)}'
