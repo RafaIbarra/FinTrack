@@ -46,13 +46,13 @@ def registrar_login(usuario,contraseña,ip_peticion,user_agent):
             if not logueado:
                 msg=valores.get('error')
             
-            return logueado,valores,msg
+            return logueado,valores,msg,usuario
         else:
             logueado=False
             msg='Contraseña o nombre de usuario incorrectos'
             if  Usuarios.objects.filter(UserName=usuario).exists():
                 msg='Contraseña incorrecta'
-            return logueado,[], msg
+            return logueado,[], msg,[]
     
     except Exception as e:
         # print(f"Error en generar_sesion: {str(e)}")

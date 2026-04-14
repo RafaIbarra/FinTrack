@@ -22,17 +22,27 @@ class LoginUsuario(APIView):
             data_peticion=informacion_peticion(request)
             ip_peticion=data_peticion.get('Ip')
             dispositivo=data_peticion.get('Dispositivo')
-            loguedo,data,mensaje=registrar_login(user_name,password,ip_peticion,dispositivo)
+            loguedo,data,mensaje,data_usuario=registrar_login(user_name,password,ip_peticion,dispositivo)
            
             if loguedo:
+                datauser=[{
+                            'username':data_usuario.UserName.capitalize(),
+                            'nombre':data_usuario.NombreUsuario,
+                            'apellido':data_usuario.ApellidoUsuario,
+                            'fecha_registro':data_usuario.FechaRegistro.strftime("%d/%m/%Y %H:%M:%S"),
+                            
+                        }]
                 valores_logueo={
                     'Logueado':loguedo,
                     'token': data.get('token_jwt') if data else '',  # Puede ser None
                     'refresh': data.get('refresh_jwt') if data else '',  # Puede ser None
                     'sesion': data.get('token_clasico') if data else '',  # Puede ser None
                     'user_name': user_name.capitalize(),
-                    'message':mensaje
+                    'message':mensaje,
+                    'datauser':datauser,
                 }
+                
+                
             
                 return Response(valores_logueo, status=status.HTTP_200_OK)
             else:
