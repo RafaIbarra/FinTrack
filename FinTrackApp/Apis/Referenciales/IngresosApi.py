@@ -176,7 +176,7 @@ class ListarIngresosUser(APIView):
             if not ingresos_usuario.exists():
                 return Response(
                     {'message': f'El usuario no tiene categorias registradas.'},
-                    status=status.HTTP_404_NOT_FOUND
+                    status=status.HTTP_200_OK
                 )
             detail_serializer = InfoIngresoSerializer(ingresos_usuario,many=True)
             return Response(detail_serializer.data, status=status.HTTP_200_OK)

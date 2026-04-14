@@ -17,7 +17,7 @@ class ListadoMedioPagosUser(APIView):
             if not medios_pago_obj.exists():
                 return Response(
                     {'message': f'El usuario no tiene medios de pagos registradss.'},
-                    status=status.HTTP_404_NOT_FOUND
+                    status=status.HTTP_200_OK
                 )
             detail_serializer = InfoMedioPagoSerializer(medios_pago_obj,many=True)
             return Response(detail_serializer.data, status=status.HTTP_200_OK)

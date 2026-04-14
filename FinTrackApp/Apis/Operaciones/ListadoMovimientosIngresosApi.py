@@ -25,7 +25,7 @@ class ListadoMovimientosIngresosUser(APIView):
             if not movimientos_ingresos_usuario.exists():
                 return Response(
                     {'message': f'El usuario no tiene movimiento de ingresos registrados.'},
-                    status=status.HTTP_404_NOT_FOUND
+                    status=status.HTTP_200_OK
                 )
             detail_serializer = InfoMovimientoIngresoSerializer(movimientos_ingresos_usuario,many=True)
             return Response(detail_serializer.data, status=status.HTTP_200_OK)

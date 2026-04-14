@@ -24,7 +24,37 @@ class ListadoMovimientoGastosUser(APIView):
             if not movimientos_gastos_usuario.exists():
                 return Response(
                     {'message': f'El usuario no tiene movimiento de gastos registrados.'},
-                    status=status.HTTP_404_NOT_FOUND
+                    status=status.HTTP_200_OK
+                )
+            detail_serializer = InfoMovimientosGastosSerializer(movimientos_gastos_usuario,many=True)
+            return Response(detail_serializer.data, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            
+            return Response(
+                 {'message': f'Error interno del servidor: {str(e)}'}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        
+class ListadoMovimientoGastosMesUser(APIView):
+
+    @AutenticacionToken
+    def get(self, request,anno,mes, *args, **kwargs):
+        try:
+            user_info = getattr(request, 'user_info', {})
+            user_login = user_info["username"]
+            id_usuario=user_info.get('usuario_id')
+            movimientos_gastos_usuario = MovimientosGastos.objects.filter(
+                Usuario_id=id_usuario,
+                FechaGasto__year=anno,  # Filtrar por año
+                FechaGasto__month=mes 
+            ).annotate(
+                TotalMovimiento=Sum('movimiento_gasto_cabecera_detalle__MontoGasto')
+            ).order_by('Id')
+            if not movimientos_gastos_usuario.exists():
+                return Response(
+                    {'message': f'El usuario no tiene movimiento de gastos registrados en el periodo seleccionado.'},
+                    status=status.HTTP_200_OK
                 )
             detail_serializer = InfoMovimientosGastosSerializer(movimientos_gastos_usuario,many=True)
             return Response(detail_serializer.data, status=status.HTTP_200_OK)
@@ -52,7 +82,7 @@ class ListadoDetalleGastosUser(APIView):
             if not detalles_gastos_usuario.exists():
                 return Response(
                     {'message': f'El usuario no tiene movimiento de gastos registrados.'},
-                    status=status.HTTP_404_NOT_FOUND
+                    status=status.HTTP_200_OK
                 )
             total = MovimientosGastosDetalles.objects.filter(
                 MovimientoGasto__Usuario_id=id_usuario
