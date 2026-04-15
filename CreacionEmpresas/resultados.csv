@@ -1,0 +1,501 @@
+﻿id_fila;ruc;nombre_empresa;url_original;dominio_extraido;nombre_archivo;ruta_completa;status;mensaje_error
+494;80022081;3M PARAGUAY (SUCURSAL DE 3M PERU);https://brandfetch.com/3m.com.py;3m.com.py;494_3M_PARAGUAY_SUCURSAL_DE_3M_PERU.png;output/logos\494_3M_PARAGUAY_SUCURSAL_DE_3M_PERU.png;OK;
+244;80028887;COOP.MULT.DE TRAB. ASOCIADOPROD. Y SERV. 7 DE AGOSTO LTDA;https://brandfetch.com/7deagosto.com.py;7deagosto.com.py;;;ERROR;No se encontraron logos en Brandfetch
+355;80089412;ADAMA AGRICULTURE PARAGUAY SA;https://brandfetch.com/adama.com;adama.com;355_ADAMA_AGRICULTURE_PARAGUAY_SA.png;output/logos\355_ADAMA_AGRICULTURE_PARAGUAY_SA.png;OK;
+471;80030714;ALIMENTOS DISTRIBUCION Y SERVICIOS SA;https://brandfetch.com/ads.com.py;ads.com.py;;;ERROR;No se encontraron logos en Brandfetch
+22;80035190;AGENCIA FINANCIERA DE DESARROLLO;https://brandfetch.com/afd.gov.py;afd.gov.py;22_AGENCIA_FINANCIERA_DE_DESARROLLO.png;output/logos\22_AGENCIA_FINANCIERA_DE_DESARROLLO.png;OK;
+325;80001785;ALIANZA GARANTIA SEGUROS Y REASEGUROS S.A.;https://brandfetch.com/alianza.com.py;alianza.com.py;;;ERROR;No se encontraron logos en Brandfetch
+1;80009735;ADMINISTRACION NACIONAL DE ELECTRICIDAD - ANDE;https://brandfetch.com/ande.gov.py;ande.gov.py;1_ADMINISTRACION_NACIONAL_DE_ELECTRICIDAD_-_ANDE.png;output/logos\1_ADMINISTRACION_NACIONAL_DE_ELECTRICIDAD_-_ANDE.png;OK;
+67;80003468;ADMINISTRACION NACIONAL DE NAVEGACION Y PUERTOS;https://brandfetch.com/annp.gov.py;annp.gov.py;67_ADMINISTRACION_NACIONAL_DE_NAVEGACION_Y_PUERTOS.png;output/logos\67_ADMINISTRACION_NACIONAL_DE_NAVEGACION_Y_PUERTOS.png;OK;
+119;80025544;ASOCIACION PARAGUAYA DE FUTBOL;https://brandfetch.com/apf.org.py;apf.org.py;119_ASOCIACION_PARAGUAYA_DE_FUTBOL.png;output/logos\119_ASOCIACION_PARAGUAYA_DE_FUTBOL.png;OK;
+436;80002091;ASEGURADORA PARAGUAYA SAECA;https://brandfetch.com/aseguradoraparaguaya.com;aseguradoraparaguaya.com;;;ERROR;Dominio no encontrado en Brandfetch
+468;80021829;AVANZA PARAGUAY SA;https://brandfetch.com/avanza.com.py;avanza.com.py;468_AVANZA_PARAGUAY_SA.png;output/logos\468_AVANZA_PARAGUAY_SA.png;OK;
+12;80022570;BANCO FAMILIAR SAECA;https://brandfetch.com/bancafamiliar.com;bancafamiliar.com;;;ERROR;No se encontraron logos en Brandfetch
+36;80013884;BANCARD SA;https://brandfetch.com/bancard.com.py;bancard.com.py;36_BANCARD_SA.png;output/logos\36_BANCARD_SA.png;OK;
+14;80024928;BANCO ATLAS S.A.;https://brandfetch.com/bancatlas.com.py;bancatlas.com.py;;;ERROR;Dominio no encontrado en Brandfetch
+23;80009515;BANCO BASA SA;https://brandfetch.com/bancobasa.com;bancobasa.com;;;ERROR;No se encontraron logos en Brandfetch
+4;80019270;BANCO CONTINENTAL SA EMISORA DE CAPITAL ABIERTO;https://brandfetch.com/bancocontinental.com.py;bancocontinental.com.py;;;ERROR;Dominio no encontrado en Brandfetch
+11;80020981;BANCO REGIONAL S.A.E.C.A.;https://brandfetch.com/bancoregional.com.py;bancoregional.com.py;;;ERROR;Error API: 429
+359;80022006;BASF PARAGUAYA SA;https://brandfetch.com/basf.com.py;basf.com.py;;;ERROR;Error API: 429
+136;80021236;BRITISH AMERICAN TOBACCO PRODUCTORA DE CIGARRILLOS SA;https://brandfetch.com/bat.com.py;bat.com.py;136_BRITISH_AMERICAN_TOBACCO_PRODUCTORA_DE_CIGARRILLOS.png;output/logos\136_BRITISH_AMERICAN_TOBACCO_PRODUCTORA_DE_CIGARRILLOS.png;OK;
+439;80001625;BANCO DO BRASIL SA;https://brandfetch.com/bb.com.br;bb.com.br;439_BANCO_DO_BRASIL_SA.png;output/logos\439_BANCO_DO_BRASIL_SA.png;OK;
+77;80070946;BANCO PARA LA COMERCIALIZACIÓN Y LA PRODUCCIÓN S.A.;https://brandfetch.com/bcp.gov.py;bcp.gov.py;;;ERROR;Error API: 429
+289;80068526;BLUE TOWER VENTURES PARAGUAY SOCIEDAD ANONIMA;https://brandfetch.com/bluetower.com.py;bluetower.com.py;;;ERROR;Error API: 429
+419;80002301;BANCO DE LA NACION ARGENTINA;https://brandfetch.com/bna.com.ar;bna.com.ar;419_BANCO_DE_LA_NACION_ARGENTINA.png;output/logos\419_BANCO_DE_LA_NACION_ARGENTINA.png;OK;
+8;80000856;BANCO NACIONAL DE FOMENTO;https://brandfetch.com/bnf.com.py;bnf.com.py;;;ERROR;Error API: 429
+329;80022117;CEMENTOS CONCEPCIÓN SOCIEDAD ANÓNIMA EMISORA (CECON S.A.E.);https://brandfetch.com/cecon.com.py;cecon.com.py;329_CEMENTOS_CONCEPCIÓN_SOCIEDAD_ANÓNIMA_EMISORA_CECON.png;output/logos\329_CEMENTOS_CONCEPCIÓN_SOCIEDAD_ANÓNIMA_EMISORA_CECON.png;OK;
+462;80006488;TELEVISION CERRO CORA SA;https://brandfetch.com/cerrocoratv.com.py;cerrocoratv.com.py;;;ERROR;Error API: 429
+10;80003457;CERVECERIA PARAGUAYA SA;https://brandfetch.com/cervepar.com.py;cervepar.com.py;10_CERVECERIA_PARAGUAYA_SA.png;output/logos\10_CERVECERIA_PARAGUAYA_SA.png;OK;
+30;80013744;CHACOMER SOCIEDAD ANONIMA EMISORA (CHACOMER S.A.E.);https://brandfetch.com/chacomer.com.py;chacomer.com.py;30_CHACOMER_SOCIEDAD_ANONIMA_EMISORA_CHACOMER_SAE.png;output/logos\30_CHACOMER_SOCIEDAD_ANONIMA_EMISORA_CHACOMER_SAE.png;OK;
+194;80001906;CITIBANK NA;https://brandfetch.com/citibank.com;citibank.com;194_CITIBANK_NA.png;output/logos\194_CITIBANK_NA.png;OK;
+61;80030572;AMX PARAGUAY SA;https://brandfetch.com/claro.com.py;claro.com.py;61_AMX_PARAGUAY_SA.png;output/logos\61_AMX_PARAGUAY_SA.png;OK;
+5;80003400;PARAGUAY REFRESCOS SA;https://brandfetch.com/cocacoladechile.cl;cocacoladechile.cl;5_PARAGUAY_REFRESCOS_SA.png;output/logos\5_PARAGUAY_REFRESCOS_SA.png;OK;
+6;80086846;CERVEPAR S.A.;https://brandfetch.com/cocacoladechile.cl;cocacoladechile.cl;6_CERVEPAR_SA.png;output/logos\6_CERVEPAR_SA.png;OK;
+316;80004573;AGROINDUSTRIAL COLONIAL S.A.;https://brandfetch.com/colonial.com.py;colonial.com.py;;;ERROR;Error API: 429
+434;80017198;COOPERATIVA COLONIAS UNIDAS AGROPECUARIA INDUSTRIAL LIMITADA;https://brandfetch.com/coloniasunidas.com.py;coloniasunidas.com.py;;;ERROR;Error API: 429
+156;80023541;COMPAÑIA PARAGUAYA DE COMUNICACIONES SA (COPACO SA);https://brandfetch.com/copaco.com.py;copaco.com.py;156_COMPAÑIA_PARAGUAYA_DE_COMUNICACIONES_SA_COPACO_SA.png;output/logos\156_COMPAÑIA_PARAGUAYA_DE_COMUNICACIONES_SA_COPACO_SA.png;OK;
+79;80007760;CORP. PYA. DISTRI. DE DERIV. DE PETROLEO SA - COPETROL;https://brandfetch.com/copetrol.com.py;copetrol.com.py;79_CORP_PYA_DISTRI_DE_DERIV_DE_PETROLEO_SA_-_COPETROL.png;output/logos\79_CORP_PYA_DISTRI_DE_DERIV_DE_PETROLEO_SA_-_COPETROL.png;OK;
+348;80040095;COMPAÑIA PARAGUAYA DE OXIGENO S.A;https://brandfetch.com/cpo.com.py;cpo.com.py;;;ERROR;Error API: 429
+441;80081331;DARUMA SAM S.A.;https://brandfetch.com/daruma.com.py;daruma.com.py;;;ERROR;Error API: 429
+236;80004866;DHL (PARAGUAY) SRL;https://brandfetch.com/dhl.com.py;dhl.com.py;;;ERROR;Error API: 429
+266;80025055;DIAGEO PARAGUAY SRL;https://brandfetch.com/diageo.com;diageo.com;266_DIAGEO_PARAGUAY_SRL.png;output/logos\266_DIAGEO_PARAGUAY_SRL.png;OK;
+42;80000423;DIRECC.NACIONAL DE AERONAUTICA CIVIL D.I.N.A.C.;https://brandfetch.com/dinac.gov.py;dinac.gov.py;42_DIRECCNACIONAL_DE_AERONAUTICA_CIVIL_DINAC.png;output/logos\42_DIRECCNACIONAL_DE_AERONAUTICA_CIVIL_DINAC.png;OK;
+485;80085929;DURLI LEATHERS SOCIEDAD ANONIMA;https://brandfetch.com/durli.com.py;durli.com.py;;;ERROR;Error API: 429
+464;80003045;EL SENA SAC;https://brandfetch.com/elsena.com.py;elsena.com.py;464_EL_SENA_SAC.png;output/logos\464_EL_SENA_SAC.png;OK;
+113;80006251;EMBOTELLADORA CENTRAL SA COMERCIAL E INDUSTRIAL;https://brandfetch.com/embocentral.com.py;embocentral.com.py;;;ERROR;Error API: 429
+121;80045898;EQUIFAX PARAGUAY S.A.;https://brandfetch.com/equifax.com.py;equifax.com.py;121_EQUIFAX_PARAGUAY_SA.png;output/logos\121_EQUIFAX_PARAGUAY_SA.png;OK;
+438;80056217;ESMART SRL;https://brandfetch.com/esmart.com.py;esmart.com.py;438_ESMART_SRL.png;output/logos\438_ESMART_SRL.png;OK;
+55;80024191;EMPRESA DE SERVICIOS SANITARIOS DEL PARAGUAY SA (ESSAP SA);https://brandfetch.com/essap.com.py;essap.com.py;55_EMPRESA_DE_SERVICIOS_SANITARIOS_DEL_PARAGUAY_SA_ES.png;output/logos\55_EMPRESA_DE_SERVICIOS_SANITARIOS_DEL_PARAGUAY_SA_ES.png;OK;
+212;80103902;FAMILIAR SEGUROS SOCIEDAD ANONIMA;https://brandfetch.com/familiar.com.py;familiar.com.py;212_FAMILIAR_SEGUROS_SOCIEDAD_ANONIMA.png;output/logos\212_FAMILIAR_SEGUROS_SOCIEDAD_ANONIMA.png;OK;
+125;80019551;CADENA FARMACENTER SA;https://brandfetch.com/farmacenter.com.py;farmacenter.com.py;125_CADENA_FARMACENTER_SA.png;output/logos\125_CADENA_FARMACENTER_SA.png;OK;
+71;80005915;FINANCIERA FINEXPAR SOCIEDAD ANONIMA EMISORA DE CAPITAL ABIERTO;https://brandfetch.com/finexpar.com;finexpar.com;;;ERROR;Error API: 429
+368;80000748;COOPERATIVA AGRÍCOLA FRIESLAND LTDA.;https://brandfetch.com/friesland.com.py;friesland.com.py;;;ERROR;Error API: 429
+13;80044227;BANCO GNB PARAGUAY SOCIEDAD ANONIMA;https://brandfetch.com/gnb.com.py;gnb.com.py;;;ERROR;Error API: 429
+29;80022955;BANCO GNB S.A. (EN PROCESO DE FUSIÓN POR ABSORCIÓN);https://brandfetch.com/gnb.com.py;gnb.com.py;;;ERROR;Error API: 429
+143;80000084;G T SCIENTIFIC S.A.;https://brandfetch.com/gt.com.py;gt.com.py;;;ERROR;Error API: 429
+250;80014641;GUAYAKI SA;https://brandfetch.com/guayaki.com;guayaki.com;250_GUAYAKI_SA.png;output/logos\250_GUAYAKI_SA.png;OK;
+82;80000089;INDUSTRIA NACIONAL DEL CEMENTO;https://brandfetch.com/inc.gov.py;inc.gov.py;82_INDUSTRIA_NACIONAL_DEL_CEMENTO.png;output/logos\82_INDUSTRIA_NACIONAL_DEL_CEMENTO.png;OK;
+20;80034565;INPASA DEL PARAGUAY S.A.;https://brandfetch.com/inpasa.com;inpasa.com;20_INPASA_DEL_PARAGUAY_SA.png;output/logos\20_INPASA_DEL_PARAGUAY_SA.png;OK;
+98;80016889;INTERFISA BANCO SAECA;https://brandfetch.com/interfisa.com.py;interfisa.com.py;;;ERROR;Error API: 429
+83;80038118;INDUSTRIA PARAGUAYA DE GASES SRL;https://brandfetch.com/ipg.com.py;ipg.com.py;;;ERROR;Error API: 429
+56;80002269;INSTITUTO DE PREVISION SOCIAL;https://brandfetch.com/ips.gov.py;ips.gov.py;;;ERROR;Error API: 429
+253;80001312;INDUSTRIAS REUNIDAS ÑEMBY SA;https://brandfetch.com/irsa.com.py;irsa.com.py;;;ERROR;Error API: 429
+3;80002201;BANCO ITAU PARAGUAY S.A;https://brandfetch.com/itau.com.py;itau.com.py;3_BANCO_ITAU_PARAGUAY_SA.png;output/logos\3_BANCO_ITAU_PARAGUAY_SA.png;OK;
+117;80091751;ITAU SEGUROS PARAGUAY SOCIEDAD ANONIMA;https://brandfetch.com/itau.com.py;itau.com.py;117_ITAU_SEGUROS_PARAGUAY_SOCIEDAD_ANONIMA.png;output/logos\117_ITAU_SEGUROS_PARAGUAY_SOCIEDAD_ANONIMA.png;OK;
+312;80017229;JOHNSON & JOHNSON DEL PARAGUAY SA;https://brandfetch.com/jnj.com.py;jnj.com.py;;;ERROR;Error API: 429
+280;80024281;COOPERATIVA MULTIACTIVA LOMA PLATA LTDA.;https://brandfetch.com/lomaplata.com.py;lomaplata.com.py;;;ERROR;Error API: 429
+47;80007979;MAPFRE PARAGUAY COMPAÑIA DE SEGUROS SA;https://brandfetch.com/mapfre.com.py;mapfre.com.py;47_MAPFRE_PARAGUAY_COMPAÑIA_DE_SEGUROS_SA.png;output/logos\47_MAPFRE_PARAGUAY_COMPAÑIA_DE_SEGUROS_SA.png;OK;
+144;80013602;COMPAÑIA DE TABACOS MONTECARLO SA;https://brandfetch.com/montecarlo.com.py;montecarlo.com.py;;;ERROR;Error API: 429
+28;80084373;MV ACEROS S.A.;https://brandfetch.com/mvaceros.com;mvaceros.com;;;ERROR;Error API: 429
+187;80019066;NESTLE PARAGUAY SA;https://brandfetch.com/nestle.com.py;nestle.com.py;187_NESTLE_PARAGUAY_SA.png;output/logos\187_NESTLE_PARAGUAY_SA.png;OK;
+205;80021756;NETEL SA (NEGOCIOS TELEFONICOS SA);https://brandfetch.com/netel.com.py;netel.com.py;;;ERROR;Error API: 429
+480;80088694;NOBLEZA SEGUROS SOCIEDAD ANONIMA COMPANIA DE SEGUROS;https://brandfetch.com/nobleza.com.py;nobleza.com.py;;;ERROR;Error API: 429
+218;80001798;PARAGUAY TEXTIL SA;https://brandfetch.com/paraguaytextil.com;paraguaytextil.com;;;ERROR;Error API: 429
+80;80003140;PATRIA SA DE SEGUROS Y REASEGUROS;https://brandfetch.com/patriaseguros.com;patriaseguros.com;80_PATRIA_SA_DE_SEGUROS_Y_REASEGUROS.png;output/logos\80_PATRIA_SA_DE_SEGUROS_Y_REASEGUROS.png;OK;
+50;80002675;PETROLEOS PARAGUAYOS(PETROPAR);https://brandfetch.com/petropar.gov.py;petropar.gov.py;;;ERROR;Error API: 429
+76;80001646;PROSEGUR PARAGUAY SA;https://brandfetch.com/prosegur.com.py;prosegur.com.py;76_PROSEGUR_PARAGUAY_SA.png;output/logos\76_PROSEGUR_PARAGUAY_SA.png;OK;
+363;80089399;SOLUCIONES INTEGRALES DE SEGURIDAD PROSEGUR PARAGUAY S.A.;https://brandfetch.com/prosegur.com.py;prosegur.com.py;363_SOLUCIONES_INTEGRALES_DE_SEGURIDAD_PROSEGUR_PARAGU.png;output/logos\363_SOLUCIONES_INTEGRALES_DE_SEGURIDAD_PROSEGUR_PARAGU.png;OK;
+188;80027277;PUMA ENERGY PARAGUAY SOCIEDAD ANONIMA;https://brandfetch.com/pumaenergy.com.py;pumaenergy.com.py;;;ERROR;Error API: 429
+271;80010491;REGIONAL S.A. DE SEGUROS;https://brandfetch.com/regional.com.py;regional.com.py;;;ERROR;Error API: 429
+160;80052862;SANCOR SEGUROS DEL PARAGUAY S.A.;https://brandfetch.com/sancorseguros.com.py;sancorseguros.com.py;160_SANCOR_SEGUROS_DEL_PARAGUAY_SA.png;output/logos\160_SANCOR_SEGUROS_DEL_PARAGUAY_SA.png;OK;
+493;80002917;SANTA CLARA S.A. MEDICINA PREPAGA;https://brandfetch.com/santaclara.com.py;santaclara.com.py;493_SANTA_CLARA_SA_MEDICINA_PREPAGA.png;output/logos\493_SANTA_CLARA_SA_MEDICINA_PREPAGA.png;OK;
+211;80019355;SEGURIDAD SA COMPAÑIA DE SEGUROS;https://brandfetch.com/seguridad.com.py;seguridad.com.py;211_SEGURIDAD_SA_COMPAÑIA_DE_SEGUROS.png;output/logos\211_SEGURIDAD_SA_COMPAÑIA_DE_SEGUROS.png;OK;
+283;80009057;SHOPPING CENTERS (PARAGUAY)S.A;https://brandfetch.com/shoppingparaguay.com;shoppingparaguay.com;;;ERROR;Error API: 429
+196;80019632;LABORATORIOS SIEGFRIED SA;https://brandfetch.com/siegfried.com.py;siegfried.com.py;196_LABORATORIOS_SIEGFRIED_SA.png;output/logos\196_LABORATORIOS_SIEGFRIED_SA.png;OK;
+189;80001790;SIKA PARAGUAY SOCIEDAD ANONIMA;https://brandfetch.com/sika.com.py;sika.com.py;;;ERROR;Error API: 429
+54;80002283;SOLAR BANCO S.A.E.;https://brandfetch.com/solarabanco.com;solarabanco.com;;;ERROR;Error API: 429
+9;80034461;SUDAMERIS BANK SAECA;https://brandfetch.com/sudamerisbank.com;sudamerisbank.com;;;ERROR;Error API: 429
+2;80008790;TABACALERA DEL ESTE SA;https://brandfetch.com/tabacaleradeleste.com;tabacaleradeleste.com;;;ERROR;Error API: 429
+7;80000519;TELEF. CELULAR DEL PARAGUAY SAE (TELECEL SAE);https://brandfetch.com/tigo.com.py;tigo.com.py;7_TELEF_CELULAR_DEL_PARAGUAY_SAE_TELECEL_SAE.png;output/logos\7_TELEF_CELULAR_DEL_PARAGUAY_SAE_TELECEL_SAE.png;OK;
+488;80027587;TRACTO AGRO VIAL S.A.E;https://brandfetch.com/tracto.com.py;tracto.com.py;;;ERROR;Error API: 429
+148;80022231;COMPAÑIA EMBOTELLADORA TRES LEONES I.C.S.A.;https://brandfetch.com/tresleones.com.py;tresleones.com.py;148_COMPAÑIA_EMBOTELLADORA_TRES_LEONES_ICSA.png;output/logos\148_COMPAÑIA_EMBOTELLADORA_TRES_LEONES_ICSA.png;OK;
+345;80092754;UFINET PARAGUAY S.A;https://brandfetch.com/ufinet.com.py;ufinet.com.py;;;ERROR;Error API: 429
+107;80023081;UNILEVER DE PARAGUAY SA;https://brandfetch.com/unilever.com.py;unilever.com.py;107_UNILEVER_DE_PARAGUAY_SA.png;output/logos\107_UNILEVER_DE_PARAGUAY_SA.png;OK;
+15;80009310;VISION BANCO S.A.E.C.A;https://brandfetch.com/visionbanco.com;visionbanco.com;;;ERROR;Error API: 429
+314;80006868;WACKENHUT PARAGUAY SA;https://brandfetch.com/wackenhut.com.py;wackenhut.com.py;;;ERROR;Error API: 429
+35;80020938;YGUAZU CEMENTOS SA;https://brandfetch.com/yguazu.com.py;yguazu.com.py;;;ERROR;Error API: 429
+16;80001757;NOVEX SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+17;80017437;NUCLEO SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+18;80007801;AGRO SILO SANTA CATALINA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+19;80016096;RETAIL S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+21;80003128;TOYOTOSHI SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+24;80069157;URIOM SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+25;80002740;ALEX SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+26;80021825;BRASFUMO DEL PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+27;80101553;CONSORCIO CORREDOR VIAL BIOCEANICO;no disponible;;;;OMITIDO;URL no disponible o inválida
+31;80024576;GARDEN AUTOMOTORES SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+32;80076915;VEMARCORP SOCIEDAD ANONIMA (VMA S.A.);no disponible;;;;OMITIDO;URL no disponible o inválida
+33;80002592;KUROSU Y CIA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+34;80014137;NICOLAS GONZALEZ ODDONE SA EMISORA DE CAPITAL ABIERTO(SAECA);no disponible;;;;OMITIDO;URL no disponible o inválida
+37;80009641;AJ S.A. CALIDAD ANTE TODO;no disponible;;;;OMITIDO;URL no disponible o inválida
+38;80074991;QUIMFA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+39;80070039;BONUS SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+40;80000146;LABORATORIO DE PRODUCTOS ETICOS COMERCIAL E INDUSTRIAL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+41;80031970;TUPI RAMOS GENERALES S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+43;80016658;ASISMED S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+44;80002227;BANCO RIO S.A.E.C.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+45;80003285;TROCIUK COMPAÑIA AGRICOLA GANADERA INDUSTRIAL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+46;80017052;BRISTOL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+48;80020755;AUTO MARKET SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+49;80062796;SERVICIOS Y PRODUCTOS MULTIMEDIOS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+51;80044383;MATRISOJA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+52;80022877;FARMA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+53;80013366;AUTOMOTORES Y MAQUINARIA SAECA;no disponible;;;;OMITIDO;URL no disponible o inválida
+57;80064698;TU FINANCIERA S.A.E.C.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+58;80027703;CELEXX S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+59;80019114;TOCSA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+60;80029961;SERV.NACI.DE CALIDAD Y SANIDAD VEGETAL Y DE SEMILLAS(SENAVE);no disponible;;;;OMITIDO;URL no disponible o inválida
+62;80002465;CUEVAS HERMANOS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+63;80001556;CASA BOLLER S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+64;80001340;AUTOMOTOR SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+65;80032314;FLYTEC COMPUTERS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+66;80028071;SUNSET SA COMERCIAL INDUSTRIAL Y DE SERVICIOS;no disponible;;;;OMITIDO;URL no disponible o inválida
+68;80003241;CONCRET-MIX SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+69;80003453;SANATORIO SAN ROQUE S.R.L.;no disponible;;;;OMITIDO;URL no disponible o inválida
+70;80013876;DIAZ E HIJOS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+72;80096068;RUTAS DEL ESTE SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+73;80030805;NEGOFIN S.A.E.C.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+74;80001342;AGB CONSTRUCTORA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+75;80002612;RIEDER Y CIA. SACI;no disponible;;;;OMITIDO;URL no disponible o inválida
+78;80001435;DIESA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+81;80015984;PARAGUAY ENERGY OPERACIONES Y LOGISTICA S.R.L;no disponible;;;;OMITIDO;URL no disponible o inválida
+84;80014256;DE LA SOBERA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+85;80025298;ELIN ACEROS Y ALEACIONES SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+86;80017590;ALMACENAMIENTO Y DISTRIBUCION DE ASFALTO SA (ALDIA SA);no disponible;;;;OMITIDO;URL no disponible o inválida
+87;80025781;ASEGURADORA DEL ESTE SA DE SEGUROS;no disponible;;;;OMITIDO;URL no disponible o inválida
+88;80110588;CONSORCIO UNIÓN;no disponible;;;;OMITIDO;URL no disponible o inválida
+89;80114942;COMITIA PARAGUAY SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+90;80077406;BIGGIE S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+91;492599;CARTES JARA HORACIO MANUEL;no disponible;;;;OMITIDO;URL no disponible o inválida
+92;80001812;INDUFAR COMERCIAL E INDUSTRIAL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+93;80014733;JOBS (SERVICIOS DE RECURSOS HUMANOS) SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+94;80001607;INMOBILIARIA DEL ESTE SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+95;80025676;OCHO A SA (8A);no disponible;;;;OMITIDO;URL no disponible o inválida
+96;80027326;MANPOWER PARAGUAY SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+97;80018957;TELEDEPORTES PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+99;80012739;TEMA AUTOMOTORES SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+100;80002947;EMPRESA CONSTRUCTORA MINERA PYA. SA-ECOMIPA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+101;80020519;LIKEWIZE PARAGUAY S.R.L.;no disponible;;;;OMITIDO;URL no disponible o inválida
+102;80051098;SPORT GROUP S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+103;80001916;SCAVONE HERMANOS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+104;80026277;FINANCIERA PARAGUAYO JAPONESA SAECA;no disponible;;;;OMITIDO;URL no disponible o inválida
+105;3602446;SARABIA JOSE MARCOS;no disponible;;;;OMITIDO;URL no disponible o inválida
+106;80110411;CONSORCIO CTC;no disponible;;;;OMITIDO;URL no disponible o inválida
+108;80021397;NEUMATICOS DEL PARAGUAY SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+109;80023989;CONSTRUCTORA HEISECKE SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+110;80006671;RAÍZEN PARAGUAY S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+111;80027919;INMOBILIARIA RAICES SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+112;80067526;COMPAÑIA PANAMEÑA DE AVIACION S.A. (COPA AIRLINES) - SUCURSAL PARAGUAY;no disponible;;;;OMITIDO;URL no disponible o inválida
+114;80002560;HIERRO-MATT S.A.C.I;no disponible;;;;OMITIDO;URL no disponible o inválida
+115;80007841;COMERCIAL E INDUSTRIAL AMAMBAY SA (CIABAY SA);no disponible;;;;OMITIDO;URL no disponible o inválida
+116;80023016;GLYMAX PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+118;80022615;BEBIDAS DEL PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+120;80003398;LINCOLN SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+122;80028355;ITTI S.A.E.C.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+123;80001446;VICENTE SCAVONE & CIA. S.A.E;no disponible;;;;OMITIDO;URL no disponible o inválida
+124;80015005;PERFECTA AUTOMOTORES SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+126;80014363;A.J. BOSTON SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+127;80005012;RASI SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+128;80026699;CARGO LINE PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+129;80091842;SOCIEDAD PARAGUAYA DE SERVICIOS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+130;80010138;DISTRIBUIDORA GLORIA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+131;80001775;ESTANCIA LAGUNITA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+132;80018890;CDD CONSTRUCCIONES S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+133;245689;VIERCI MENDOZA ANTONIO JUAN BAUTISTA;no disponible;;;;OMITIDO;URL no disponible o inválida
+134;80028474;PS LINE SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+135;80014868;Y P SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+137;80019137;PRONET SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+138;80013840;INVERFIN S.A.E.C.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+139;80002742;INDEX SACI;no disponible;;;;OMITIDO;URL no disponible o inválida
+140;1056702;HUTZ HUGO GERMAN;no disponible;;;;OMITIDO;URL no disponible o inválida
+141;80009085;ELECTROPAR SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+142;80098846;CONSORCIO RUTAS 2 Y 7;no disponible;;;;OMITIDO;URL no disponible o inválida
+145;80002514;CONDOR SACI;no disponible;;;;OMITIDO;URL no disponible o inválida
+146;80019838;LA CONSOLIDADA SA DE SEGUROS;no disponible;;;;OMITIDO;URL no disponible o inválida
+147;80110729;CONSORCIO CONSTRUCTORA ASUNCIÓN S.A. Y ASOCIADOS/32;no disponible;;;;OMITIDO;URL no disponible o inválida
+149;80021960;NEXO SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+150;80005623;BENITO ROGGIO E HIJOS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+151;80024716;APOLO IMPORT SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+152;80011638;KENNEDY & COMPAÑIA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+153;80002019;LA OXIGENA PARAGUAYA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+154;80009129;LASER IMPORT SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+155;80071221;SANATORIO BRITANICO SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+157;80008669;PRODUCTOS PARAGUAYOS SRL (PRODUPAR);no disponible;;;;OMITIDO;URL no disponible o inválida
+158;80015499;LT SOCIEDAD ANONIMA (LT S.A.);no disponible;;;;OMITIDO;URL no disponible o inválida
+159;80009246;GLOBO IMPORT EXPORT S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+161;80023598;SANATORIO MIGONE BATTILANA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+162;80107285;DANESA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+163;80022115;ZAVIDORO CORPORATIONS (SUCURSAL PARAGUAY);no disponible;;;;OMITIDO;URL no disponible o inválida
+164;762257;VERA ACOSTA GABRIEL;no disponible;;;;OMITIDO;URL no disponible o inválida
+165;80031900;DIRECCION GENERAL DE RECAUDACION;no disponible;;;;OMITIDO;URL no disponible o inválida
+166;80028529;ASEGURADORA TAJY PROPIEDAD COOPERATIVA SA DE SEGUROS;no disponible;;;;OMITIDO;URL no disponible o inválida
+167;80018457;INGENIERIA DE TOPOGRAFIA Y CAMINOS SA (T & C SA);no disponible;;;;OMITIDO;URL no disponible o inválida
+168;80027827;DESARROLLOS MADEREROS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+169;80019202;TIGRE PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+170;80118181;NEW CO. SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+171;80073585;JAUSER CARGO PARAGUAY SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+172;80067095;CATHAY SOCIEDAD ANONIMA EMISORA;no disponible;;;;OMITIDO;URL no disponible o inválida
+173;80025550;SEGURIDAD INTELIGENCIA Y TECNOLOGIA DEL PARAGUAY SA (SIT);no disponible;;;;OMITIDO;URL no disponible o inválida
+174;80016166;RECORD ELECTRIC S.A.E.C.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+175;80006730;CONSTRUCTORA ACARAY S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+176;80008431;KEMSA COMERCIAL INDUSTRIAL SA (KEMSA C.I.S.A.);no disponible;;;;OMITIDO;URL no disponible o inválida
+177;1599673;COLOSSI ADEMIR LUIZ;no disponible;;;;OMITIDO;URL no disponible o inválida
+178;80021677;MONSANTO PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+179;80049965;ABACEL S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+180;80002348;PROFARCO SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+181;80012035;GARDEN SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+182;80014552;TAPE RUVICHA SA EMISORA DE CAPITAL ABIERTO;no disponible;;;;OMITIDO;URL no disponible o inválida
+183;80031114;ALAS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+184;80016951;CADENA REAL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+185;80030322;LA COSTA CENTRO MEDICO SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+186;80023892;MONTE ALEGRE SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+190;80013805;ATLANTIC SOCIEDAD ANONIMA EMISORA (ATLANTIC S.A.E);no disponible;;;;OMITIDO;URL no disponible o inválida
+191;80053638;LA SIROQUE SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+192;80039245;WINES AND SPIRITS SA (WASPY SA);no disponible;;;;OMITIDO;URL no disponible o inválida
+193;80048817;ALCOTEC SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+195;80021999;ASEGURADORA YACYRETA S.A. DE SEGUROS;no disponible;;;;OMITIDO;URL no disponible o inválida
+197;80025906;DISTRIBUIDORA LA POLICLINICA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+198;80036129;ALDAMA & HIJOS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+199;80024098;WHEEL.CO. S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+200;80008970;BRITAM SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+201;80012387;SELTZ SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+202;177622;DIAZ BENZA CANO ENRIQUE EDGARDO;no disponible;;;;OMITIDO;URL no disponible o inválida
+203;80054853;ITÁ-KYSÉ SOCIEDAD ANÓNIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+204;80024043;CONSTRUCTORA ASUNCION SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+206;80067871;PUERTO SEGURO FLUVIAL S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+207;80014386;INDUSTRIA METALURGICA SCHUSSMULLER SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+208;80024346;INTEGRAL TRADING SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+209;80014942;PARAGUAY TRADING SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+210;80068681;FERTIMAX INDUSTRIAS Y SERVICIOS SOCIEDAD ANÓNIMA EMISORA;no disponible;;;;OMITIDO;URL no disponible o inválida
+213;80008664;PALERMO S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+214;80011003;EL MEJOR SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+215;80038916;DYNAMUS MARKETING PROMOCIONAL S.A (DYSA);no disponible;;;;OMITIDO;URL no disponible o inválida
+216;80111683;CONSORCIO TC PILAR;no disponible;;;;OMITIDO;URL no disponible o inválida
+217;80046875;EMAP S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+219;80086568;PARAGUAY AGRICULTURAL CORPORATION SA (PAYCO);no disponible;;;;OMITIDO;URL no disponible o inválida
+220;80025504;PUERTOS Y ESTIBAJES SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+221;80028835;WADRA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+222;80002243;CERROS Y PALMARES SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+223;80011068;LCM SOCIEDAD ANÓNIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+224;80012344;T.V. ACCION SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+225;80005531;TECNOEDIL SA CONSTRUCTORA;no disponible;;;;OMITIDO;URL no disponible o inválida
+226;80105887;WHOLESALE BROTHERS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+227;80124456;CONSORCIO COMITIA MSA - EXCELSIS;no disponible;;;;OMITIDO;URL no disponible o inválida
+228;80028356;AZAR INTERNACIONAL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+229;80001129;AUTOMOVIL SUPPLY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+230;3535017;SARABIA PAULO SERGIO;no disponible;;;;OMITIDO;URL no disponible o inválida
+231;80019163;LA LOTEADORA INMOBILIARIA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+232;80031032;AGRO-GANADERA EL DORADO S.R.L.;no disponible;;;;OMITIDO;URL no disponible o inválida
+233;80002660;ARCORPAR SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+234;80002367;AMANECER SA FABRICA DE PINTURAS;no disponible;;;;OMITIDO;URL no disponible o inválida
+235;80029770;UNI PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+237;80008141;CONSTRUPAR SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+238;80019076;COMERCIO DE TRACTORES E IMPLEMENTOS DEL PARAGUAY(COTRIPAR)SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+239;80019740;GRANJA AVICOLA LA BLANCA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+240;422995;MUÑOZ SOSA VICTOR;no disponible;;;;OMITIDO;URL no disponible o inválida
+241;80097276;SORIANO SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+242;80014018;SOL CONTROL SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+243;80014904;EMPRESA IZAGUIRRE BARRAIL INVERSORA SAECA;no disponible;;;;OMITIDO;URL no disponible o inválida
+245;80050476;MOBILE CASH PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+246;80047663;ELECTROBAN SOCIEDAD ANONIMA EMISORA DE CAPITAL ABIERTO;no disponible;;;;OMITIDO;URL no disponible o inválida
+247;80090794;EDURED GROUP S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+248;80028928;IMPORTADORA AUDI S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+249;80108535;CONSORCIO BOQUERON;no disponible;;;;OMITIDO;URL no disponible o inválida
+251;80045690;ROSE ACRE FARMS S.R.L.;no disponible;;;;OMITIDO;URL no disponible o inválida
+252;80007489;PROTECCION MEDICA SA (PROMED SA);no disponible;;;;OMITIDO;URL no disponible o inválida
+254;80019248;LABORATORIO SAN ROQUE SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+255;965546;DORIA CORTES RICARDO GUILLERMO;no disponible;;;;OMITIDO;URL no disponible o inválida
+256;4243949;CAPLI DE CARLSON ROSA MABEL;no disponible;;;;OMITIDO;URL no disponible o inválida
+257;80001912;SALLUSTRO Y COMPAÑIA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+258;80025961;CONSTRUCTORA ISACIO VALLEJOS SA (C.I.V.S.A.);no disponible;;;;OMITIDO;URL no disponible o inválida
+259;80021897;INFOTEC SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+260;80003318;CORRUGADORA PARAGUAYA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+261;80106433;TODEGOL SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+262;80018240;LADERO PARAGUAYO SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+263;80003369;GICAL SA ALMACENES GENERALES DE DEPOSITO;no disponible;;;;OMITIDO;URL no disponible o inválida
+264;80017369;GRUPO INTERNACIONAL MERCOSUR SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+265;80106480;YTL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+267;80013080;PERFILADOS PARAGUAY SACI;no disponible;;;;OMITIDO;URL no disponible o inválida
+268;80023118;INFOCENTER SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+269;80033584;PROSALUD FARMA S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+270;80030018;PROVENCE PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+272;80107729;FADEL MERCOSUR S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+273;80033539;TECNOLOGIA DEL SUR S.A.E;no disponible;;;;OMITIDO;URL no disponible o inválida
+274;80017044;COMEPAR S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+275;80097281;SACYR CONSTRUCCION PARAGUAY SOCIEDAD DE RESPONSABILIDAD LIMITADA;no disponible;;;;OMITIDO;URL no disponible o inválida
+276;80024150;BIOANALISIS SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+277;80091866;GARDEN MPY S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+278;80084088;ILSUNG CONSTRUCTION CO. LTD. (SUC PARAGUAY);no disponible;;;;OMITIDO;URL no disponible o inválida
+279;80004571;FUNDACION PARAGUAYA DE COOPERACION Y DESARROLLO;no disponible;;;;OMITIDO;URL no disponible o inválida
+281;80023705;LA YUTEÑA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+282;80011478;AGROTORO SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+284;80026043;TAPITI SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+285;80000244;AUTOMOTORES COMERCIAL INDUSTRIAL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+286;80056321;SAN JOSE IMPORT EXPORT S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+287;80013377;PETROLEOS DEL SUR SA (PETROSUR SA);no disponible;;;;OMITIDO;URL no disponible o inválida
+288;80020843;FASTRAX SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+290;80063998;MERCOFER & LUBRIBRAS IMPORT. EXPORT. S. A. C. I. S.;no disponible;;;;OMITIDO;URL no disponible o inválida
+291;80052397;IMPORTADORA AMERICAS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+292;80030361;XT PARAGUAY SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+293;80003296;ALIMENTOS ESPECIALES SOCIEDAD ANONIMA.-;no disponible;;;;OMITIDO;URL no disponible o inválida
+294;80107184;OFISA SOCIEDAD ANONIMA (OFISA S.A.);no disponible;;;;OMITIDO;URL no disponible o inválida
+295;80030218;DATA LAB SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+296;80001615;GALERIA GUARANI SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+297;881788;ENNS HILDEBRAND DAVID;no disponible;;;;OMITIDO;URL no disponible o inválida
+298;80083362;PASO KURUSU SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+299;80023604;G.P. SOCIEDAD ANONIMA EMISORA;no disponible;;;;OMITIDO;URL no disponible o inválida
+300;80088448;RODOMAQ SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+301;80062188;RAINBOW AGROSCIENCES SOCIEDAD ANÓNIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+302;80088741;MUSTER SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+303;80034203;GRUPO COASEGURADOR R.C. CARRETERO INTERNACIONAL;no disponible;;;;OMITIDO;URL no disponible o inválida
+304;80010244;COMPAÑIA DE PETROLEO Y ASFALTO SA (COMPASA);no disponible;;;;OMITIDO;URL no disponible o inválida
+305;80084451;LA TROPA CONSIGNATARIA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+306;80030641;VOICENTER S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+307;80036206;MEYER LAB SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+308;80012708;CONSTRUCCIONES Y VIVIENDAS PARAGUAYAS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+309;80001439;FLUODER SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+310;80050373;GUATA PORA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+311;80020653;DISTRIBUIDORA DEL PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+313;80008762;GAS METAL SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+315;80113485;CONSORCIO AVANZA CHACO;no disponible;;;;OMITIDO;URL no disponible o inválida
+317;80014066;SERVICIOS RAPIDOS DEL PARAGUAY S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+318;80014282;ALTAJA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+319;80022067;EL FAROL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+320;80009607;INDUSTRIAS GRAFICAS NOBEL S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+321;80016530;PETROQUIM S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+322;939309;DORIA CORTES RAMON ALBERTO;no disponible;;;;OMITIDO;URL no disponible o inválida
+323;873373;CONSONI CARLOS ANTENOR;no disponible;;;;OMITIDO;URL no disponible o inválida
+324;80024682;MONACO COMERCIAL IMPORT. EXPORT. SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+326;80061211;EUROQUIMICA S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+327;80023134;GRUPO APANE SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+328;80006850;MATHER COMPANY SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+330;80005398;TECNO ELECTRIC SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+331;80072946;UPL PARAGUAY SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+332;80027052;TAFIREL PARAGUAY S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+333;80005366;MOLINO SAN JUAN SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+334;80065687;CULTIVATTO SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+335;428116;SCAVONE RIVAS OSCAR VICENTE;no disponible;;;;OMITIDO;URL no disponible o inválida
+336;80027005;RIGSTAR SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+337;80010090;WINNER SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+338;80058845;TECHNOLOGIES DEVELOPMENT OF PARAGUAY (TDP) S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+339;80017858;NASSER CUBIERTAS SA COMERCIAL E INDUSTRIAL;no disponible;;;;OMITIDO;URL no disponible o inválida
+340;80029413;RECICLADORA DEL ESTE SA (REDESA);no disponible;;;;OMITIDO;URL no disponible o inválida
+341;80079526;AGROPECUARIA TRIVENTO SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+342;80016742;ESTACION BAHIA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+343;80024229;LAS NIÑAS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+344;80017433;BELLEZA Y COSMETICA PARAGUAY S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+346;80002217;COMPAÑIA PARAGUAYA DE LEVADURAS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+347;80007803;SINDEC SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+349;80035458;PALACIOS PRONO & TALAVERA-ABOGADOS;no disponible;;;;OMITIDO;URL no disponible o inválida
+350;80030229;HILAGRO S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+351;80025954;FUTURO SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+352;80050418;RURAL BIOENERGIA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+353;80009744;CIA DE BIENES RAICES DEL PARAGUAY SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+354;80026184;LA PARAGUAYA INMOBILIARIA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+356;911520;FIGUEREDO CANIZA MIGUEL ANGEL CUSTODIO;no disponible;;;;OMITIDO;URL no disponible o inválida
+357;80002708;AGROPEC. Y COM. DEL PARANA S.A.PARAGUAY (AGROPECO S.A.);no disponible;;;;OMITIDO;URL no disponible o inválida
+358;80121687;AGRO CAPITAL SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+360;80013889;DATA SYSTEMS SA EMISORA DE CAPITAL ABIERTO;no disponible;;;;OMITIDO;URL no disponible o inválida
+361;80052468;COMERCIAL EL CACIQUE S.R.L.;no disponible;;;;OMITIDO;URL no disponible o inválida
+362;80109447;CONSORCIO CONTEC;no disponible;;;;OMITIDO;URL no disponible o inválida
+364;80013979;TECNOLOGIA EN ELECTRONICA E INFORMATICA SA (T.E.I.S.A.);no disponible;;;;OMITIDO;URL no disponible o inválida
+365;1207571;LARRE IMAS VICENTE OMAR;no disponible;;;;OMITIDO;URL no disponible o inválida
+366;80057965;KINETIK S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+367;80013664;CENSU SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+369;80091087;CREDITO AMIGO S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+370;80025176;GANADERA BAHIA RICA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+371;80026314;TRAFOSUR SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+372;80058787;TERMINALES Y LOGISTICA PORTUARIA S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+373;80026564;CHACO INTERNACIONAL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+374;80002904;AGPAR S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+375;80097074;UNION COMERCIAL DE PARAGUAY SOCIEDAD ANOMINA;no disponible;;;;OMITIDO;URL no disponible o inválida
+376;4913810;JACOBOSKI VANDERLEI;no disponible;;;;OMITIDO;URL no disponible o inválida
+377;80022558;PRODUCTOS MEDICINALES PARAGUAYOS SA (PROMEPAR SA);no disponible;;;;OMITIDO;URL no disponible o inválida
+378;80009190;PRODUCTOS EDWARD S A I;no disponible;;;;OMITIDO;URL no disponible o inválida
+379;80102081;FAMPAR SOCIEDAD ANÓNIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+380;80109827;CONSORCIO RUTAS DEL NORTE;no disponible;;;;OMITIDO;URL no disponible o inválida
+381;80050807;A V SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+382;80010664;EXCELSIS SOCIEDAD ANONIMA (EXCELSIS SA);no disponible;;;;OMITIDO;URL no disponible o inválida
+383;80049455;MELLA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+384;80026235;COMPAÑIA ADMINISTRADORA DE RIESGOS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+385;80026165;SUPERMERCADOS PUEBLO SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+386;80003182;ARTES GRAFICAS ZAMPHIROPOLOS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+387;741180;ORTELLADO NARVAEZ AUGUSTO;no disponible;;;;OMITIDO;URL no disponible o inválida
+388;80024272;J.S. COMERCIAL SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+389;80014603;RG SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+390;80002423;LA QUIMICA FARMACEUTICA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+391;80026831;TRACTO PIEZA IMPORT.EXPORT. SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+392;80110825;CONSORCIO GRUPO MSA-EXCELSIS;no disponible;;;;OMITIDO;URL no disponible o inválida
+393;80066950;FCSTONE PARAGUAY S.R.L;no disponible;;;;OMITIDO;URL no disponible o inválida
+394;80001831;ELIAS A. SABA SA INMOBILIARIA;no disponible;;;;OMITIDO;URL no disponible o inválida
+395;80013483;ACEROS ASUNCION SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+396;80026927;EMBUTIDOS FRANZ S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+397;80048493;CENTRO DEL AGRO SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+398;80059305;TARGET INTERNATIONAL TRADING S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+399;80029153;REIMPEX S.R.L.;no disponible;;;;OMITIDO;URL no disponible o inválida
+400;80005107;COMPAÑIA CERVECERA ASUNCION SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+401;80016463;PETROLERA SAN ANTONIO SA (PETROSAN);no disponible;;;;OMITIDO;URL no disponible o inválida
+402;80003626;COOP. AGRICOLA DE PRODUCCION SOMMERFELD LTDA.;no disponible;;;;OMITIDO;URL no disponible o inválida
+403;80025239;PANAL COMPAÑIA DE SEGUROS GENERALES SA PROPIEDAD COOPERATIVA;no disponible;;;;OMITIDO;URL no disponible o inválida
+404;80030180;CEVIMA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+405;80010552;CEREALISTA CAMPO 9 S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+406;80016969;CRISOL Y ENCARNACION FINANCIERA SOCIEDAD ANONIMA EMISORA DE CAPITAL ABIERTO;no disponible;;;;OMITIDO;URL no disponible o inválida
+407;80031231;AGROFUTURO PARAGUAY SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+408;80095777;CONSORCIO TAVAI;no disponible;;;;OMITIDO;URL no disponible o inválida
+409;80096687;CONSORCIO SANTA ROSA;no disponible;;;;OMITIDO;URL no disponible o inválida
+410;80013712;COMAGRO SOCIEDAD ANÓNIMA (COMAGRO S. A.);no disponible;;;;OMITIDO;URL no disponible o inválida
+411;80060527;CHACOMER AUTOMOTORES SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+412;80025722;SERVICIO INTEGRAL MEDICO SA (SIME SA);no disponible;;;;OMITIDO;URL no disponible o inválida
+413;80087425;CONSORCIO TOCSA - ECOMIPA;no disponible;;;;OMITIDO;URL no disponible o inválida
+414;80051341;SUL AMERICA SOCIEDAD ANONIMA COMERCIAL INDUSTRIAL E EMISORA;no disponible;;;;OMITIDO;URL no disponible o inválida
+415;80013653;INGENIO DE ARROZ TIO NICO SAIC AGRICOLA Y GANADERA;no disponible;;;;OMITIDO;URL no disponible o inválida
+416;80103732;MAUVE SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+417;7560326;KIRST JOCHEN MANFRED;no disponible;;;;OMITIDO;URL no disponible o inválida
+418;80045670;GRUPO SEVIPAR S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+420;80009243;FORTALEZA S. A. DE INMUEBLES;no disponible;;;;OMITIDO;URL no disponible o inválida
+421;80048057;VASA DEL PARAGUAY SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+422;80083931;CONFORT PARA EL HOGAR SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+423;80015056;DUTRIEC SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+424;80044186;CONDOMINIO VALENTE GOMES;no disponible;;;;OMITIDO;URL no disponible o inválida
+425;80033608;DOCTO S.R.L.;no disponible;;;;OMITIDO;URL no disponible o inválida
+426;80062853;GRUPO CELL MOTION S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+427;80117012;CONSORCIO CHACO CENTRAL;no disponible;;;;OMITIDO;URL no disponible o inválida
+428;80035470;SAN JUAN BAUTISTA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+429;80063201;ABONOS DEL PARAGUAY S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+430;80061542;TERMINAL OCCIDENTAL S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+431;80028509;SOL TINTAS SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+432;80088176;AIR EUROPA LINEAS AEREAS S.A.U - SUCURSAL PARAGUAY;no disponible;;;;OMITIDO;URL no disponible o inválida
+433;80008811;MONITAL SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+435;80001513;NUEVA AMERICANA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+437;80024431;MERCADO PLUS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+440;80056738;CAMPOS DEL MAÑANA S.A. (CMSA);no disponible;;;;OMITIDO;URL no disponible o inválida
+442;80108024;CONSORCIO MEDICINA PROFESIONAL TECNOLOGICA - MEPROTEC;no disponible;;;;OMITIDO;URL no disponible o inválida
+443;80013951;TECNOFAST SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+444;80086563;PERSONAL ENVIOS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+445;80003251;AUTOMOTIVE SA IMPORTADORA Y EXPORTADORA;no disponible;;;;OMITIDO;URL no disponible o inválida
+446;80101213;CONSTRUCTORA SANCHES TRIPOLONI LIMITADA -SUCURSAL PARAGUAY;no disponible;;;;OMITIDO;URL no disponible o inválida
+447;80113799;CONSORCIO AGB-CMN;no disponible;;;;OMITIDO;URL no disponible o inválida
+448;80004161;ALAMO SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+449;80028819;EL ARTE SOCIEDAD ANONIMA COMERCIAL E INDUSTRIAL;no disponible;;;;OMITIDO;URL no disponible o inválida
+450;80028276;SANTA MONICA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+451;80006643;AGRO GANADERA WILLERSINN S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+452;80069854;VALPARTS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+453;80028162;TODO CARNE SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+454;80023149;AGROFERTIL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+455;80102166;H3 AGROCHEMICALS SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+456;80060213;INVESTOR CASA DE BOLSA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+457;80087783;MERCURIO GROUP SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+458;80093066;COMPAÑIA EUROPEA PARAGUAYA DE ARTICULOS DE LUJO CEPAL SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+459;80105006;WILLFARM SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+460;80012343;COMPUSAVER SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+461;80022106;SALEMMA RETAIL SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+463;80018492;CREANDO TECNOLOGÍA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+465;80022000;IMPORTADORA Y EXPORTADORA SAN EXPEDITO SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+466;80001423;CASA MODIGA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+467;80035201;DC INGENIERIA SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+469;80005795;PROCESADORA Y PROVEEDURIA DE CARNES Y LACTEOS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+470;80079054;AGRO ALIANZA CORPUS CHRISTI S.A;no disponible;;;;OMITIDO;URL no disponible o inválida
+472;80056073;TODO FRANQUICIA S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+473;80011395;R Y F SA COMERCIAL INDUSTRIA;no disponible;;;;OMITIDO;URL no disponible o inválida
+474;80082225;COMERCIAL CDE S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+475;80026692;OLIER S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+476;80107664;TRANSPORTE & LOGISTICA PARAGUAYA SOCIEDAD DE RESPONSABILIDAD LIMITADA;no disponible;;;;OMITIDO;URL no disponible o inválida
+477;80007483;CENTRO MEDICO AMANECER S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+478;80050369;NEGOCIOS Y SERVICIOS S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+479;1469417;ZUCCOLILLO PAPPALARDO NATALIA MARIA;no disponible;;;;OMITIDO;URL no disponible o inválida
+481;80053559;RIMEC SA COMERCIAL E INDUSTRIAL;no disponible;;;;OMITIDO;URL no disponible o inválida
+482;80082195;SOUTH AMERICAN RIVER COMPANY S.A.;no disponible;;;;OMITIDO;URL no disponible o inválida
+483;80054991;COMPAÑIA DE AGROQUIMICOS DEL PARAGUAY SA (CIAGROPA);no disponible;;;;OMITIDO;URL no disponible o inválida
+484;80009625;COOPERATIVA DE AHORRO Y CREDITO CREDIT UNION LTDA.;no disponible;;;;OMITIDO;URL no disponible o inválida
+486;3174238;POSTEGUILLO ROJAS NESTOR CARLOS;no disponible;;;;OMITIDO;URL no disponible o inválida
+487;4309523;MARINI NEZILDO;no disponible;;;;OMITIDO;URL no disponible o inválida
+489;80019592;O. A. IMPORT SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+490;80026578;CUPY SOCIEDAD ANONIMA;no disponible;;;;OMITIDO;URL no disponible o inválida
+491;80017844;ABC TELECOMUNICACIONES SA;no disponible;;;;OMITIDO;URL no disponible o inválida
+492;2111087;MOREL ORTIZ PABLO;no disponible;;;;OMITIDO;URL no disponible o inválida
+495;80001836;A. MARTINEZ E HIJOS SAC;no disponible;;;;OMITIDO;URL no disponible o inválida
+496;194717;PAPPALARDO DE ZUCCOLILLO GRACIELA JULIA;no disponible;;;;OMITIDO;URL no disponible o inválida
+497;1033964;PREM FRANZ STEFAN HEINRICH;no disponible;;;;OMITIDO;URL no disponible o inválida
+498;80005847;UNION SRL;no disponible;;;;OMITIDO;URL no disponible o inválida
+499;3200078;MOLAS SAMUDIO MARIELA CAROLINA;no disponible;;;;OMITIDO;URL no disponible o inválida
+500;80014443;RAFAELI SRL IMPORTADORA Y EXPORTADORA;no disponible;;;;OMITIDO;URL no disponible o inválida
