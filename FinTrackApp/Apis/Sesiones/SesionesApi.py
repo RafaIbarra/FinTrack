@@ -5,7 +5,8 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 from FinTrackApp.Serializadores.SerializadoresValidaciones.CamposRequeridosSerializers import LoginUsuarioInputSerializers
 from FinTrackApp.Utils.funciones_seguridad import informacion_peticion,registrar_login
-
+from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
+from FinTrackApp.Modelos.Usuarios import Usuarios
 class LoginUsuario(APIView):
     permission_classes = [AllowAny]
     def post(self, request, *args, **kwargs):
@@ -47,6 +48,34 @@ class LoginUsuario(APIView):
                 return Response(valores_logueo, status=status.HTTP_200_OK)
             else:
                 return Response({'message':mensaje}, status=status.HTTP_400_BAD_REQUEST)
+            
+        except Exception as e:
+            
+            return Response(
+                 {'message': f'Error interno del servidor: {str(e)}'}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+class ComprobarSession(APIView):
+    @AutenticacionToken
+    def get(self, request, *args, **kwargs):
+        try:
+            user_info = getattr(request, 'user_info', {})
+            user_login = user_info["username"]
+            id_usuario=user_info.get('usuario_id')
+            usuario_data=Usuarios.objects.filter(UserName=user_login).first()
+            if not usuario_data:
+                return Response(
+                    {'message': f'Error de Usuario'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            datauser=[{
+                            'username':usuario_data.UserName.capitalize(),
+                            'nombre':usuario_data.NombreUsuario,
+                            'apellido':usuario_data.ApellidoUsuario,
+                            'fecha_registro':usuario_data.FechaRegistro.strftime("%d/%m/%Y %H:%M:%S"),
+                            
+                        }]
+            return Response(datauser, status=status.HTTP_200_OK)
             
         except Exception as e:
             
