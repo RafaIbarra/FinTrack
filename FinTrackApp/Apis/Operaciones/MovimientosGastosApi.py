@@ -97,7 +97,9 @@ class RegistroMovimientoGastoUser(APIView):
             
             imagen_url = None
             imagen_file = request.FILES.get('imagen')
+            obs_img=""
             if imagen_file:
+                
                 # Leer archivo
                 file_bytes = imagen_file.read()
                 
@@ -113,6 +115,7 @@ class RegistroMovimientoGastoUser(APIView):
                     
                 else:
                     imagen_url = resultado['url']
+            
             
             
             try:

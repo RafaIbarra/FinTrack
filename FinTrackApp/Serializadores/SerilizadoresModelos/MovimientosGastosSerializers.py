@@ -8,6 +8,7 @@ class InfoMovimientosGastosSerializer(serializers.ModelSerializer):
     FechaRegistro= serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
     NombreUsuario=serializers.CharField(source='Usuario.UserName', read_only=True)
     NombreEmpresa=serializers.CharField(source='Empresa.NombreEmpresa', read_only=True)
+    LogoEmpresa=serializers.CharField(source='Empresa.UrlImg', read_only=True)
     DetalleGastos = InfoMovimientosGastosDetallesSerializer(
         source='movimiento_gasto_cabecera_detalle',  # related_name definido en el FK
         many=True,
@@ -21,7 +22,8 @@ class InfoMovimientosGastosSerializer(serializers.ModelSerializer):
     TotalMovimiento = serializers.IntegerField(read_only=True) 
     class Meta:
         model = MovimientosGastos
-        fields =  ['Id','FechaGasto','Empresa','NombreEmpresa','Observacion','Usuario','NombreUsuario','UrlImg','TotalMovimiento',
+        fields =  ['Id','FechaGasto','Empresa','NombreEmpresa','LogoEmpresa',
+                   'Observacion','Usuario','NombreUsuario','UrlImg','TotalMovimiento',
                    'FechaRegistro','DetalleGastos','DetalleMediosPagos']
 
 
