@@ -15,6 +15,7 @@ from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 from FinTrackApp.Modelos.MovimientosGastos import MovimientosGastos
 from FinTrackApp.Modelos.MovimientosGastosDetalles import MovimientosGastosDetalles
 from FinTrackApp.Modelos.MovimientosGastosMediosPagos import MovimientosGastosMediosPagos
+from FinTrackApp.Modelos.Empresas import Empresas
 
 from FinTrackApp.Serializadores.SerializadoresValidaciones.MovimientosGastosValSerializers import VerificacionGastoUsuarioSerializer,VerificacionMedioPagoUsuarioSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer
@@ -33,6 +34,9 @@ class RegistroMovimientoGastoUser(APIView):
             observacion = request.data.get('observacion', '').strip()
             fecha_str = request.data.get('fecha', '')
             fecha_gasto = parse_date(fecha_str)
+            empresa_id = int(request.data.get('empresa', 1))
+            if not Empresas.objects.filter(Id=empresa_id).exists():
+                return Response({'message': 'Seleccione una empresa valida'}, status=400)
 
             if fecha_gasto is None:
                 # Manejar error: formato incorrecto
@@ -120,7 +124,8 @@ class RegistroMovimientoGastoUser(APIView):
                         UrlImg=imagen_url,
                         ObsImg=obs_img,
                         FechaGasto=fecha_str,
-                        FechaRegistro=timezone.now()
+                        FechaRegistro=timezone.now(),
+                        Empresa_id=empresa_id
                         
                         
                     )

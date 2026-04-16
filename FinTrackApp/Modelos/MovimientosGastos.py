@@ -2,7 +2,7 @@ from django.db import models
 from FinTrackApp.Modelos.Usuarios import Usuarios
 from django.utils import timezone
 from datetime import datetime
-
+from FinTrackApp.Modelos.Empresas import Empresas
 
 # Create your models here.
 
@@ -16,6 +16,14 @@ class MovimientosGastos(models.Model):
         db_column='UsuarioId',
         on_delete=models.PROTECT,
         related_name='movimiento_gasto_usuario'
+    )
+    Empresa = models.ForeignKey(
+        Empresas, 
+        db_column='EmpresaId',
+        on_delete=models.PROTECT,
+        related_name='movimiento_gasto_empresa',
+        default=1
+
     )
     UrlImg = models.URLField(
         max_length=500,  # Aumenté la longitud para URLs largas

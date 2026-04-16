@@ -15,13 +15,6 @@ class Empresas(models.Model):
         help_text="Logo de la empresa"
     )
     
-    ObsImg = models.CharField(
-        max_length=500, 
-        blank=True, 
-        null=True,
-        help_text="Descripción de la imagen"
-    )
-    
     FechaRegistro = models.DateTimeField(
         "fecha registro", 
         help_text="Fecha de registro de la empresa",
