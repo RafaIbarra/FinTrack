@@ -36,6 +36,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')
 
 
@@ -167,3 +168,43 @@ STATIC_URL = 'static/'
 TOKEN_SESION_TIEMPO=8
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Media')  
 MEDIA_URL = '/Media/'
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8081",
+    "http://127.0.0.1:8081",
+    "http://localhost:19006",  # Expo por defecto
+    "http://127.0.0.1:19006",
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8081",
+    "http://127.0.0.1:8081",
+    "http://localhost:19006",
+    "http://127.0.0.1:19006",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+# Métodos HTTP permitidos
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+# 🔴 AQUÍ ESTÁ LA CLAVE - Agrega tu header personalizado
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'x-session-user',  # ✅ AGREGA ESTA LÍNEA
+]
