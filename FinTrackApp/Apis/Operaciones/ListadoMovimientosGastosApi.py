@@ -4,6 +4,7 @@ from rest_framework import status
 from django.db.models import Sum
 
 from FinTrackApp.Modelos.MovimientosGastos import MovimientosGastos
+from FinTrackApp.Modelos.MovimientosIngresos import MovimientosIngresos
 from FinTrackApp.Modelos.MovimientosGastosDetalles import MovimientosGastosDetalles
 from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer,InfoMovimientosGastosDetallesSerializer
 
@@ -44,6 +45,8 @@ class ListadoMovimientoGastosMesUser(APIView):
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
             id_usuario=user_info.get('usuario_id')
+
+            #mes=10
             movimientos_gastos_usuario = MovimientosGastos.objects.filter(
                 Usuario_id=id_usuario,
                 FechaGasto__year=anno,  # Filtrar por año
@@ -51,13 +54,40 @@ class ListadoMovimientoGastosMesUser(APIView):
             ).annotate(
                 TotalMovimiento=Sum('movimiento_gasto_cabecera_detalle__MontoGasto')
             ).order_by('Id')
-            if not movimientos_gastos_usuario.exists():
-                return Response(
-                    {'message': f'El usuario no tiene movimiento de gastos registrados en el periodo seleccionado.'},
-                    status=status.HTTP_200_OK
-                )
-            detail_serializer = InfoMovimientosGastosSerializer(movimientos_gastos_usuario,many=True)
-            return Response(detail_serializer.data, status=status.HTTP_200_OK)
+            data_detalle=[]
+            data_resumen=[
+                {
+
+                'TotalGastos':0,
+                'CantidadGastos':0,
+                'TotalIngresos':0,
+                'CantidadIngresos':0,
+                }
+            ]
+            
+
+            if  movimientos_gastos_usuario.exists():
+                
+            
+                detail_serializer = InfoMovimientosGastosSerializer(movimientos_gastos_usuario,many=True)
+                data_list = detail_serializer.data
+
+                # Contar elementos
+                total_elementos = len(data_list)
+
+                # Sumar TotalMovimiento
+                suma_total_movimientos = sum(item['TotalMovimiento'] for item in data_list)
+                data_detalle=detail_serializer.data
+
+                data_resumen[0]['TotalGastos'] = suma_total_movimientos
+                data_resumen[0]['CantidadGastos'] = total_elementos
+
+            
+            data={
+                'detalle':data_detalle,
+                'resumen':data_resumen
+            }
+            return Response(data, status=status.HTTP_200_OK)
 
         except Exception as e:
             
