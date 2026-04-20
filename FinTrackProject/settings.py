@@ -59,10 +59,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
+    'corsheaders.middleware.CorsMiddleware',  # ✅ Aquí, después de SecurityMiddleware
+    'django.middleware.common.CommonMiddleware',  # ✅ Después de CorsMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -174,6 +173,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8081",
     "http://localhost:19006",  # Expo por defecto
     "http://127.0.0.1:19006",
+    "http://localhost:8081"
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -181,6 +181,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8081",
     "http://localhost:19006",
     "http://127.0.0.1:19006",
+    "http://localhost:8081"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
