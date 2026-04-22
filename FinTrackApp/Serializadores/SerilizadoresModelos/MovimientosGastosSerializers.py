@@ -26,4 +26,22 @@ class InfoMovimientosGastosSerializer(serializers.ModelSerializer):
                    'Observacion','Usuario','NombreUsuario','UrlImg','TotalMovimiento',
                    'FechaRegistro','DetalleGastos','DetalleMediosPagos']
 
+class InfoMovimientosGastosReferencialSerializer(serializers.ModelSerializer):
+    
+    
+    
+    DetalleGastos = InfoMovimientosGastosDetallesSerializer(
+        source='movimiento_gasto_cabecera_detalle',  # related_name definido en el FK
+        many=True,
+        read_only=True
+    )
+    DetalleMediosPagos= InfoMovimientosGastosMediosPagosSerializer(
+        source='movimiento_gasto_cabecera_medio',  # related_name definido en el FK
+        many=True,
+        read_only=True
+    )
+    
+    class Meta:
+        model = MovimientosGastos
+        fields =  ['Id','Empresa','DetalleGastos','DetalleMediosPagos']
 

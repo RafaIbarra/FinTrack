@@ -23,6 +23,9 @@ url_listados= [
     path('ListadoMovimientoGastosMesUser/<int:anno>/<int:mes>/',ListadoMovimientoGastosMesUser.as_view(),name="ListadoMovimientoGastosUser"), 
     path('ListadoMovimientosIngresosUser/',ListadoMovimientosIngresosUser.as_view(),name="ListadoMovimientosIngresosUser"), 
     path('ListadoDetalleGastosUser/',ListadoDetalleGastosUser.as_view(),name="ListadoDetalleGastosUser"), 
+
+
+    path('ReferencialesCargaGasto/',ReferencialesCargaGasto.as_view(),name="ReferencialesCargaGasto"), 
     
     ]
 

@@ -10,6 +10,13 @@ class InfoMedioPagoSerializer(serializers.ModelSerializer):
         model = MediosPagos
         fields = ['Id','NombreMedioPago','Observacion','Usuario','FechaRegistro','usuario_nombre']
 
+class InfoMedioPagoReferencialSerializer(serializers.ModelSerializer):
+    
+
+    class Meta:
+        model = MediosPagos
+        fields = ['Id','NombreMedioPago']
+
 
 class RegistroMedioPagoSerializer(serializers.ModelSerializer):
     class Meta:

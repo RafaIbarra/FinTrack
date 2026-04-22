@@ -8,7 +8,8 @@ from django.db import transaction
 from django.utils import timezone
 from datetime import datetime
 from django.utils.dateparse import parse_date
-
+from dateutil.relativedelta import relativedelta
+from django.utils.timezone import now
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 
 
@@ -17,10 +18,21 @@ from FinTrackApp.Modelos.MovimientosGastosDetalles import MovimientosGastosDetal
 from FinTrackApp.Modelos.MovimientosGastosMediosPagos import MovimientosGastosMediosPagos
 from FinTrackApp.Modelos.Empresas import Empresas
 
+
+from FinTrackApp.Modelos.MediosPagos import MediosPagos
+from FinTrackApp.Modelos.Gastos import Gastos
+
+
+from FinTrackApp.Serializadores.SerilizadoresModelos.EmpresasSerializers import InfoEmpresasReferecianlSerializer
+from FinTrackApp.Serializadores.SerilizadoresModelos.GastosSerializers import InfoGastoReferencialSerializer
+from FinTrackApp.Serializadores.SerilizadoresModelos.MediosPagosSerializers import InfoMedioPagoReferencialSerializer
+
+
 from FinTrackApp.Serializadores.SerializadoresValidaciones.MovimientosGastosValSerializers import VerificacionGastoUsuarioSerializer,VerificacionMedioPagoUsuarioSerializer
-from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer
+from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer,InfoMovimientosGastosReferencialSerializer
 
 from FinTrackApp.Utils.supabase_client import *
+
 
 class RegistroMovimientoGastoUser(APIView):
 
@@ -439,3 +451,163 @@ class EliminarMovimientoGastoUser(APIView):
                  {'message': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+        
+# class ReferencialesCargaGasto(APIView):
+#     @AutenticacionToken
+#     def get(self, request, *args, **kwargs):
+#         try:
+
+#             user_info = getattr(request, 'user_info', {})
+#             user_login = user_info["username"]
+#             id_usuario=user_info.get('usuario_id')
+            
+#             medios_pago_obj=MediosPagos.objects.filter(Usuario_id=id_usuario)
+#             medio_serializer = InfoMedioPagoReferencialSerializer(medios_pago_obj,many=True)
+
+#             gastos_usuario=Gastos.objects.filter(Usuario_id=id_usuario)
+#             gasto_serializer = InfoGastoReferencialSerializer(gastos_usuario,many=True)
+
+#             empresas = Empresas.objects.all()
+#             empresa_serializer = InfoEmpresasReferecianlSerializer(empresas, many=True)
+
+#             fecha_limite = now() - relativedelta(months=6)
+
+#             movimientos_gastos_usuario = MovimientosGastos.objects.filter(
+#                 Usuario_id=id_usuario,
+#                 FechaGasto__gte=fecha_limite
+#             )
+#             movimientos_serializer = InfoMovimientosGastosReferencialSerializer(movimientos_gastos_usuario,many=True)
+#             resumen = resumen_movimientos_gastos_usuario(movimientos_serializer.data)
+#             data={
+#                 'Movimientos':resumen,
+#                 'MediosPagos':medio_serializer.data,
+#                 'Gastos':gasto_serializer.data,
+#                 'Empresa':empresa_serializer.data
+#             }
+
+
+#             return Response(data, status=status.HTTP_200_OK)
+
+#         except Exception as e:
+            
+#             return Response(
+#                  {'message': f'Error interno del servidor: {str(e)}'}, 
+#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
+#             )
+class ReferencialesCargaGasto(APIView):
+    @AutenticacionToken
+    def get(self, request, *args, **kwargs):
+        try:
+            user_info = getattr(request, 'user_info', {})
+            user_login = user_info["username"]
+            id_usuario = user_info.get('usuario_id')
+            
+            # Obtener datos
+            fecha_limite = now() - relativedelta(months=6)
+            movimientos_gastos_usuario = MovimientosGastos.objects.filter(
+                Usuario_id=id_usuario,
+                FechaGasto__gte=fecha_limite
+            )
+            movimientos_serializer = InfoMovimientosGastosReferencialSerializer(movimientos_gastos_usuario, many=True)
+            
+            
+            # Obtener resumen de cantidades
+            resumen = resumen_movimientos_gastos_usuario(movimientos_serializer.data)
+            
+            # Obtener datos de referenciales
+            medios_pago_obj = MediosPagos.objects.filter(Usuario_id=id_usuario)
+            medio_serializer = InfoMedioPagoReferencialSerializer(medios_pago_obj, many=True)
+            
+            gastos_usuario = Gastos.objects.filter(Usuario_id=id_usuario)
+            gasto_serializer = InfoGastoReferencialSerializer(gastos_usuario, many=True)
+            
+            empresas = Empresas.objects.all()
+            empresa_serializer = InfoEmpresasReferecianlSerializer(empresas, many=True)
+            
+            # Ordenar según frecuencia de uso
+            medios_ordenados = ordenar_por_frecuencia(
+                medio_serializer.data, 
+                resumen['CantidadMedios'],
+                'NombreMedioPago'  # Ajusta este key según tu serializer
+            )
+            
+            gastos_ordenados = ordenar_por_frecuencia(
+                gasto_serializer.data,
+                resumen['CantidadGastos'],
+                'NombreGasto'  # Ajusta este key según tu serializer
+            )
+            
+            empresas_ordenadas = ordenar_por_frecuencia(
+                empresa_serializer.data,
+                resumen['CantidadEmpresa'],
+                'NombreEmpresa'  # Ajusta este key según tu serializer
+            )
+            
+            data = {
+                'Movimientos': resumen,
+                'MediosPagos': medios_ordenados,
+                'Gastos': gastos_ordenados,
+                'Empresa': empresas_ordenadas
+            }
+            
+            return Response(data, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            return Response(
+                {'message': f'Error interno del servidor: {str(e)}'}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+from collections import Counter
+def resumen_movimientos_gastos_usuario(movimientos_data):
+    """
+    Genera resumen de cantidades por ID
+    """
+    return {
+        'CantidadEmpresa': dict(Counter(m['Empresa'] for m in movimientos_data)),
+        'CantidadGastos': dict(Counter(
+            gasto['GastoUsuario'] 
+            for movimiento in movimientos_data 
+            for gasto in movimiento.get('DetalleGastos', [])
+        )),
+        'CantidadMedios': dict(Counter(
+            medio['MedioPago'] 
+            for movimiento in movimientos_data 
+            for medio in movimiento.get('DetalleMediosPagos', [])
+        ))
+    }
+
+def ordenar_por_frecuencia(items_data, cantidades_dict, nombre_key='Nombre'):
+    """
+    Ordena los items: los que tienen uso primero (mayor frecuencia), 
+    luego los no usados ordenados alfabéticamente por nombre
+    """
+    # Convertir todas las claves del diccionario a string para comparación consistente
+    cantidades_dict_str = {str(k): v for k, v in cantidades_dict.items()}
+    
+    # Separar y ordenar
+    items_con_frecuencia = []
+    items_sin_uso = []
+    
+    for item in items_data:
+        item_id_str = str(item['Id'])
+        if item_id_str in cantidades_dict_str:
+            items_con_frecuencia.append({
+                'item': item,
+                'frecuencia': cantidades_dict_str[item_id_str]
+            })
+        else:
+            items_sin_uso.append(item)
+    
+    # Ordenar usados por frecuencia (mayor a menor)
+    items_con_frecuencia.sort(key=lambda x: x['frecuencia'], reverse=True)
+   
+    # Ordenar no usados alfabéticamente
+    items_sin_uso.sort(key=lambda x: x[nombre_key].lower())
+    
+    # Extraer solo los items de los usados
+    items_usados_ordenados = [x['item'] for x in items_con_frecuencia]
+    
+    return items_usados_ordenados + items_sin_uso
+
+

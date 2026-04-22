@@ -11,6 +11,11 @@ class InfoEmpresasSerializer(serializers.ModelSerializer):
         model = Empresas
         fields = '__all__'
 
+class InfoEmpresasReferecianlSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Empresas
+        fields = ['Id','NombreEmpresa','UrlImg']
 
 class RegistroEmpresaSerializer(serializers.ModelSerializer):
     class Meta:

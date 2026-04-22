@@ -9,6 +9,14 @@ class InfoGastoSerializer(serializers.ModelSerializer):
         model = Gastos
         fields =  ['Id','NombreGasto','Observacion','Usuario','FechaRegistro','Categoria','NombreCategoria','TipoGasto','NombreTipoGasto']
 
+class InfoGastoReferencialSerializer(serializers.ModelSerializer):
+    
+    NombreCategoria = serializers.CharField(source='Categoria.NombreCategoria', read_only=True)
+    NombreTipoGasto = serializers.CharField(source='TipoGasto.NombreTipoGasto', read_only=True)
+    class Meta:
+        model = Gastos
+        fields =  ['Id','NombreGasto','NombreCategoria','NombreTipoGasto']
+
 
 class RegistroGastoSerializer(serializers.ModelSerializer):
     class Meta:
