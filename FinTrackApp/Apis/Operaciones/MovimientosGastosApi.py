@@ -41,7 +41,7 @@ class RegistroMovimientoGastoUser(APIView):
         try:
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
-            id_usuario=user_info.get('usuario_id')
+            id_usuario = user_info.get('usuario_id')
 
             observacion = request.data.get('observacion', '').strip()
             fecha_str = request.data.get('fecha', '')
@@ -51,53 +51,61 @@ class RegistroMovimientoGastoUser(APIView):
                 return Response({'message': 'Seleccione una empresa valida'}, status=400)
 
             if fecha_gasto is None:
-                # Manejar error: formato incorrecto
                 return Response({'message': 'Formato de fecha inválido. Use YYYY-MM-DD'}, status=400)
             
-            gastos_json_str = request.data.get('gastos')
-            if not gastos_json_str:
+            # --- OBTENER GASTOS (acepta string o lista) ---
+            gastos_raw = request.data.get('gastos')
+            if not gastos_raw:
                 return Response({'message': 'Falta la key gastos'}, status=status.HTTP_400_BAD_REQUEST)
             
-            data_gastos = json.loads(gastos_json_str)
+            if isinstance(gastos_raw, str):
+                data_gastos = json.loads(gastos_raw)
+            else:
+                data_gastos = gastos_raw  # ya es lista/dict
+            
             if not data_gastos:
                 return Response({'message': 'Debe enviar los gastos a registrar'}, status=status.HTTP_400_BAD_REQUEST)
             
-            serializer = VerificacionGastoUsuarioSerializer(data=data_gastos, many=True, context={'usuario_id': id_usuario})
-            if not serializer.is_valid():
-                errores_por_item = serializer.errors  # Lista de dicts, uno por gasto
+            # --- OBTENER MEDIOS (acepta string o lista) ---
+            medios_raw = request.data.get('medios')
+            if not medios_raw:
+                return Response({'message': 'Falta la key medios'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            if isinstance(medios_raw, str):
+                data_medios = json.loads(medios_raw)
+            else:
+                data_medios = medios_raw
+            
+            if not data_medios:
+                return Response({'message': 'Debe enviar los medios de pago a registrar'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # --- NORMALIZAR MEDIOS: convertir idgasto a idmedio si existe ---
+            for medio in data_medios:
+                if 'idgasto' in medio and 'idmedio' not in medio:
+                    medio['idmedio'] = medio.pop('idgasto')
+            
+            # --- VALIDACIONES (sin cambios en lógica) ---
+            serializer_gastos = VerificacionGastoUsuarioSerializer(data=data_gastos, many=True, context={'usuario_id': id_usuario})
+            if not serializer_gastos.is_valid():
+                errores_por_item = serializer_gastos.errors
                 mensajes = []
-                
                 for idx, errores_item in enumerate(errores_por_item):
-                    if errores_item:  # Si este gasto tiene errores
+                    if errores_item:
                         for campo, lista in errores_item.items():
                             for mensaje in lista:
-                                # Puedes incluir el índice (opcional)
                                 mensajes.append(f"Gasto #{idx+1} - {campo}: {mensaje}")
-                
                 error_concatenado = "; ".join(mensajes)
                 return Response({'message': error_concatenado}, status=status.HTTP_400_BAD_REQUEST)
                         
-            medios_json_str = request.data.get('medios')
-            if not medios_json_str:
-                return Response({'message': 'Falta la key medios'}, status=status.HTTP_400_BAD_REQUEST)
-
-            data_medios = json.loads(medios_json_str)
-            if not data_medios:
-                return Response({'message': 'Debe enviar los medios de pagos a registrar'}, status=status.HTTP_400_BAD_REQUEST) 
-            
-            
-            serializer = VerificacionMedioPagoUsuarioSerializer(data=data_medios, many=True, context={'usuario_id': id_usuario})
-            if not serializer.is_valid():
-                errores_por_item = serializer.errors  # Lista de dicts, uno por gasto
+            serializer_medios = VerificacionMedioPagoUsuarioSerializer(data=data_medios, many=True, context={'usuario_id': id_usuario})
+            if not serializer_medios.is_valid():
+                errores_por_item = serializer_medios.errors
                 mensajes = []
-                
                 for idx, errores_item in enumerate(errores_por_item):
-                    if errores_item:  # Si este gasto tiene errores
+                    if errores_item:
                         for campo, lista in errores_item.items():
                             for mensaje in lista:
-                                # Puedes incluir el índice (opcional)
                                 mensajes.append(f"Medio #{idx+1} - {campo}: {mensaje}")
-                
                 error_concatenado = "; ".join(mensajes)
                 return Response({'message': error_concatenado}, status=status.HTTP_400_BAD_REQUEST)
             
@@ -105,8 +113,10 @@ class RegistroMovimientoGastoUser(APIView):
             total_medio = sum(medio['monto'] for medio in data_medios)
 
             if total_gasto != total_medio:
-                return Response({'message': 'La distribucion entre medios de pagos y detalle de gastos no coinciden!'}, status=status.HTTP_400_BAD_REQUEST) 
+                return Response({'message': 'La distribucion entre medios de pagos y detalle de gastos no coinciden!'}, status=status.HTTP_400_BAD_REQUEST)
             
+
+
             imagen_url = None
             imagen_file = request.FILES.get('imagen')
             obs_img=""
@@ -181,8 +191,9 @@ class RegistroMovimientoGastoUser(APIView):
                 return Response({'message': msg}, status=status.HTTP_400_BAD_REQUEST)
                 
         except Exception as e:
-            
+            print(str(e))
             return Response(
+                
                  {'message': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
@@ -452,48 +463,7 @@ class EliminarMovimientoGastoUser(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
         
-# class ReferencialesCargaGasto(APIView):
-#     @AutenticacionToken
-#     def get(self, request, *args, **kwargs):
-#         try:
 
-#             user_info = getattr(request, 'user_info', {})
-#             user_login = user_info["username"]
-#             id_usuario=user_info.get('usuario_id')
-            
-#             medios_pago_obj=MediosPagos.objects.filter(Usuario_id=id_usuario)
-#             medio_serializer = InfoMedioPagoReferencialSerializer(medios_pago_obj,many=True)
-
-#             gastos_usuario=Gastos.objects.filter(Usuario_id=id_usuario)
-#             gasto_serializer = InfoGastoReferencialSerializer(gastos_usuario,many=True)
-
-#             empresas = Empresas.objects.all()
-#             empresa_serializer = InfoEmpresasReferecianlSerializer(empresas, many=True)
-
-#             fecha_limite = now() - relativedelta(months=6)
-
-#             movimientos_gastos_usuario = MovimientosGastos.objects.filter(
-#                 Usuario_id=id_usuario,
-#                 FechaGasto__gte=fecha_limite
-#             )
-#             movimientos_serializer = InfoMovimientosGastosReferencialSerializer(movimientos_gastos_usuario,many=True)
-#             resumen = resumen_movimientos_gastos_usuario(movimientos_serializer.data)
-#             data={
-#                 'Movimientos':resumen,
-#                 'MediosPagos':medio_serializer.data,
-#                 'Gastos':gasto_serializer.data,
-#                 'Empresa':empresa_serializer.data
-#             }
-
-
-#             return Response(data, status=status.HTTP_200_OK)
-
-#         except Exception as e:
-            
-#             return Response(
-#                  {'message': f'Error interno del servidor: {str(e)}'}, 
-#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
-#             )
 class ReferencialesCargaGasto(APIView):
     @AutenticacionToken
     def get(self, request, *args, **kwargs):

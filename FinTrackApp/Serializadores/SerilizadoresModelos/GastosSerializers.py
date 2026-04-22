@@ -13,9 +13,10 @@ class InfoGastoReferencialSerializer(serializers.ModelSerializer):
     
     NombreCategoria = serializers.CharField(source='Categoria.NombreCategoria', read_only=True)
     NombreTipoGasto = serializers.CharField(source='TipoGasto.NombreTipoGasto', read_only=True)
+    MontoGasto = serializers.IntegerField(default=0, read_only=True)
     class Meta:
         model = Gastos
-        fields =  ['Id','NombreGasto','NombreCategoria','NombreTipoGasto']
+        fields =  ['Id','NombreGasto','MontoGasto','NombreCategoria','NombreTipoGasto']
 
 
 class RegistroGastoSerializer(serializers.ModelSerializer):
