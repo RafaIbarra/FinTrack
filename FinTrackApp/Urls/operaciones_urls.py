@@ -21,6 +21,7 @@ url_registros=[
 url_listados= [
     path('ListadoMovimientoGastosUser/',ListadoMovimientoGastosUser.as_view(),name="ListadoMovimientoGastosUser"), 
     path('ListadoMovimientoGastosMesUser/<int:anno>/<int:mes>/',ListadoMovimientoGastosMesUser.as_view(),name="ListadoMovimientoGastosUser"), 
+    path('DatosReferencialesCargosMovimiento/<int:id>/',DatosReferencialesCargosMovimiento.as_view(),name="DatosReferencialesCargosMovimiento"), 
     path('ListadoMovimientosIngresosUser/',ListadoMovimientosIngresosUser.as_view(),name="ListadoMovimientosIngresosUser"), 
     path('ListadoDetalleGastosUser/',ListadoDetalleGastosUser.as_view(),name="ListadoDetalleGastosUser"), 
 

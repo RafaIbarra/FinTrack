@@ -7,4 +7,10 @@ class InfoMovimientosGastosMediosPagosSerializer(serializers.ModelSerializer):
     class Meta:
         model = MovimientosGastosMediosPagos
         fields =  ['Id','MontoMedioPago','FechaRegistro','MedioPago','NombreMedioPago']
+
+class InfoRegistroMovimientoGastoMediosPagosSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = MovimientosGastosMediosPagos
+        fields =  ['Id','MontoMedioPago','MedioPago']
         

@@ -47,6 +47,7 @@ class RegistroMovimientoGastoUser(APIView):
             fecha_str = request.data.get('fecha', '')
             fecha_gasto = parse_date(fecha_str)
             empresa_id = int(request.data.get('empresa', 1))
+            
             if not Empresas.objects.filter(Id=empresa_id).exists():
                 return Response({'message': 'Seleccione una empresa valida'}, status=400)
 
@@ -216,15 +217,41 @@ class EditarMovimientoGastoUser(APIView):
             instancia_movimiento=movimiento_obj.first()
             fecha_str = request.data.get('fecha', '')
             fecha_gasto = parse_date(fecha_str)
+            empresa_id = int(request.data.get('empresa', 1))
             
             if fecha_gasto is None:
                 # Manejar error: formato incorrecto
                 return Response({'message': 'Formato de fecha inválido. Use YYYY-MM-DD'}, status=400)
             ################### PARA ACTUALIZACION DE GASTOS #####################################
-            gastos_json_str = request.data.get('gastos')
-            if not gastos_json_str:
+            gastos_raw = request.data.get('gastos')
+            
+            if not gastos_raw:
                 return Response({'message': 'Falta la key gastos'}, status=status.HTTP_400_BAD_REQUEST)
-            data_gastos = json.loads(gastos_json_str)
+            
+            if isinstance(gastos_raw, str):
+                data_gastos = json.loads(gastos_raw)
+            else:
+                data_gastos = gastos_raw  # ya es lista/dict
+            
+            if not data_gastos:
+                return Response({'message': 'Debe enviar los gastos a registrar'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            medios_raw = request.data.get('medios')
+            
+            if not medios_raw:
+                return Response({'message': 'Falta la key medios'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            if isinstance(medios_raw, str):
+                data_medios = json.loads(medios_raw)
+            else:
+                data_medios = medios_raw
+            
+            if not data_medios:
+                return Response({'message': 'Debe enviar los medios de pago a registrar'}, status=status.HTTP_400_BAD_REQUEST)
+
+            
+
+
 
             serializer_data_gastos = VerificacionGastoUsuarioSerializer(data=data_gastos, many=True, context={'usuario_id': id_usuario})
             if not serializer_data_gastos.is_valid():
@@ -273,10 +300,8 @@ class EditarMovimientoGastoUser(APIView):
             ids_a_eliminar = list(detalles_dict.keys())
 
             ################### PARA ACTUALIZACION DE MEDIOS #####################################
-            medios_json_str = request.data.get('medios')
-            if not medios_json_str:
-                return Response({'message': 'Falta la key medios'}, status=status.HTTP_400_BAD_REQUEST)
-            data_medios = json.loads(medios_json_str)
+            
+            
             
             serializer_data_medios = VerificacionMedioPagoUsuarioSerializer(data=data_medios, many=True, context={'usuario_id': id_usuario})
             if not serializer_data_medios.is_valid():
@@ -339,6 +364,7 @@ class EditarMovimientoGastoUser(APIView):
                 imagen_url_new=None
                 obs_img=""
                 fecha_actual=instancia_movimiento.FechaGasto
+                id_empresa_actual=instancia_movimiento.Empresa
                 if imagen_file:
                     if imagen_url:
                         resultado = supabase_storage.delete_gasto_image(imagen_url)
@@ -368,6 +394,9 @@ class EditarMovimientoGastoUser(APIView):
 
                 if fecha_actual != fecha_gasto:
                     movimiento_obj.update(FechaGasto=fecha_str,FechaRegistro=timezone.now())
+
+                if empresa_id != id_empresa_actual:
+                    movimiento_obj.update(Empresa=empresa_id,FechaRegistro=timezone.now())
                         
 
 

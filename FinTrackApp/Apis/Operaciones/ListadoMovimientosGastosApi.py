@@ -6,7 +6,7 @@ from django.db.models import Sum
 from FinTrackApp.Modelos.MovimientosGastos import MovimientosGastos
 from FinTrackApp.Modelos.MovimientosIngresos import MovimientosIngresos
 from FinTrackApp.Modelos.MovimientosGastosDetalles import MovimientosGastosDetalles
-from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer,InfoMovimientosGastosDetallesSerializer
+from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer,InfoMovimientosGastosDetallesSerializer,InfoReferencialesCargaMovimientoGastoSerializer
 
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 class ListadoMovimientoGastosUser(APIView):
@@ -117,10 +117,41 @@ class ListadoDetalleGastosUser(APIView):
             total = MovimientosGastosDetalles.objects.filter(
                 MovimientoGasto__Usuario_id=id_usuario
             ).aggregate(total=Sum('MontoGasto'))['total']
-            print(f'el total es {total}')
+            
             detail_serializer = InfoMovimientosGastosDetallesSerializer(detalles_gastos_usuario,many=True)
             return Response(detail_serializer.data, status=status.HTTP_200_OK)
 
+        except Exception as e:
+            
+            return Response(
+                 {'message': f'Error interno del servidor: {str(e)}'}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        
+class DatosReferencialesCargosMovimiento(APIView):
+
+    @AutenticacionToken
+    def get(self, request,id, *args, **kwargs):
+        try:
+            user_info = getattr(request, 'user_info', {})
+            user_login = user_info["username"]
+            id_usuario=user_info.get('usuario_id')
+
+            #mes=10
+            movimientos_gastos_usuario = MovimientosGastos.objects.filter(Id=id)
+            
+            data_detalle=[]
+            
+            
+            
+
+            if  movimientos_gastos_usuario.exists():
+            
+                detail_serializer = InfoReferencialesCargaMovimientoGastoSerializer(movimientos_gastos_usuario,many=True)
+                
+                return Response(detail_serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({}, status=status.HTTP_200_OK)
         except Exception as e:
             
             return Response(
