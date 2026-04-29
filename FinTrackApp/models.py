@@ -18,7 +18,7 @@ from FinTrackApp.Modelos.MovimientosGastosMediosPagos import MovimientosGastosMe
 
 
 from FinTrackApp.Modelos.MovimientosIngresos import MovimientosIngresos
-from FinTrackApp.Modelos.MovimientosIngresosDetalles import MovimientosIngresosDetalles
+
 
 
 from FinTrackApp.Modelos.Empresas import Empresas

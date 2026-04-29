@@ -1,5 +1,7 @@
 from django.db import models
 from FinTrackApp.Modelos.Usuarios import Usuarios
+from FinTrackApp.Modelos.Ingresos import Ingresos
+from FinTrackApp.Modelos.Empresas import Empresas
 
 
 
@@ -9,6 +11,21 @@ class MovimientosIngresos(models.Model):
     
     Id = models.AutoField(primary_key=True, help_text="Campo de identificacion unica autogenerado")
     FechaIngreso=models.DateField("fecha Operacion", help_text="Fecha de registro del ingreso")
+    IngresoUsuario=models.ForeignKey(
+        Ingresos, 
+        db_column='IngresoId',
+        on_delete=models.PROTECT,
+        related_name='movimiento_ingreso_seleccionado'
+    )
+    Empresa = models.ForeignKey(
+        Empresas, 
+        db_column='EmpresaId',
+        on_delete=models.PROTECT,
+        related_name='movimiento_ingreso_empresa',
+        default=1
+
+    )
+    MontoIngreso=models.IntegerField()
     Observacion=models.CharField(max_length=200,blank=True, help_text="Alguna observacion sobre el ingreso")
     Usuario = models.ForeignKey(
         Usuarios, 

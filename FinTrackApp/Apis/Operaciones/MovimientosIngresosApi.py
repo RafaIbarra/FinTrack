@@ -12,7 +12,9 @@ from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 
 
 from FinTrackApp.Modelos.MovimientosIngresos import MovimientosIngresos
-from FinTrackApp.Modelos.MovimientosIngresosDetalles import MovimientosIngresosDetalles
+from FinTrackApp.Modelos.Ingresos import Ingresos
+from FinTrackApp.Modelos.Empresas import Empresas
+
 
 from FinTrackApp.Serializadores.SerializadoresValidaciones.MovimientosIngresosValSerializers import VerificacionIngresoUsuarioSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosIngresosSerializers import InfoMovimientoIngresoSerializer
@@ -31,33 +33,22 @@ class RegistroMovimientoIngresoUser(APIView):
             observacion = request.data.get('observacion', '').strip()
             fecha_str = request.data.get('fecha', '')
             fecha_ingreso = parse_date(fecha_str)
-
+            empresa=int(request.data.get('empresa'))
+            id_ingreso=int(request.data.get('codingreso'))
+            monto_ingreso=int(request.data.get('montoingreso'))
             if fecha_ingreso is None:
                 # Manejar error: formato incorrecto
                 return Response({'message': 'Formato de fecha inválido. Use YYYY-MM-DD'}, status=400)
             
-            ingresos_json_str = request.data.get('ingresos')
-            if not ingresos_json_str:
-                return Response({'message': 'Falta la key ingresos'}, status=status.HTTP_400_BAD_REQUEST)
+            if not Ingresos.objects.filter(Id=id_ingreso,Usuario_id=id_usuario).exists():
+                return Response({'message': 'Seleccione un ingreso valido'}, status=400)
             
-            data_ingresos = json.loads(ingresos_json_str)
-            if not data_ingresos:
-                return Response({'message': 'Debe enviar los ingresos a registrar'}, status=status.HTTP_400_BAD_REQUEST)
-                
-            serializer = VerificacionIngresoUsuarioSerializer(data=data_ingresos, many=True, context={'usuario_id': id_usuario})
-            if not serializer.is_valid():
-                errores_por_item = serializer.errors  # Lista de dicts, uno por gasto
-                mensajes = []
-                
-                for idx, errores_item in enumerate(errores_por_item):
-                    if errores_item:  # Si este gasto tiene errores
-                        for campo, lista in errores_item.items():
-                            for mensaje in lista:
-                                # Puedes incluir el índice (opcional)
-                                mensajes.append(f"Ingreso #{idx+1} - {campo}: {mensaje}")
-                
-                error_concatenado = "; ".join(mensajes)
-                return Response({'message': error_concatenado}, status=status.HTTP_400_BAD_REQUEST)
+            if not Empresas.objects.filter(Id=empresa).exists():
+                return Response({'message': 'Seleccione una empresa valida'}, status=400)
+            
+            if monto_ingreso<1:
+                return Response({'message': 'Seleccione un monto valido'}, status=400)
+            
             
             
             
@@ -88,6 +79,9 @@ class RegistroMovimientoIngresoUser(APIView):
                     mov_ingreso = MovimientosIngresos.objects.create(
                         Observacion=observacion,
                         Usuario_id=id_usuario,
+                        IngresoUsuario_id=id_ingreso,
+                        MontoIngreso=monto_ingreso,
+                        Empresa_id=empresa,
                         UrlImg=imagen_url,
                         ObsImg=obs_img,
                         FechaIngreso=fecha_str,
@@ -95,17 +89,8 @@ class RegistroMovimientoIngresoUser(APIView):
                         
                         
                     )
-                    MovimientosIngresosDetalles.objects.bulk_create([
-                            MovimientosIngresosDetalles(
-                                MovimientoIngreso_id= mov_ingreso.Id,
-                                IngresoUsuario_id=ingreso['idingreso'],
-                                MontoIngreso=ingreso['monto']
-                            )
-                            for ingreso in data_ingresos
-                        ])
                     
-                    movimiento_registrado = MovimientosIngresos.objects.filter(Id=mov_ingreso.Id).annotate(
-                        TotalMovimiento=Sum('movimiento_ingreso_cabecera_detalle__MontoIngreso')).first()
+                    movimiento_registrado = MovimientosIngresos.objects.filter(Id=mov_ingreso.Id).first()
                     
                     detail_serializer = InfoMovimientoIngresoSerializer(movimiento_registrado)
                     return Response(detail_serializer.data, status=status.HTTP_201_CREATED)
@@ -170,37 +155,7 @@ class EditarMovimientoIngresoUser(APIView):
                 error_concatenado = "; ".join(mensajes)
                 return Response({'message': error_concatenado}, status=status.HTTP_400_BAD_REQUEST)
             
-            ingresos_validados = serializer_data_ingresos.validated_data
-
-            movimiento_detalle_obj=MovimientosIngresosDetalles.objects.filter(MovimientoIngreso_id=idmovimiento)
-            detalles_dict = {detalle.IngresoUsuario_id: detalle for detalle in movimiento_detalle_obj}
-            detalles_a_actualizar = []
-            detalles_a_crear = []
-            ids_a_eliminar = []
             
-            # Recorrer los gastos recibidos
-            for ingreso in ingresos_validados:
-                idingreso = ingreso['idingreso']
-                monto = ingreso['monto']
-                if idingreso in detalles_dict:
-                    # Actualizar monto del detalle existente
-                    detalle = detalles_dict[idingreso]
-                    detalle.MontoIngreso = monto
-                    detalles_a_actualizar.append(detalle)
-                    # Eliminar del diccionario para saber cuáles sobran después
-                    del detalles_dict[idingreso]
-                else:
-                    # Crear nuevo detalle
-                    detalles_a_crear.append(
-                        MovimientosIngresosDetalles(
-                            MovimientoIngreso_id=idmovimiento,
-                            IngresoUsuario_id=idingreso,
-                            MontoIngreso=monto
-                        )
-                    )
-
-            # Los detalles que quedan en detalles_dict no están en la data → deben eliminarse
-            ids_a_eliminar = list(detalles_dict.keys())
             
             with transaction.atomic():
                 imagen_url=instancia_movimiento.UrlImg
@@ -240,24 +195,7 @@ class EditarMovimientoIngresoUser(APIView):
                     movimiento_obj.update(FechaIngreso=fecha_str,FechaRegistro=timezone.now())
                 
 
-                ##################### DETALLE GASTOS ########################
-                # 1. Eliminar los detalles sobrantes
-                if ids_a_eliminar:
-                    MovimientosIngresosDetalles.objects.filter(
-                        MovimientoIngreso_id=idmovimiento,
-                        IngresoUsuario_id__in=ids_a_eliminar
-                    ).delete()
-
-                # 2. Actualizar los detalles existentes (bulk_update)
-                if detalles_a_actualizar:
-                 
-                    MovimientosIngresosDetalles.objects.bulk_update(
-                        detalles_a_actualizar, ['MontoIngreso']
-                    )
-                    
-                # 3. Crear los nuevos detalles (bulk_create)
-                if detalles_a_crear:
-                    MovimientosIngresosDetalles.objects.bulk_create(detalles_a_crear)
+                #
 
                 movimiento_obj_act= MovimientosIngresos.objects.filter(Id=idmovimiento).annotate(
                         TotalMovimiento=Sum('movimiento_ingreso_cabecera_detalle__MontoIngreso')).first()

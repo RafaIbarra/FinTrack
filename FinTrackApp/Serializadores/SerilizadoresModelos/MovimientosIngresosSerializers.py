@@ -1,19 +1,17 @@
 from rest_framework import serializers
 from FinTrackApp.Modelos.MovimientosIngresos import MovimientosIngresos
-from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosIngresosDetallesSerializers import InfoMovimientosIngresosDetallesSerializer
+
 
 
 class InfoMovimientoIngresoSerializer(serializers.ModelSerializer):
     FechaIngreso = serializers.DateField(format="%d/%m/%Y")
     FechaRegistro= serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
     NombreUsuario=serializers.CharField(source='Usuario.UserName', read_only=True)
-    DetalleIngresos = InfoMovimientosIngresosDetallesSerializer(
-        source='movimiento_ingreso_cabecera_detalle',  # related_name definido en el FK
-        many=True,
-        read_only=True
-    )
-    
-    TotalMovimiento = serializers.IntegerField(read_only=True) 
+    NombreIngreso=serializers.CharField(source='IngresoUsuario.NombreIngreso', read_only=True)
+    NombreEmpresa=serializers.CharField(source='Empresa.NombreEmpresa', read_only=True)
+    LogoEmpresa=serializers.CharField(source='Empresa.UrlImg', read_only=True)
+
     class Meta:
         model = MovimientosIngresos
-        fields =  ['Id','FechaIngreso','Observacion','Usuario','NombreUsuario','UrlImg','ObsImg','TotalMovimiento','FechaRegistro','DetalleIngresos']
+        fields =  ['Id','FechaIngreso','IngresoUsuario','NombreIngreso','Empresa','NombreEmpresa','LogoEmpresa','MontoIngreso',
+                   'Observacion','Usuario','NombreUsuario','UrlImg','ObsImg','FechaRegistro']
