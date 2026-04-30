@@ -32,6 +32,8 @@ url_listados_mov_ingresos= [
     
     path('ListadoMovimientosIngresosUser/',ListadoMovimientosIngresosUser.as_view(),name="ListadoMovimientosIngresosUser"), 
     path('ListadoMovimientosIngresosMesUser/<int:anno>/<int:mes>/',ListadoMovimientosIngresosMesUser.as_view(),name="ListadoMovimientoGastosUser"), 
+    path('ReferencialesCargaIngreso/',ReferencialesCargaIngreso.as_view(),name="ReferencialesCargaIngreso"), 
+    path('DatosReferencialesCargaMovimientoIngreso/<int:id>/',DatosReferencialesCargaMovimientoIngreso.as_view(),name="DatosReferencialesCargaMovimientoIngreso"), 
     ]
 
 urlpatterns = url_registros_mov_gastos + url_listados_mov_gastos + url_registros_mov_ingresos +url_listados_mov_ingresos

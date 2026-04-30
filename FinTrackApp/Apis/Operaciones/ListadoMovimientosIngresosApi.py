@@ -4,7 +4,7 @@ from rest_framework import status
 from django.db.models import Sum
 
 from FinTrackApp.Modelos.MovimientosIngresos import MovimientosIngresos
-from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosIngresosSerializers import InfoMovimientoIngresoSerializer
+from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosIngresosSerializers import InfoMovimientoIngresoSerializer,InfoReferencialesCargaMovimientoIngresoSerializer
 
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 
@@ -76,6 +76,33 @@ class ListadoMovimientosIngresosMesUser(APIView):
             }
             return Response(data, status=status.HTTP_200_OK)
 
+        except Exception as e:
+            
+            return Response(
+                 {'message': f'Error interno del servidor: {str(e)}'}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        
+class DatosReferencialesCargaMovimientoIngreso(APIView):
+
+    @AutenticacionToken
+    def get(self, request,id, *args, **kwargs):
+        try:
+            user_info = getattr(request, 'user_info', {})
+            user_login = user_info["username"]
+            id_usuario=user_info.get('usuario_id')
+
+            #mes=10
+            movimientos_gastos_usuario = MovimientosIngresos.objects.filter(Id=id)
+            
+    
+            if  movimientos_gastos_usuario.exists():
+            
+                detail_serializer = InfoReferencialesCargaMovimientoIngresoSerializer(movimientos_gastos_usuario,many=True)
+                
+                return Response(detail_serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({}, status=status.HTTP_200_OK)
         except Exception as e:
             
             return Response(

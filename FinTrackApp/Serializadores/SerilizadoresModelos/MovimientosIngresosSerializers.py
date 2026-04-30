@@ -15,3 +15,15 @@ class InfoMovimientoIngresoSerializer(serializers.ModelSerializer):
         model = MovimientosIngresos
         fields =  ['Id','FechaIngreso','IngresoUsuario','NombreIngreso','Empresa','NombreEmpresa','LogoEmpresa','MontoIngreso',
                    'Observacion','Usuario','NombreUsuario','UrlImg','ObsImg','FechaRegistro']
+        
+class InfoReferencialesCargaMovimientoIngresoSerializer(serializers.ModelSerializer):
+    
+    FechaIngreso = serializers.DateField()
+    FechaRegistro= serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
+    
+   
+    
+    class Meta:
+        model = MovimientosIngresos
+        fields =  ['Id','FechaIngreso','IngresoUsuario','MontoIngreso','Empresa','UrlImg',
+                   'FechaRegistro']
