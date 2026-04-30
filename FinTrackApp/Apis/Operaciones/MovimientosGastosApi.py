@@ -120,6 +120,7 @@ class RegistroMovimientoGastoUser(APIView):
 
             imagen_url = None
             imagen_file = request.FILES.get('imagen')
+            
             obs_img=""
             if imagen_file:
                 
