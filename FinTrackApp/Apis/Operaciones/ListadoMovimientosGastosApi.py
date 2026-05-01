@@ -9,6 +9,8 @@ from FinTrackApp.Modelos.MovimientosGastosDetalles import MovimientosGastosDetal
 from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer,InfoMovimientosGastosDetallesSerializer,InfoReferencialesCargaMovimientoGastoSerializer
 
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
+
+
 class ListadoMovimientoGastosUser(APIView):
 
     @AutenticacionToken

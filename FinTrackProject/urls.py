@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 #from FinTrackApp.Urls.referenciales_urls
 #from FinTrackApp.Urls.operaciones_urls
 # from FinTrackApp.Urls.consultas_IA
+# from FinTrackApp.Urls.informes_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/admin/', include('FinTrackApp.Urls.admin_urls')),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('api/ref/', include('FinTrackApp.Urls.referenciales_urls')),
     path('api/operaciones/', include('FinTrackApp.Urls.operaciones_urls')),
     path('api/IA/', include('FinTrackApp.Urls.consultas_IA')),
+    path('api/informes/', include('FinTrackApp.Urls.informes_urls')),
 ]
 
 if settings.DEBUG:
