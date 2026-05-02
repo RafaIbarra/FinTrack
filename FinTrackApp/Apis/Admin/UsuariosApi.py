@@ -29,6 +29,7 @@ class RegistroUsuario(APIView):
         try:
             # ✅ Esto ya valida: campos requeridos, tipos, max_length Y campos extra
             input_serializer =RegistroUsuarioInputSerializer(data=request.data)
+            
             if not input_serializer.is_valid():
                 return Response(
                     {'message': input_serializer.errors}, 
@@ -36,6 +37,7 @@ class RegistroUsuario(APIView):
                 )
             
             validated_data = input_serializer.validated_data
+           
             
             nombre = validated_data['nombre'].strip()
             apellido = validated_data['apellido'].strip()
@@ -86,7 +88,8 @@ class RegistroUsuario(APIView):
                    
                 )
             #UNA VEZ CREADO EL USUARIO INTENTA HACER EL LOGUEO 
-            loguedo,data,mensaje=registrar_login(user_reg,password,ip_peticion,dispositivo)
+            loguedo,data,mensaje,objeto_usuario=registrar_login(user_reg,password,ip_peticion,dispositivo)
+            
             
             valores_logueo={
                 'Registro':'Registro existoso usuario',
