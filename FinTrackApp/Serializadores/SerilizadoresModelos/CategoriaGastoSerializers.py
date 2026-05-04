@@ -1,15 +1,8 @@
 from rest_framework import serializers
 from django.core.exceptions import ObjectDoesNotExist
 from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
+from FinTrackApp.Modelos.Gastos import Gastos
 
-
-class InfoCategoriaGastoSerializer(serializers.ModelSerializer):
-    FechaRegistro= serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
-    usuario_nombre = serializers.CharField(source='Usuario.NombreUsuario', read_only=True)
-
-    class Meta:
-        model = CategoriasGastos
-        fields = ['Id','NombreCategoria','Observacion','Usuario','FechaRegistro','usuario_nombre']
 
 
 class RegistroCategoriaGastoSerializer(serializers.ModelSerializer):
@@ -39,3 +32,52 @@ class RegistroCategoriaGastoSerializer(serializers.ModelSerializer):
                 )
 
         return data
+
+
+class ConceptosGastosCategoriaSerializer(serializers.ModelSerializer):
+    TotalConcepto = serializers.IntegerField ()
+    CantidadRegistrosConcepto = serializers.IntegerField(read_only=True)
+    PorcentajeConcepto = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Gastos
+        fields = ['Id', 'NombreGasto', 'TotalConcepto', 
+                  'CantidadRegistrosConcepto', 'PorcentajeConcepto']
+
+    def get_PorcentajeConcepto(self, obj):
+        total_categoria = self.context.get('total_categoria') or 0
+        if total_categoria and obj.TotalConcepto:
+            return round((obj.TotalConcepto / total_categoria) * 100, 2)
+        return 0
+    
+
+class InfoCategoriaGastoSerializer(serializers.ModelSerializer):
+    FechaRegistro = serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
+    usuario_nombre = serializers.CharField(
+        source='Usuario.NombreUsuario', read_only=True
+    )
+    TotalGastoCategoria = serializers.IntegerField ()
+    CantidadGastosCategoria = serializers.IntegerField(read_only=True)
+    CantidadConceptoGastos = serializers.IntegerField(read_only=True)
+    DetalleGastos = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CategoriasGastos
+        fields = [
+            'Id', 'NombreCategoria', 'Observacion', 'Usuario',
+            'FechaRegistro', 'usuario_nombre',
+            'TotalGastoCategoria', 'CantidadGastosCategoria',
+            'CantidadConceptoGastos', 'DetalleGastos'
+        ]
+
+    def get_DetalleGastos(self, obj):
+        # .all() usa los objetos precargados por Prefetch (sin N+1)
+        gastos = obj.categoria_gasto_usuario.all()
+        return ConceptosGastosCategoriaSerializer(
+            gastos,
+            many=True,
+            context={'total_categoria': obj.TotalGastoCategoria}
+        ).data
+
+
+

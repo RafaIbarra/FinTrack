@@ -1,9 +1,15 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from django.db.models import Sum, Count, Value, IntegerField, Q,Prefetch,DecimalField
+from django.db.models.functions import Coalesce
 
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
+
 from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
+from FinTrackApp.Modelos.Gastos import Gastos
+
+
 from FinTrackApp.Serializadores.SerilizadoresModelos.CategoriaGastoSerializers import RegistroCategoriaGastoSerializer,InfoCategoriaGastoSerializer
 
 class ListadoCategoriasUser(APIView):
@@ -13,14 +19,73 @@ class ListadoCategoriasUser(APIView):
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
             id_usuario=user_info.get('usuario_id')
-            categorias_usuario=CategoriasGastos.objects.filter(Usuario_id=id_usuario)
-            if not categorias_usuario.exists():
-                return Response(
-                    {'message': f'El usuario no tiene categorias registradas.'},
-                    status=status.HTTP_200_OK
+             # Query de gastos con agregados (para el Prefetch)
+            gastos_qs = Gastos.objects.filter(
+                Usuario_id=id_usuario
+            ).annotate(
+                TotalConcepto=Coalesce(
+                    Sum(
+                        'movimiento_gasto_seleccionado__MontoGasto',
+                        filter=Q(
+                            movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                        ),
+                        output_field=IntegerField()
+                    ),
+                    Value(0, output_field=IntegerField())
+                ),
+                CantidadRegistrosConcepto=Count(
+                    'movimiento_gasto_seleccionado',
+                    filter=Q(
+                        movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                    )
                 )
-            detail_serializer = InfoCategoriaGastoSerializer(categorias_usuario,many=True)
-            return Response(detail_serializer.data, status=status.HTTP_200_OK)
+            )
+
+            # Categorías con agregados y prefetch
+            categorias = CategoriasGastos.objects.filter(
+                Usuario_id=id_usuario
+            ).annotate(
+                TotalGastoCategoria=Coalesce(
+                    Sum(
+                        'categoria_gasto_usuario__movimiento_gasto_seleccionado__MontoGasto',
+                        filter=Q(
+                            categoria_gasto_usuario__movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                        ),
+                        output_field=IntegerField()
+                    ),
+                    Value(0, output_field=IntegerField())
+                ),
+                CantidadGastosCategoria=Count(
+                    'categoria_gasto_usuario__movimiento_gasto_seleccionado',
+                    filter=Q(
+                        categoria_gasto_usuario__movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                    )
+                ),
+                CantidadConceptoGastos=Count(
+                    'categoria_gasto_usuario', 
+                    distinct=True
+                )
+            ).prefetch_related(
+                Prefetch('categoria_gasto_usuario', queryset=gastos_qs)
+            )
+            
+             
+            detail_serializer = InfoCategoriaGastoSerializer(categorias,many=True)
+            detalle = detail_serializer.data
+            total_general = sum(
+                categoria.get('TotalGastoCategoria', 0) or 0 
+                for categoria in detalle
+            )
+            cantidad_categorias = len(detalle)
+            
+            data={
+                'detalle':detalle ,
+                'resumen': {
+                    'TotalGeneral': total_general,
+                    'CantidadCategorias': cantidad_categorias,
+                }
+            }
+            return Response(data, status=status.HTTP_200_OK)
         except Exception as e:
             
             return Response(
