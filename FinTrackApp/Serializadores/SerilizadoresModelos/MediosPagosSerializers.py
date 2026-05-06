@@ -5,10 +5,16 @@ from FinTrackApp.Modelos.MediosPagos import MediosPagos
 class InfoMedioPagoSerializer(serializers.ModelSerializer):
     FechaRegistro= serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
     usuario_nombre = serializers.CharField(source='Usuario.NombreUsuario', read_only=True)
+    TotalPagoMedio = serializers.IntegerField ()
+    CantidadPagoMedio = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = MediosPagos
-        fields = ['Id','NombreMedioPago','Observacion','Usuario','FechaRegistro','usuario_nombre']
+        fields = ['Id','NombreMedioPago','Observacion','Usuario',
+                  'FechaRegistro','usuario_nombre',
+                  'TotalPagoMedio'
+                  ,'CantidadPagoMedio'
+                  ]
 
 class InfoMedioPagoReferencialSerializer(serializers.ModelSerializer):
     

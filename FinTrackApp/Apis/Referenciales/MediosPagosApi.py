@@ -1,26 +1,80 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-
+from django.db.models import Sum, Count, Value, IntegerField, Q,Prefetch
+from django.db.models.functions import Coalesce
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 from FinTrackApp.Modelos.MediosPagos import MediosPagos
 from FinTrackApp.Serializadores.SerilizadoresModelos.MediosPagosSerializers import RegistroMedioPagoSerializer,InfoMedioPagoSerializer
 
 class ListadoMedioPagosUser(APIView):
     @AutenticacionToken
-    def get(self, request, *args, **kwargs):
+    def get(self, request, id_reg,*args, **kwargs):
         try:
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
             id_usuario=user_info.get('usuario_id')
-            medios_pago_obj=MediosPagos.objects.filter(Usuario_id=id_usuario)
+            if id_reg==0:
+                medios_pago_obj=MediosPagos.objects.filter(Usuario_id=id_usuario).annotate(
+                    TotalPagoMedio=Coalesce(
+                        Sum(
+                            'movimiento_gasto_medio_pago__MontoMedioPago',
+                            filter=Q(
+                                movimiento_gasto_medio_pago__MovimientoGasto__Usuario_id=id_usuario
+                            ),
+                            output_field=IntegerField()
+                        ),
+                        Value(0, output_field=IntegerField())
+                    ),
+                    CantidadPagoMedio=Count(
+                        'movimiento_gasto_medio_pago',
+                        filter=Q(
+                            movimiento_gasto_medio_pago__MovimientoGasto__Usuario_id=id_usuario
+                        )
+                    )
+                )
+            else:
+                medios_pago_obj=MediosPagos.objects.filter(Usuario_id=id_usuario,Id=id_reg).annotate(
+                    TotalPagoMedio=Coalesce(
+                        Sum(
+                            'movimiento_gasto_medio_pago__MontoMedioPago',
+                            filter=Q(
+                                movimiento_gasto_medio_pago__MovimientoGasto__Usuario_id=id_usuario
+                            ),
+                            output_field=IntegerField()
+                        ),
+                        Value(0, output_field=IntegerField())
+                    ),
+                    CantidadPagoMedio=Count(
+                        'movimiento_gasto_medio_pago',
+                        filter=Q(
+                            movimiento_gasto_medio_pago__MovimientoGasto__Usuario_id=id_usuario
+                        )
+                    )
+                )
+
             if not medios_pago_obj.exists():
                 return Response(
                     {'message': f'El usuario no tiene medios de pagos registradss.'},
                     status=status.HTTP_200_OK
                 )
             detail_serializer = InfoMedioPagoSerializer(medios_pago_obj,many=True)
-            return Response(detail_serializer.data, status=status.HTTP_200_OK)
+            detalle = detail_serializer.data
+            total_general = sum(
+                medio.get('TotalPagoMedio', 0) or 0 
+                for medio in detalle
+            )
+            cantidad_medios = len(detalle)
+            
+            data={
+                'detalle':detalle ,
+                'resumen': {
+                    'TotalGeneral': total_general,
+                    'CantidadMediosPagos': cantidad_medios,
+                }
+            }
+            return Response(data, status=status.HTTP_200_OK)
+            
         except Exception as e:
             
             return Response(
@@ -69,8 +123,8 @@ class OperacionesMediosPagosUser(APIView):
                 }, status=status.HTTP_400_BAD_REQUEST)
             
             categoria = serializer.save()
-            detail_serializer = InfoMedioPagoSerializer(categoria)
-            return Response(detail_serializer.data, status=status.HTTP_201_CREATED)
+            
+            return Response({'message':'Medio Pago Registrado'}, status=status.HTTP_201_CREATED)
         except Exception as e:
             
             return Response(
@@ -124,8 +178,8 @@ class OperacionesMediosPagosUser(APIView):
                 }, status=status.HTTP_400_BAD_REQUEST)
             
             medio_pago = serializer.save()
-            detail_serializer = InfoMedioPagoSerializer(medio_pago)
-            return Response(detail_serializer.data, status=status.HTTP_201_CREATED)
+            
+            return Response({'message':'Medio Pago actualizado'}, status=status.HTTP_200_OK)
         except Exception as e:
             
             return Response(

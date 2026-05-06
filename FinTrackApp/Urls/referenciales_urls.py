@@ -16,7 +16,7 @@ urlpatterns = [
 
     path('OperacionesMediosPagosUser/',OperacionesMediosPagosUser.as_view(),name="v"), 
     path('OperacionesMediosPagosUser/<int:idmedio>/',OperacionesMediosPagosUser.as_view(),name="OperacionesMediosPagosUser"),     
-    path('ListadoMedioPagosUser/',ListadoMedioPagosUser.as_view(),name="ListadoMedioPagosUser"), 
+    path('ListadoMedioPagosUser/<int:id_reg>/',ListadoMedioPagosUser.as_view(),name="ListadoMedioPagosUser"), 
 
     path('OperacionesIngresoUser/',OperacionesIngresoUser.as_view(),name="OperacionesIngresoUser"), 
     path('OperacionesIngresoUser/<int:idingreso>/',OperacionesIngresoUser.as_view(),name="OperacionesIngresoUser"),     
