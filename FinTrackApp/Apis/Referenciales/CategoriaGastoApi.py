@@ -14,12 +14,13 @@ from FinTrackApp.Serializadores.SerilizadoresModelos.CategoriaGastoSerializers i
 
 class ListadoCategoriasUser(APIView):
     @AutenticacionToken
-    def get(self, request, *args, **kwargs):
+    def get(self, request, id_reg,*args, **kwargs):
         try:
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
             id_usuario=user_info.get('usuario_id')
              # Query de gastos con agregados (para el Prefetch)
+            
             gastos_qs = Gastos.objects.filter(
                 Usuario_id=id_usuario
             ).annotate(
@@ -40,34 +41,63 @@ class ListadoCategoriasUser(APIView):
                     )
                 )
             )
+            
 
             # Categorías con agregados y prefetch
-            categorias = CategoriasGastos.objects.filter(
-                Usuario_id=id_usuario
-            ).annotate(
-                TotalGastoCategoria=Coalesce(
-                    Sum(
-                        'categoria_gasto_usuario__movimiento_gasto_seleccionado__MontoGasto',
+            if id_reg==0:
+                categorias = CategoriasGastos.objects.filter(
+                    Usuario_id=id_usuario
+                ).annotate(
+                    TotalGastoCategoria=Coalesce(
+                        Sum(
+                            'categoria_gasto_usuario__movimiento_gasto_seleccionado__MontoGasto',
+                            filter=Q(
+                                categoria_gasto_usuario__movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                            ),
+                            output_field=IntegerField()
+                        ),
+                        Value(0, output_field=IntegerField())
+                    ),
+                    CantidadGastosCategoria=Count(
+                        'categoria_gasto_usuario__movimiento_gasto_seleccionado',
                         filter=Q(
                             categoria_gasto_usuario__movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
-                        ),
-                        output_field=IntegerField()
+                        )
                     ),
-                    Value(0, output_field=IntegerField())
-                ),
-                CantidadGastosCategoria=Count(
-                    'categoria_gasto_usuario__movimiento_gasto_seleccionado',
-                    filter=Q(
-                        categoria_gasto_usuario__movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                    CantidadConceptoGastos=Count(
+                        'categoria_gasto_usuario', 
+                        distinct=True
                     )
-                ),
-                CantidadConceptoGastos=Count(
-                    'categoria_gasto_usuario', 
-                    distinct=True
+                ).prefetch_related(
+                    Prefetch('categoria_gasto_usuario', queryset=gastos_qs)
                 )
-            ).prefetch_related(
-                Prefetch('categoria_gasto_usuario', queryset=gastos_qs)
-            )
+            else:
+                categorias = CategoriasGastos.objects.filter(
+                    Usuario_id=id_usuario,Id=id_reg
+                ).annotate(
+                    TotalGastoCategoria=Coalesce(
+                        Sum(
+                            'categoria_gasto_usuario__movimiento_gasto_seleccionado__MontoGasto',
+                            filter=Q(
+                                categoria_gasto_usuario__movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                            ),
+                            output_field=IntegerField()
+                        ),
+                        Value(0, output_field=IntegerField())
+                    ),
+                    CantidadGastosCategoria=Count(
+                        'categoria_gasto_usuario__movimiento_gasto_seleccionado',
+                        filter=Q(
+                            categoria_gasto_usuario__movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                        )
+                    ),
+                    CantidadConceptoGastos=Count(
+                        'categoria_gasto_usuario', 
+                        distinct=True
+                    )
+                ).prefetch_related(
+                    Prefetch('categoria_gasto_usuario', queryset=gastos_qs)
+                )
             
              
             detail_serializer = InfoCategoriaGastoSerializer(categorias,many=True)

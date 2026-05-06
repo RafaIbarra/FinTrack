@@ -9,7 +9,7 @@ from FinTrackApp.Apis.Referenciales.EmpresasApi import *
 urlpatterns = [
     path('OperacionesCategoriasGastosUser/',OperacionesCategoriasGastosUser.as_view(),name="OperacionesCategoriasGastosUser"), 
     path('OperacionesCategoriasGastosUser/<int:id_reg>/',OperacionesCategoriasGastosUser.as_view(),name="OperacionesCategoriasGastosUser"),     
-    path('ListadoCategoriasUser/',ListadoCategoriasUser.as_view(),name="ListadoCategoriasUser"),     
+    path('ListadoCategoriasUser/<int:id_reg>/',ListadoCategoriasUser.as_view(),name="ListadoCategoriasUser"),     
     path('OperacionesGastosUser/',OperacionesGastosUser.as_view(),name="OperacionesGastosUser"), 
     path('OperacionesGastosUser/<int:idgasto>/',OperacionesGastosUser.as_view(),name="OperacionesGastosUser"), 
     path('ListarGastosUser/',ListarGastosUser.as_view(),name="ListarGastosUser"), 
