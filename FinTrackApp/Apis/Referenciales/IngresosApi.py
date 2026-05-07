@@ -1,6 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from django.db.models import Sum, Count, Value, IntegerField, Q
+from django.db.models.functions import Coalesce
 
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 
@@ -35,6 +37,7 @@ class OperacionesIngresoUser(APIView):
               'Usuario':id_usuario,
               'TipoIngreso':id_tipo_ingreso
             }
+            
             serializer = RegistroIngresoSerializer(data=data_registrar)
             if not serializer.is_valid():
                 # Obtener todos los mensajes de error
@@ -58,8 +61,8 @@ class OperacionesIngresoUser(APIView):
                 }, status=status.HTTP_400_BAD_REQUEST)
             
             ingreso = serializer.save()
-            detail_serializer = InfoIngresoSerializer(ingreso)
-            return Response(detail_serializer.data, status=status.HTTP_201_CREATED)
+            
+            return Response({'message':'Registro correcto'}, status=status.HTTP_201_CREATED)
 
         except Exception as e:
             
@@ -128,8 +131,8 @@ class OperacionesIngresoUser(APIView):
                 }, status=status.HTTP_400_BAD_REQUEST)
             
             ingreso = serializer.save()
-            detail_serializer = InfoIngresoSerializer(ingreso)
-            return Response(detail_serializer.data, status=status.HTTP_201_CREATED)
+            
+            return Response({'message':'Registro actualizado'}, status=status.HTTP_200_OK)
 
         except Exception as e:
             
@@ -152,7 +155,7 @@ class OperacionesIngresoUser(APIView):
                 )
             instancia_ingreso=ingreso_obj.first()
             instancia_ingreso.delete()
-            return Response({'message':f'El ingreso con id {idingreso} ha sido eliminada'}, status=status.HTTP_201_CREATED)
+            return Response({'message':f'El ingreso con id {idingreso} ha sido eliminada'}, status=status.HTTP_200_OK)
 
         except Exception as e:
             
@@ -167,19 +170,72 @@ class OperacionesIngresoUser(APIView):
 class ListarIngresosUser(APIView):
 
     @AutenticacionToken
-    def get(self, request, *args, **kwargs):
+    def get(self, request,id_reg, *args, **kwargs):
         try:
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
             id_usuario=user_info.get('usuario_id')
-            ingresos_usuario=Ingresos.objects.filter(Usuario_id=id_usuario)
-            if not ingresos_usuario.exists():
-                return Response(
-                    {'message': f'El usuario no tiene categorias registradas.'},
-                    status=status.HTTP_200_OK
+            if id_reg==0:
+                ingresos_usuario=Ingresos.objects.filter(Usuario_id=id_usuario).annotate(
+                    TotalIngreso=Coalesce(
+                        Sum(
+                            'movimiento_ingreso_seleccionado__MontoIngreso',
+                            filter=Q(
+                                movimiento_ingreso_seleccionado__Usuario_id=id_usuario
+                            ),
+                            output_field=IntegerField()
+                        ),
+                        Value(0, output_field=IntegerField())
+                    ),
+                    CantidadConcepto=Count(
+                        'movimiento_ingreso_seleccionado',
+                        filter=Q(
+                            movimiento_ingreso_seleccionado__Usuario_id=id_usuario
+                        )
+                    )
                 )
+            else:
+
+                 ingresos_usuario=Ingresos.objects.filter(Usuario_id=id_usuario,Id=id_reg).annotate(
+                    TotalIngreso=Coalesce(
+                        Sum(
+                            'movimiento_ingreso_seleccionado__MontoIngreso',
+                            filter=Q(
+                                movimiento_ingreso_seleccionado__Usuario_id=id_usuario
+                            ),
+                            output_field=IntegerField()
+                        ),
+                        Value(0, output_field=IntegerField())
+                    ),
+                    CantidadConcepto=Count(
+                        'movimiento_ingreso_seleccionado',
+                        filter=Q(
+                            movimiento_ingreso_seleccionado__Usuario_id=id_usuario
+                        )
+                    )
+                )
+
+            # if not ingresos_usuario.exists():
+            #     return Response(
+            #         {'message': f'El usuario no tiene categorias registradas.'},
+            #         status=status.HTTP_200_OK
+            #     )
             detail_serializer = InfoIngresoSerializer(ingresos_usuario,many=True)
-            return Response(detail_serializer.data, status=status.HTTP_200_OK)
+            detalle = detail_serializer.data
+            total_general = sum(
+                ingreso.get('TotalIngreso', 0) or 0 
+                for ingreso in detalle
+            )
+            cantidad_medios = len(detalle)
+            
+            data={
+                'detalle':detalle ,
+                'resumen': {
+                    'TotalGeneral': total_general,
+                    'CantidadIngresos': cantidad_medios,
+                }
+            }
+            return Response(data, status=status.HTTP_200_OK)
 
         except Exception as e:
             

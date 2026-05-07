@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from django.db.models import Sum, Count, Value, IntegerField, Q,Prefetch
+from django.db.models import Sum, Count, Value, IntegerField, Q
 from django.db.models.functions import Coalesce
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 from FinTrackApp.Modelos.MediosPagos import MediosPagos
@@ -53,11 +53,11 @@ class ListadoMedioPagosUser(APIView):
                     )
                 )
 
-            if not medios_pago_obj.exists():
-                return Response(
-                    {'message': f'El usuario no tiene medios de pagos registradss.'},
-                    status=status.HTTP_200_OK
-                )
+            # if not medios_pago_obj.exists():
+            #     return Response(
+            #         {'message': f'El usuario no tiene medios de pagos registradss.'},
+            #         status=status.HTTP_200_OK
+            #     )
             detail_serializer = InfoMedioPagoSerializer(medios_pago_obj,many=True)
             detalle = detail_serializer.data
             total_general = sum(

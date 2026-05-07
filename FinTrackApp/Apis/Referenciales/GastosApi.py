@@ -1,12 +1,14 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-
+from django.db.models import Sum, Count, Value, IntegerField, Q
+from django.db.models.functions import Coalesce
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 
 from FinTrackApp.Modelos.Gastos import Gastos
 from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
 from FinTrackApp.Modelos.TiposGastos import TiposGastos
+
 
 from FinTrackApp.Serializadores.SerilizadoresModelos.GastosSerializers import RegistroGastoSerializer,InfoGastoSerializer
 class OperacionesGastosUser(APIView):
@@ -177,19 +179,70 @@ class OperacionesGastosUser(APIView):
 class ListarGastosUser(APIView):
 
     @AutenticacionToken
-    def get(self, request, *args, **kwargs):
+    def get(self, request,id_reg, *args, **kwargs):
         try:
             user_info = getattr(request, 'user_info', {})
             user_login = user_info["username"]
             id_usuario=user_info.get('usuario_id')
-            gastos_usuario=Gastos.objects.filter(Usuario_id=id_usuario)
-            if not gastos_usuario.exists():
-                return Response(
-                    {'message': f'El usuario no tiene categorias registradas.'},
-                    status=status.HTTP_200_OK
-                )
+            if id_reg==0:
+                gastos_usuario=Gastos.objects.filter(Usuario_id=id_usuario).annotate(
+                        TotalConceptoGasto=Coalesce(
+                            Sum(
+                                'movimiento_gasto_seleccionado__MontoGasto',
+                                filter=Q(
+                                    movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                                ),
+                                output_field=IntegerField()
+                            ),
+                            Value(0, output_field=IntegerField())
+                        ),
+                        CantidadConceptoGasto=Count(
+                            'movimiento_gasto_seleccionado',
+                            filter=Q(
+                            movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                            )
+                        )
+                    )
+            else:
+                gastos_usuario=Gastos.objects.filter(Usuario_id=id_usuario,Id=id_reg).annotate(
+                        TotalConceptoGasto=Coalesce(
+                            Sum(
+                                'movimiento_gasto_seleccionado__MontoGasto',
+                                filter=Q(
+                                    movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                                ),
+                                output_field=IntegerField()
+                            ),
+                            Value(0, output_field=IntegerField())
+                        ),
+                        CantidadConceptoGasto=Count(
+                            'movimiento_gasto_seleccionado',
+                            filter=Q(
+                            movimiento_gasto_seleccionado__MovimientoGasto__Usuario_id=id_usuario
+                            )
+                        )
+                    )
+            # if not gastos_usuario.exists():
+            #     return Response(
+            #         {'message': f'El usuario no tiene categorias registradas.'},
+            #         status=status.HTTP_200_OK
+            #     )
             detail_serializer = InfoGastoSerializer(gastos_usuario,many=True)
-            return Response(detail_serializer.data, status=status.HTTP_200_OK)
+            detalle = detail_serializer.data
+            total_general = sum(
+                gasto.get('TotalConceptoGasto', 0) or 0 
+                for gasto in detalle
+            )
+            cantidad = len(detalle)
+            
+            data={
+                'detalle':detalle ,
+                'resumen': {
+                    'TotalGeneral': total_general,
+                    'CantidadGastos': cantidad,
+                }
+            }
+            return Response(data, status=status.HTTP_200_OK)
 
         except Exception as e:
             

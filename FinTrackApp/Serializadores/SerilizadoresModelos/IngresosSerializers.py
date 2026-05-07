@@ -4,9 +4,16 @@ from FinTrackApp.Modelos.Ingresos import Ingresos
 class InfoIngresoSerializer(serializers.ModelSerializer):
     FechaRegistro= serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
     NombreTipoIngreso = serializers.CharField(source='TipoIngreso.NombreTipoIngreso', read_only=True)
+    TotalIngreso = serializers.IntegerField ()
+    CantidadConcepto = serializers.IntegerField(read_only=True)
     class Meta:
         model = Ingresos
-        fields =  ['Id','NombreIngreso','Observacion','Usuario','FechaRegistro','TipoIngreso','NombreTipoIngreso']
+        fields =  ['Id','NombreIngreso',
+                   'Observacion','Usuario',
+                   'FechaRegistro','TipoIngreso',
+                   'NombreTipoIngreso',
+                   'TotalIngreso','CantidadConcepto'
+                   ]
 
 
 class RegistroIngresoSerializer(serializers.ModelSerializer):

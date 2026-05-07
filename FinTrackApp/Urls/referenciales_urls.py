@@ -10,9 +10,11 @@ urlpatterns = [
     path('OperacionesCategoriasGastosUser/',OperacionesCategoriasGastosUser.as_view(),name="OperacionesCategoriasGastosUser"), 
     path('OperacionesCategoriasGastosUser/<int:id_reg>/',OperacionesCategoriasGastosUser.as_view(),name="OperacionesCategoriasGastosUser"),     
     path('ListadoCategoriasUser/<int:id_reg>/',ListadoCategoriasUser.as_view(),name="ListadoCategoriasUser"),     
+
+
     path('OperacionesGastosUser/',OperacionesGastosUser.as_view(),name="OperacionesGastosUser"), 
     path('OperacionesGastosUser/<int:idgasto>/',OperacionesGastosUser.as_view(),name="OperacionesGastosUser"), 
-    path('ListarGastosUser/',ListarGastosUser.as_view(),name="ListarGastosUser"), 
+    path('ListarGastosUser/<int:id_reg>/',ListarGastosUser.as_view(),name="ListarGastosUser"), 
 
     path('OperacionesMediosPagosUser/',OperacionesMediosPagosUser.as_view(),name="v"), 
     path('OperacionesMediosPagosUser/<int:idmedio>/',OperacionesMediosPagosUser.as_view(),name="OperacionesMediosPagosUser"),     
@@ -20,7 +22,7 @@ urlpatterns = [
 
     path('OperacionesIngresoUser/',OperacionesIngresoUser.as_view(),name="OperacionesIngresoUser"), 
     path('OperacionesIngresoUser/<int:idingreso>/',OperacionesIngresoUser.as_view(),name="OperacionesIngresoUser"),     
-    path('ListarIngresosUser/',ListarIngresosUser.as_view(),name="ListarIngresosUser"), 
+    path('ListarIngresosUser/<int:id_reg>/',ListarIngresosUser.as_view(),name="ListarIngresosUser"), 
 
 
     path('ListadoEmpresas/<int:id_empresa>/',ListadoEmpresas.as_view(),name="ListadoEmpresas"),

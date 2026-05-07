@@ -5,9 +5,17 @@ class InfoGastoSerializer(serializers.ModelSerializer):
     FechaRegistro= serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
     NombreCategoria = serializers.CharField(source='Categoria.NombreCategoria', read_only=True)
     NombreTipoGasto = serializers.CharField(source='TipoGasto.NombreTipoGasto', read_only=True)
+    TotalConceptoGasto = serializers.IntegerField ()
+    CantidadConceptoGasto = serializers.IntegerField(read_only=True)
     class Meta:
         model = Gastos
-        fields =  ['Id','NombreGasto','Observacion','Usuario','FechaRegistro','Categoria','NombreCategoria','TipoGasto','NombreTipoGasto']
+        fields =  ['Id','NombreGasto','Observacion',
+                   'Usuario','FechaRegistro','Categoria',
+                   'NombreCategoria','TipoGasto',
+                   'NombreTipoGasto'
+                   ,'TotalConceptoGasto'
+                   ,'CantidadConceptoGasto'
+                   ]
 
 class InfoGastoReferencialSerializer(serializers.ModelSerializer):
     
