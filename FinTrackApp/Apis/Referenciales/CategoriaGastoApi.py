@@ -116,6 +116,7 @@ class ListadoCategoriasUser(APIView):
                 }
             }
             return Response(data, status=status.HTTP_200_OK)
+            # return Response({'message':'No disponible'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             
             return Response(
