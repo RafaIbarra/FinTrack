@@ -10,7 +10,7 @@ from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
 from FinTrackApp.Modelos.Gastos import Gastos
 
 
-from FinTrackApp.Serializadores.SerilizadoresModelos.CategoriaGastoSerializers import RegistroCategoriaGastoSerializer,InfoCategoriaGastoSerializer
+from FinTrackApp.Serializadores.SerilizadoresModelos.CategoriaGastoSerializers import RegistroCategoriaGastoSerializer,InfoCategoriaGastoSerializer,InfoBasicosCategoriaGastoSerializer
 
 class ListadoCategoriasUser(APIView):
     @AutenticacionToken
@@ -123,6 +123,36 @@ class ListadoCategoriasUser(APIView):
                  {'message': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+class DatosBasicosCategoriaUser(APIView):
+    @AutenticacionToken
+    def get(self, request,*args, **kwargs):
+        try:
+            user_info = getattr(request, 'user_info', {})
+            user_login = user_info["username"]
+            id_usuario=user_info.get('usuario_id')
+             # Query de gastos con agregados (para el Prefetch)
+            
+            
+            
+
+            # Categorías con agregados y prefetch
+            
+            categorias = CategoriasGastos.objects.filter(Usuario_id=id_usuario)
+            
+             
+            detail_serializer = InfoBasicosCategoriaGastoSerializer(categorias,many=True)
+            
+            return Response(detail_serializer.data, status=status.HTTP_200_OK)
+            # return Response({'message':'No disponible'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            
+            return Response(
+                 {'message': f'Error interno del servidor: {str(e)}'}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
 
 class OperacionesCategoriasGastosUser(APIView):
 

@@ -78,6 +78,15 @@ class InfoCategoriaGastoSerializer(serializers.ModelSerializer):
             many=True,
             context={'total_categoria': obj.TotalGastoCategoria}
         ).data
+    
+class InfoBasicosCategoriaGastoSerializer(serializers.ModelSerializer):
+    FechaRegistro = serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
+    
+    class Meta:
+        model = CategoriasGastos
+        fields = ['Id', 'NombreCategoria', 'FechaRegistro']
+
+    
 
 
 

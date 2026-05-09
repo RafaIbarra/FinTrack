@@ -10,6 +10,7 @@ urlpatterns = [
     path('OperacionesCategoriasGastosUser/',OperacionesCategoriasGastosUser.as_view(),name="OperacionesCategoriasGastosUser"), 
     path('OperacionesCategoriasGastosUser/<int:id_reg>/',OperacionesCategoriasGastosUser.as_view(),name="OperacionesCategoriasGastosUser"),     
     path('ListadoCategoriasUser/<int:id_reg>/',ListadoCategoriasUser.as_view(),name="ListadoCategoriasUser"),     
+    path('DatosBasicosCategoriaUser/',DatosBasicosCategoriaUser.as_view(),name="DatosBasicosCategoriaUser"),
 
 
     path('OperacionesGastosUser/',OperacionesGastosUser.as_view(),name="OperacionesGastosUser"), 
