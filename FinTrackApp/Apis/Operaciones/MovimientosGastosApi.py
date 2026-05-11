@@ -193,7 +193,7 @@ class RegistroMovimientoGastoUser(APIView):
                 return Response({'message': msg}, status=status.HTTP_400_BAD_REQUEST)
                 
         except Exception as e:
-            print(str(e))
+            
             return Response(
                 
                  {'message': f'Error interno del servidor: {str(e)}'}, 

@@ -88,7 +88,7 @@ class RegistroUsuario(APIView):
                    
                 )
             #UNA VEZ CREADO EL USUARIO INTENTA HACER EL LOGUEO 
-            loguedo,data,mensaje,objeto_usuario=registrar_login(user_reg,password,ip_peticion,dispositivo)
+            loguedo,data,mensaje,data_usuario=registrar_login(user_reg,password,ip_peticion,dispositivo)
             
             
             valores_logueo={
@@ -98,7 +98,8 @@ class RegistroUsuario(APIView):
                 'refresh': data.get('refresh_jwt') if data else '',  # Puede ser None
                 'sesion': data.get('token_clasico') if data else '',  # Puede ser None
                 'user_name': user_reg.capitalize(),
-                'message':mensaje
+                'message':mensaje,
+                'datauser':data_usuario,
             }
         
             return Response(valores_logueo, status=status.HTTP_201_CREATED)

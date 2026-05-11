@@ -98,7 +98,7 @@ def generar_sesion(usuario_obj,ip_peticion,user_agent,usuario_app):
     }
     
     try:
-        print("entro en generar sesion")
+        
         # 1. Eliminar sesiones anteriores del usuario
         if usuario_app:
             SesionesActivas.objects.filter(Usuario=usuario_obj.Id).delete()
