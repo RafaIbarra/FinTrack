@@ -14,6 +14,19 @@ class InfoIngresoSerializer(serializers.ModelSerializer):
                    'NombreTipoIngreso',
                    'TotalIngreso','CantidadConcepto'
                    ]
+        
+class InfoReferencialesIngresoSerializer(serializers.ModelSerializer):
+    FechaRegistro= serializers.DateTimeField(format="%d/%m/%Y %H:%M:%S")
+    NombreTipoIngreso = serializers.CharField(source='TipoIngreso.NombreTipoIngreso', read_only=True)
+    
+    class Meta:
+        model = Ingresos
+        fields =  ['Id','NombreIngreso',
+                   'Observacion','Usuario',
+                   'FechaRegistro','TipoIngreso',
+                   'NombreTipoIngreso'
+                   
+                   ]
 
 
 class RegistroIngresoSerializer(serializers.ModelSerializer):

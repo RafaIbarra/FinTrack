@@ -21,7 +21,7 @@ from FinTrackApp.Modelos.Empresas import Empresas
 
 from FinTrackApp.Serializadores.SerializadoresValidaciones.MovimientosIngresosValSerializers import VerificacionIngresoUsuarioSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosIngresosSerializers import InfoMovimientoIngresoSerializer
-from FinTrackApp.Serializadores.SerilizadoresModelos.IngresosSerializers import InfoIngresoSerializer
+from FinTrackApp.Serializadores.SerilizadoresModelos.IngresosSerializers import InfoIngresoSerializer,InfoReferencialesIngresoSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.EmpresasSerializers import InfoEmpresasReferecianlSerializer
 from FinTrackApp.Utils.supabase_client import *
 
@@ -281,7 +281,7 @@ class ReferencialesCargaIngreso(APIView):
             
             
             ingresos_usuario = Ingresos.objects.filter(Usuario_id=id_usuario)
-            ingresos_serializer = InfoIngresoSerializer(ingresos_usuario, many=True)
+            ingresos_serializer = InfoReferencialesIngresoSerializer(ingresos_usuario, many=True)
             
             empresas = Empresas.objects.all()
             empresa_serializer = InfoEmpresasReferecianlSerializer(empresas, many=True)
