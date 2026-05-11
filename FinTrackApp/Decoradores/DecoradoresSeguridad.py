@@ -38,7 +38,7 @@ def AutenticacionToken(view_func):
                 }, status=401)
             
             token = auth_header.split(' ')[1]
-            decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"], options={"verify_signature": False})
+            decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user_id_jwt = decoded_token.get('user_id')
             
             

@@ -39,14 +39,37 @@ def registrar_login(usuario,contraseña,ip_peticion,user_agent):
         user = authenticate(username=usuario,password=contraseña)
         
         if user:
+            usuario_app=True
             usuario=Usuarios.objects.filter(UserName=usuario).first()
-            valores=generar_sesion(usuario,ip_peticion,user_agent)
+            if usuario:
+                data_usuario=usuario
+            else:
+                data_usuario=user
+                usuario_app=False
+
+
+            valores=generar_sesion(data_usuario,ip_peticion,user_agent,usuario_app)
             logueado=valores.get('creado')
             msg=''
             if not logueado:
                 msg=valores.get('error')
-            
-            return logueado,valores,msg,usuario
+            if usuario_app:
+                datauser=[{
+                            'username':data_usuario.UserName.capitalize(),
+                            'nombre':data_usuario.NombreUsuario,
+                            'apellido':data_usuario.ApellidoUsuario,
+                            'fecha_registro':data_usuario.FechaRegistro.strftime("%d/%m/%Y %H:%M:%S"),
+                            
+                        }]
+            else:
+                datauser=[{
+                            'username':data_usuario.username.capitalize(),
+                            'nombre':data_usuario.first_name,
+                            'apellido':data_usuario.last_name,
+                            'fecha_registro':data_usuario.date_joined.strftime("%d/%m/%Y %H:%M:%S"),
+                            
+                        }]
+            return logueado,valores,msg,datauser
         else:
             logueado=False
             msg='Contraseña o nombre de usuario incorrectos'
@@ -58,7 +81,7 @@ def registrar_login(usuario,contraseña,ip_peticion,user_agent):
         # print(f"Error en generar_sesion: {str(e)}")
         return logueado,[], str(e)
 
-def generar_sesion(usuario_obj,ip_peticion,user_agent):
+def generar_sesion(usuario_obj,ip_peticion,user_agent,usuario_app):
     """
     usuario_obj: Instancia del modelo Usuarios
     password: Contraseña del usuario (para generar JWT)
@@ -75,12 +98,15 @@ def generar_sesion(usuario_obj,ip_peticion,user_agent):
     }
     
     try:
+        print("entro en generar sesion")
         # 1. Eliminar sesiones anteriores del usuario
-        SesionesActivas.objects.filter(Usuario=usuario_obj.Id).delete()
-        
-        # 2. BUSCAR usuario de Django por username
-        user_django = User.objects.get(username=usuario_obj.UserName)
-
+        if usuario_app:
+            SesionesActivas.objects.filter(Usuario=usuario_obj.Id).delete()
+            
+            # 2. BUSCAR usuario de Django por username
+            user_django = User.objects.get(username=usuario_obj.UserName)
+        else:
+            user_django = User.objects.get(username=usuario_obj.username)
         
         
         # 4. GENERAR TOKEN JWT
@@ -97,17 +123,29 @@ def generar_sesion(usuario_obj,ip_peticion,user_agent):
         token,created= Token.objects.get_or_create(user=user_django)
         token_clasic=token.key
         # 6. Crear sesión DIRECTAMENTE con el modelo (sin serializador)
-        SesionesActivas.objects.create(
-            Usuario_id=usuario_obj.Id,
-            IdDjangoUser=user_django.id,
-            FechaExpiracion=fecha_expiracion,
-            TokenSesion=token_clasic,
-            FechaConexion=timezone.now(),
-            Dispositivo=user_agent,
-            IpConexion=ip_peticion
-            # dispositivo ya no existe en el nuevo modelo
-        )
-        
+        if usuario_app:
+            SesionesActivas.objects.create(
+                Usuario_id=usuario_obj.Id,
+                IdDjangoUser=user_django.id,
+                FechaExpiracion=fecha_expiracion,
+                TokenSesion=token_clasic,
+                FechaConexion=timezone.now(),
+                Dispositivo=user_agent,
+                IpConexion=ip_peticion
+                # dispositivo ya no existe en el nuevo modelo
+            )
+        else:
+            print("intenta crear Sesion activa")
+            SesionesActivas.objects.create(
+                Usuario_id=usuario_obj.id,
+                IdDjangoUser=user_django.id,
+                FechaExpiracion=fecha_expiracion,
+                TokenSesion=token_clasic,
+                FechaConexion=timezone.now(),
+                Dispositivo=user_agent,
+                IpConexion=ip_peticion
+            )
+
         # 7. Retornar resultado exitoso con AMBOS tokens
         resultado['creado'] = True
         resultado['token_clasico'] = token_clasic
@@ -115,7 +153,7 @@ def generar_sesion(usuario_obj,ip_peticion,user_agent):
         resultado['refresh_jwt'] = refresh_token
             
     except User.DoesNotExist:
-        resultado['error'] = f"Usuario de Django no encontrado: {usuario_obj.UserName}"
+        resultado['error'] = f"Usuario de Django no encontrado:"
     except Exception as e:
         # print(f"Error en generar_sesion: {str(e)}")
         resultado['error'] = str(e)

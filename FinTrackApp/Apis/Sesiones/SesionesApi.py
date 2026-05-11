@@ -26,13 +26,13 @@ class LoginUsuario(APIView):
             loguedo,data,mensaje,data_usuario=registrar_login(user_name,password,ip_peticion,dispositivo)
            
             if loguedo:
-                datauser=[{
-                            'username':data_usuario.UserName.capitalize(),
-                            'nombre':data_usuario.NombreUsuario,
-                            'apellido':data_usuario.ApellidoUsuario,
-                            'fecha_registro':data_usuario.FechaRegistro.strftime("%d/%m/%Y %H:%M:%S"),
+                # datauser=[{
+                #             'username':data_usuario.UserName.capitalize(),
+                #             'nombre':data_usuario.NombreUsuario,
+                #             'apellido':data_usuario.ApellidoUsuario,
+                #             'fecha_registro':data_usuario.FechaRegistro.strftime("%d/%m/%Y %H:%M:%S"),
                             
-                        }]
+                #         }]
                 valores_logueo={
                     'Logueado':loguedo,
                     'token': data.get('token_jwt') if data else '',  # Puede ser None
@@ -40,7 +40,7 @@ class LoginUsuario(APIView):
                     'sesion': data.get('token_clasico') if data else '',  # Puede ser None
                     'user_name': user_name.capitalize(),
                     'message':mensaje,
-                    'datauser':datauser,
+                    'datauser':data_usuario,
                 }
                 
                 
