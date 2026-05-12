@@ -16,6 +16,7 @@ from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print(f'el directorio {BASE_DIR.parent}')
 env_path = BASE_DIR.parent / 'BackendConfig' / '.env'
 config = Config(RepositoryEnv(str(env_path))) 
 
@@ -179,6 +180,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:19006",  # Expo por defecto
     "http://127.0.0.1:19006",
     "http://localhost:8081"
+    "http://localhost:5173"
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -186,7 +188,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8081",
     "http://localhost:19006",
     "http://127.0.0.1:19006",
-    "http://localhost:8081"
+    "http://localhost:8081",
+    "http://localhost:5173"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
