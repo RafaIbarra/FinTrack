@@ -23,8 +23,8 @@ def importar_empresas_desde_csv():
         Ruc='',  # Identificar por RUC vacío
         NombreEmpresa='Indefinida',  # También por nombre
         defaults={
-            'UrlImg': None,
-            'ObsImg': 'Empresa por defecto para registros sin asignar'
+            'UrlImg': None
+            
         }
     )
     
