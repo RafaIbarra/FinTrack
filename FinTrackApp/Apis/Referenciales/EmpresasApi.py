@@ -3,14 +3,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from django.db import transaction
-from rest_framework.permissions import AllowAny
+
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 from FinTrackApp.Modelos.Empresas import Empresas
 from FinTrackApp.Serializadores.SerilizadoresModelos.EmpresasSerializers import *
 
 class ListadoEmpresas(APIView):
-    # @AutenticacionToken
-    permission_classes = [AllowAny]
+    @AutenticacionToken
+    
     def get(self, request, id_empresa=0, *args, **kwargs):
         try:
             user_info = getattr(request, 'user_info', {})
