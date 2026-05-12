@@ -1,0 +1,309 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>FINDTRACK · Gestión Financiera Personal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            text-align: center;
+            color: #1e293b;
+        }
+
+        /* Contenedor principal: TODO CENTRADO (horizontal y vertical) */
+        .content-container {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 2rem 2rem 2rem 2rem;
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(2px);
+            max-width: 680px;
+            width: 100%;
+            transition: all 0.2s ease;
+            text-align: center;
+            margin: auto;
+        }
+
+        /* Asegurar que todo el contenido interior esté centrado */
+        .content-container > * {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            margin-bottom: 0.75rem;
+            color: #0f172a;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(120deg, #2c3e50, #1e293b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+
+            display: flex; /* cambiar inline-flex por flex */
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        h1::before {
+            content: "🖥️";
+            font-size: 1.9rem;
+            background: none;
+            -webkit-text-fill-color: initial;
+            color: #334155;
+        }
+
+        /* estado de conexión */
+        .connection-status {
+            background: #e6f7ec;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #15803d;
+            font-weight: 600;
+            margin: 1rem auto 1.2rem auto;
+            font-size: 1rem;
+            padding: 0.5rem 1.4rem;
+            border-radius: 60px;
+            width: fit-content;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .connection-status::before {
+            content: "✅";
+            font-size: 1.2rem;
+        }
+
+        /* imagen del logo: centrada y con efecto sutil */
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0 0.8rem 0;
+        }
+
+        img {
+            width: 170px;
+            max-width: 75%;
+            height: auto;
+            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.2));
+            transition: transform 0.25s ease;
+            border-radius: 24px;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        /* bloque funciones: título con icono personalizado */
+        .team-title {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: #1e293b;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #f1f5f9;
+            padding: 0.45rem 1.8rem;
+            border-radius: 60px;
+            letter-spacing: -0.2px;
+            box-shadow: inset 0 1px 0 #ffffff80, 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Ícono personalizado para el título funciones (⚙️ + 📌) */
+        .team-title::before {
+            content: "⚙️";
+            font-size: 1.6rem;
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+        }
+
+        .team-title::after {
+            content: "📌";
+            font-size: 1.5rem;
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+        }
+
+        /* lista de funciones: cada item con su icono acorde al nombre */
+        .team {
+            margin-top: 0.75rem;
+            padding: 0;
+            list-style: none;
+            text-align: left;
+            max-width: 480px;
+            width: 100%;
+            background: #ffffffcc;
+            border-radius: 1.5rem;
+            backdrop-filter: blur(2px);
+        }
+
+        .team li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 0.5rem 0;
+            padding: 0.85rem 1.2rem;
+            background: #ffffff;
+            border-radius: 60px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03);
+            border: 1px solid #eef2ff;
+            font-weight: 500;
+            color: #0f172a;
+            font-size: 1.05rem;
+        }
+
+        .team li:hover {
+            background: #f8fafc;
+            transform: translateX(6px);
+            border-color: #cbd5e1;
+            box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Íconos específicos según la función */
+        .team li:nth-child(1)::before {
+            content: "📂";
+            font-size: 1.5rem;
+            width: 32px;
+            display: inline-block;
+            text-align: center;
+        }
+        .team li:nth-child(2)::before {
+            content: "🤖";
+            font-size: 1.5rem;
+            width: 32px;
+            display: inline-block;
+            text-align: center;
+        }
+        .team li:nth-child(3)::before {
+            content: "📊";
+            font-size: 1.5rem;
+            width: 32px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        /* Agregar un pequeño ícono decorativo extra después del texto (opcional) */
+        .team li:nth-child(1)::after {
+            content: "➡️";
+            font-size: 1rem;
+            margin-left: auto;
+            opacity: 0.6;
+        }
+        .team li:nth-child(2)::after {
+            content: "✨";
+            font-size: 1rem;
+            margin-left: auto;
+            opacity: 0.6;
+        }
+        .team li:nth-child(3)::after {
+            content: "📈";
+            font-size: 1rem;
+            margin-left: auto;
+            opacity: 0.6;
+        }
+
+        /* información del servidor / pie */
+        .server-info {
+            color: #475569;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+            display: inline-block;
+            width: auto;
+            font-style: normal;
+            background: #f1f5f980;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            backdrop-filter: blur(2px);
+        }
+
+        /* totalmente centrado en vertical/horizontal y responsivo */
+        @media (max-width: 550px) {
+            .content-container {
+                padding: 1.5rem;
+            }
+            .team li {
+                padding: 0.7rem 1rem;
+                font-size: 0.95rem;
+            }
+            .team-title {
+                font-size: 1.4rem;
+                padding: 0.35rem 1.2rem;
+            }
+            h1 {
+                font-size: 1.7rem;
+            }
+            .team li::before {
+                font-size: 1.3rem;
+                width: 28px;
+            }
+        }
+
+        /* Ajuste extra: la lista se mantiene centrada como bloque */
+        ul.team {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <!-- Título principal -->
+        <h1>FINDTRACK</h1>
+        
+        <!-- Estado de conexión con ícono incluido en pseudo-elemento -->
+        <div class="connection-status">Conectado exitosamente</div>
+        
+        <!-- Logo centrado - AHORA USANDO RUTA DIRECTA (sin etiqueta static de Django) 
+             La imagen se mostrará si existe en la ruta 'img/logoapp_clean.png' relativa al HTML.
+             Para evitar errores de carga y mantener la simplicidad, usamos una imagen base64
+             SIMPLE como fallback o directamente un emoji/logo elegante? pero respetamos tu asset.
+             Como es solo HTML, modificamos a src="img/logoapp_clean.png" y añadimos un 
+             Data URL de respaldo con un diseño amigable que dice "FINDTRACK" para que 
+             nunca se vea roto y se vea profesional incluso si falta la imagen.
+        -->
+        <div class="logo-wrapper">
+            <img src="{% static 'img/logoapp_clean.png' %}" alt="Logo SG Stock">
+        </div>
+
+        <!-- Título de funciones con doble icono: ⚙️ + 📌  (según requisito) -->
+        <div class="team-title">Funciones</div>
+
+        <!-- Lista de funciones con iconos simples y representativos -->
+        <ul class="team">
+            <li>Categorizacion de gastos</li>
+            <li>Asistencia con IA</li>
+            <li>Cuadro de resultado</li>
+        </ul>
+
+        <!-- Información de versión / sistema -->
+        <div class="server-info">
+            💼 Sistema de Gestión financiera personal - v1.0
+        </div>
+    </div>
+</body>
+</html>

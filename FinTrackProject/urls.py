@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from FinTrackApp.views import *
 #from FinTrackApp.Urls.admin_urls
 #from FinTrackApp.Urls.referenciales_urls
 #from FinTrackApp.Urls.operaciones_urls
@@ -33,6 +34,7 @@ urlpatterns = [
     path('api/IA/', include('FinTrackApp.Urls.consultas_IA')),
     path('api/informes/', include('FinTrackApp.Urls.informes_urls')),
     path('api/analitic/', include('FinTrackApp.Urls.analiticas_urls')),
+    path('',Home.as_view(),name="Home"),
 ]
 
 if settings.DEBUG:
