@@ -57,8 +57,8 @@ def importar_empresas_desde_csv():
             empresa, creada = Empresas.objects.get_or_create(
                 Ruc=ruc_formateado,
                 defaults={
-                    'NombreEmpresa': nombre_empresa,
-                    'ObsImg': f"Importado desde CSV. Status original: {status}"
+                    'NombreEmpresa': nombre_empresa
+                    
                 }
             )
             
@@ -78,7 +78,7 @@ def importar_empresas_desde_csv():
                     con_logo += 1
                 else:
                     print(f"  ✗ Logo no encontrado: {ruta_imagen}")
-                    empresa.ObsImg = f"{empresa.ObsImg} | Logo faltante: {nombre_archivo}"
+                    # empresa.ObsImg = f"{empresa.ObsImg} | Logo faltante: {nombre_archivo}"
                     sin_logo += 1
             else:
                 empresa.UrlImg = None
