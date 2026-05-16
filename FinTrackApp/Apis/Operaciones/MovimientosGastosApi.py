@@ -1,5 +1,5 @@
 import json
-from django.db.models import Sum
+from django.db.models import Sum,Count
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -21,12 +21,13 @@ from FinTrackApp.Modelos.Empresas import Empresas
 
 from FinTrackApp.Modelos.MediosPagos import MediosPagos
 from FinTrackApp.Modelos.Gastos import Gastos
+from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
 
 
 from FinTrackApp.Serializadores.SerilizadoresModelos.EmpresasSerializers import InfoEmpresasReferecianlSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.GastosSerializers import InfoGastoReferencialSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.MediosPagosSerializers import InfoMedioPagoReferencialSerializer
-
+from FinTrackApp.Serializadores.SerilizadoresModelos.CategoriaGastoSerializers import InfoBasicosCategoriaGastoSerializer
 
 from FinTrackApp.Serializadores.SerializadoresValidaciones.MovimientosGastosValSerializers import VerificacionGastoUsuarioSerializer,VerificacionMedioPagoUsuarioSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer,InfoMovimientosGastosReferencialSerializer
@@ -520,9 +521,20 @@ class ReferencialesCargaGasto(APIView):
             
             gastos_usuario = Gastos.objects.filter(Usuario_id=id_usuario)
             gasto_serializer = InfoGastoReferencialSerializer(gastos_usuario, many=True)
+
+            categorias= CategoriasGastos.objects.filter(
+                Usuario_id=id_usuario
+            ).annotate(
+                num_gastos=Count('categoria_gasto_usuario')  # related_name en Gastos -> Categoria
+            ).filter(
+                num_gastos__gt=0
+            )
+            categorias_serializers=InfoBasicosCategoriaGastoSerializer(categorias, many=True)
+
             
             empresas = Empresas.objects.all()
             empresa_serializer = InfoEmpresasReferecianlSerializer(empresas, many=True)
+
             
             # Ordenar según frecuencia de uso
             medios_ordenados = ordenar_por_frecuencia(
@@ -542,12 +554,15 @@ class ReferencialesCargaGasto(APIView):
                 resumen['CantidadEmpresa'],
                 'NombreEmpresa'  # Ajusta este key según tu serializer
             )
+            categorias_ordenadas=ordenar_por_frecuencia(categorias_serializers.data,resumen['CantidadCategorias'],'NombreCategoria')
             
             data = {
-                'Movimientos': resumen,
+                
+                # 'Movimientos': resumen,
                 'MediosPagos': medios_ordenados,
                 'Gastos': gastos_ordenados,
-                'Empresa': empresas_ordenadas
+                'Empresa': empresas_ordenadas,
+                'Categorias':categorias_ordenadas,
             }
             
             return Response(data, status=status.HTTP_200_OK)
@@ -563,12 +578,18 @@ def resumen_movimientos_gastos_usuario(movimientos_data):
     """
     Genera resumen de cantidades por ID
     """
+    
     return {
         'CantidadEmpresa': dict(Counter(m['Empresa'] for m in movimientos_data)),
         'CantidadGastos': dict(Counter(
             gasto['GastoUsuario'] 
             for movimiento in movimientos_data 
             for gasto in movimiento.get('DetalleGastos', [])
+        )),
+        'CantidadCategorias': dict(Counter(
+            categoria['CategoriaGasto'] 
+            for movimiento in movimientos_data 
+            for categoria in movimiento.get('DetalleGastos', [])
         )),
         'CantidadMedios': dict(Counter(
             medio['MedioPago'] 

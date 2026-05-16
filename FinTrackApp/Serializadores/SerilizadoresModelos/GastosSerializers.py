@@ -24,7 +24,7 @@ class InfoGastoReferencialSerializer(serializers.ModelSerializer):
     MontoGasto = serializers.IntegerField(default=0, read_only=True)
     class Meta:
         model = Gastos
-        fields =  ['Id','NombreGasto','MontoGasto','NombreCategoria','NombreTipoGasto']
+        fields =  ['Id','NombreGasto','MontoGasto','Categoria','NombreCategoria','NombreTipoGasto']
 
 
 class RegistroGastoSerializer(serializers.ModelSerializer):
