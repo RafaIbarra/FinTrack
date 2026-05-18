@@ -85,6 +85,7 @@ class RegistroUsuario(APIView):
             data_recorrido={
                 'categoria':True,
                 'conceptos':True,
+                'medios':True,
                 'ingresos':True
             }
     

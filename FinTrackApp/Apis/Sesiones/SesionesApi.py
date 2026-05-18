@@ -10,6 +10,7 @@ from FinTrackApp.Modelos.Usuarios import Usuarios
 from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
 from FinTrackApp.Modelos.Gastos import Gastos
 from FinTrackApp.Modelos.Ingresos import Ingresos
+from FinTrackApp.Modelos.MediosPagos import MediosPagos
 class LoginUsuario(APIView):
     permission_classes = [AllowAny]
     def post(self, request, *args, **kwargs):
@@ -44,12 +45,14 @@ class LoginUsuario(APIView):
                     categorias = CategoriasGastos.objects.filter(Usuario_id=id_usuario)
                     gastos = Gastos.objects.filter(Usuario_id=id_usuario)
                     ingresos = Ingresos.objects.filter(Usuario_id=id_usuario)
+                    medios = MediosPagos.objects.filter(Usuario_id=id_usuario)
                     data_recorrido={
                         'categoria':False,
                         'conceptos':False,
+                        'medios':False,
                         'ingresos':False
                     }
-                    if categorias.exists() and gastos.exists() and ingresos.exists():
+                    if categorias.exists() and gastos.exists() and ingresos.exists() and medios.exists():
                         recorrido=False
                     else:
                         recorrido=True
@@ -58,6 +61,9 @@ class LoginUsuario(APIView):
 
                         if not gastos.exists():
                             data_recorrido['conceptos'] = True
+
+                        if not medios.exists():
+                            data_recorrido['medios'] = True
 
                         if not ingresos.exists():
                             data_recorrido['ingresos'] = True
@@ -106,12 +112,14 @@ class ComprobarSession(APIView):
             categorias = CategoriasGastos.objects.filter(Usuario_id=id_usuario)
             gastos = Gastos.objects.filter(Usuario_id=id_usuario)
             ingresos = Ingresos.objects.filter(Usuario_id=id_usuario)
+            medios = MediosPagos.objects.filter(Usuario_id=id_usuario)
             data_recorrido={
                 'categoria':False,
                 'conceptos':False,
+                'medios':False,
                 'ingresos':False
             }
-            if categorias.exists() and gastos.exists() and ingresos.exists():
+            if categorias.exists() and gastos.exists() and ingresos.exists() and medios.exists():
                 recorrido=False
             else:
                 recorrido=True
@@ -120,6 +128,9 @@ class ComprobarSession(APIView):
 
                 if not gastos.exists():
                     data_recorrido['conceptos'] = True
+
+                if not medios.exists():
+                    data_recorrido['medios'] = True
 
                 if not ingresos.exists():
                     data_recorrido['ingresos'] = True
