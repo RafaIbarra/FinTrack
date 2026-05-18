@@ -17,14 +17,7 @@ from FinTrackApp.Utils.funciones_seguridad import formato_user,informacion_petic
 from datetime import datetime
 
 class RegistroUsuario(APIView):
-    """
-  
-    """
     permission_classes = [AllowAny]
-
-    
-    
-    
     def post(self, request, *args, **kwargs):
         try:
             # ✅ Esto ya valida: campos requeridos, tipos, max_length Y campos extra
@@ -89,8 +82,12 @@ class RegistroUsuario(APIView):
                 )
             #UNA VEZ CREADO EL USUARIO INTENTA HACER EL LOGUEO 
             loguedo,data,mensaje,data_usuario=registrar_login(user_reg,password,ip_peticion,dispositivo)
-            
-            
+            data_recorrido={
+                'categoria':True,
+                'conceptos':True,
+                'ingresos':True
+            }
+    
             valores_logueo={
                 'Registro':'Registro existoso usuario',
                 'Logueado':loguedo,
@@ -100,6 +97,8 @@ class RegistroUsuario(APIView):
                 'user_name': user_reg.capitalize(),
                 'message':mensaje,
                 'datauser':data_usuario,
+                'recorrido':True,
+                'datarecorrido':data_recorrido
             }
         
             return Response(valores_logueo, status=status.HTTP_201_CREATED)

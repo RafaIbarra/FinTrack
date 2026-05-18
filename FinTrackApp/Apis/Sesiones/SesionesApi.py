@@ -7,6 +7,9 @@ from FinTrackApp.Serializadores.SerializadoresValidaciones.CamposRequeridosSeria
 from FinTrackApp.Utils.funciones_seguridad import informacion_peticion,registrar_login
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 from FinTrackApp.Modelos.Usuarios import Usuarios
+from FinTrackApp.Modelos.CategoriasGastos import CategoriasGastos
+from FinTrackApp.Modelos.Gastos import Gastos
+from FinTrackApp.Modelos.Ingresos import Ingresos
 class LoginUsuario(APIView):
     permission_classes = [AllowAny]
     def post(self, request, *args, **kwargs):
@@ -33,6 +36,32 @@ class LoginUsuario(APIView):
                 #             'fecha_registro':data_usuario.FechaRegistro.strftime("%d/%m/%Y %H:%M:%S"),
                             
                 #         }]
+                recorrido=False
+                if data_usuario[0]['Isadmin']:
+                        recorrido=False
+                else:
+                    id_usuario=data_usuario[0]['UserId']
+                    categorias = CategoriasGastos.objects.filter(Usuario_id=id_usuario)
+                    gastos = Gastos.objects.filter(Usuario_id=id_usuario)
+                    ingresos = Ingresos.objects.filter(Usuario_id=id_usuario)
+                    data_recorrido={
+                        'categoria':False,
+                        'conceptos':False,
+                        'ingresos':False
+                    }
+                    if categorias.exists() and gastos.exists() and ingresos.exists():
+                        recorrido=False
+                    else:
+                        recorrido=True
+                        if not categorias.exists():
+                            data_recorrido['categoria'] = True
+
+                        if not gastos.exists():
+                            data_recorrido['conceptos'] = True
+
+                        if not ingresos.exists():
+                            data_recorrido['ingresos'] = True
+                
                 valores_logueo={
                     'Logueado':loguedo,
                     'token': data.get('token_jwt') if data else '',  # Puede ser None
@@ -41,6 +70,8 @@ class LoginUsuario(APIView):
                     'user_name': user_name.capitalize(),
                     'message':mensaje,
                     'datauser':data_usuario,
+                    'recorrido':recorrido,
+                    'datarecorrido':data_recorrido
                 }
                 
                 
@@ -55,6 +86,9 @@ class LoginUsuario(APIView):
                  {'message': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+
+
 class ComprobarSession(APIView):
     @AutenticacionToken
     def get(self, request, *args, **kwargs):
@@ -68,13 +102,38 @@ class ComprobarSession(APIView):
                     {'message': f'Error de Usuario'},
                     status=status.HTTP_404_NOT_FOUND
                 )
+            recorrido=False
+            categorias = CategoriasGastos.objects.filter(Usuario_id=id_usuario)
+            gastos = Gastos.objects.filter(Usuario_id=id_usuario)
+            ingresos = Ingresos.objects.filter(Usuario_id=id_usuario)
+            data_recorrido={
+                'categoria':False,
+                'conceptos':False,
+                'ingresos':False
+            }
+            if categorias.exists() and gastos.exists() and ingresos.exists():
+                recorrido=False
+            else:
+                recorrido=True
+                if not categorias.exists():
+                    data_recorrido['categoria'] = True
+
+                if not gastos.exists():
+                    data_recorrido['conceptos'] = True
+
+                if not ingresos.exists():
+                    data_recorrido['ingresos'] = True
+                
             datauser=[{
                             'username':usuario_data.UserName.capitalize(),
                             'nombre':usuario_data.NombreUsuario,
                             'apellido':usuario_data.ApellidoUsuario,
                             'fecha_registro':usuario_data.FechaRegistro.strftime("%d/%m/%Y %H:%M:%S"),
+                            'recorrido':recorrido,
+                            'datarecorrido':data_recorrido
                             
                         }]
+            
             return Response(datauser, status=status.HTTP_200_OK)
             
         except Exception as e:

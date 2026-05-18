@@ -59,6 +59,8 @@ def registrar_login(usuario,contraseña,ip_peticion,user_agent):
                             'nombre':data_usuario.NombreUsuario,
                             'apellido':data_usuario.ApellidoUsuario,
                             'fecha_registro':data_usuario.FechaRegistro.strftime("%d/%m/%Y %H:%M:%S"),
+                            'UserId':data_usuario.Id,
+                            'Isadmin':False
                             
                         }]
             else:
@@ -67,6 +69,8 @@ def registrar_login(usuario,contraseña,ip_peticion,user_agent):
                             'nombre':data_usuario.first_name,
                             'apellido':data_usuario.last_name,
                             'fecha_registro':data_usuario.date_joined.strftime("%d/%m/%Y %H:%M:%S"),
+                            'UserId':data_usuario.id,
+                            'Isadmin':True
                             
                         }]
             return logueado,valores,msg,datauser
@@ -135,7 +139,7 @@ def generar_sesion(usuario_obj,ip_peticion,user_agent,usuario_app):
                 # dispositivo ya no existe en el nuevo modelo
             )
         else:
-            print("intenta crear Sesion activa")
+            # print("intenta crear Sesion activa")
             SesionesActivas.objects.create(
                 Usuario_id=usuario_obj.id,
                 IdDjangoUser=user_django.id,
