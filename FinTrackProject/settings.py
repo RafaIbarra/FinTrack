@@ -24,6 +24,20 @@ SUPABASE_URL = config('SUPABASE_URL')
 SUPABASE_KEY = config('SUPABASE_ANON_KEY')
 SUPABASE_SERVICE_KEY = config('SUPABASE_SERVICE_ROLE_KEY')
 
+R2_ACCOUNT_ID = config('R2_ACCOUNT_ID', 'tu-account-id')
+# Credenciales del token S3 API (Account)
+R2_ACCESS_KEY_ID = config('R2_ACCESS_KEY_ID', 'tu-access-key-id')
+R2_SECRET_ACCESS_KEY = config('R2_SECRET_ACCESS_KEY', 'tu-secret-access-key')
+# Endpoint: el que te dio Cloudflare
+# Ejemplo: https://xxxxxxxxxxxx.r2.cloudflarestorage.com
+R2_ENDPOINT_URL = config('R2_ENDPOINT_URL', 'https://xxxx.r2.cloudflarestorage.com')
+# URL pública para acceso directo (opcional pero recomendado)
+# La obtienes en: R2 → Tu bucket → Settings → Public Access
+# Ejemplo: https://pub-xxxxxxxxxxxx.r2.dev
+R2_PUBLIC_URL_GASTOS = config('R2_PUBLIC_URL_GASTOS', '')
+R2_PUBLIC_URL_INGRESOS = config('R2_PUBLIC_URL_INGRESOS', '')
+R2_PUBLIC_URL_LOGO_EMPRESAS = config('R2_PUBLIC_URL_LOGO_EMPRESAS', '')
+
 
 WORKER_SECRET = config('WORKER_SECRET')
 WORKER_URL = config('WORKER_URL')

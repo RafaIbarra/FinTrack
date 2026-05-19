@@ -32,7 +32,8 @@ from FinTrackApp.Serializadores.SerilizadoresModelos.CategoriaGastoSerializers i
 from FinTrackApp.Serializadores.SerializadoresValidaciones.MovimientosGastosValSerializers import VerificacionGastoUsuarioSerializer,VerificacionMedioPagoUsuarioSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosGastosSerializers import InfoMovimientosGastosSerializer,InfoMovimientosGastosReferencialSerializer
 
-from FinTrackApp.Utils.supabase_client import *
+# from FinTrackApp.Utils.supabase_client import *
+from FinTrackApp.Utils.r2_storage import *
 
 
 class RegistroMovimientoGastoUser(APIView):
@@ -129,7 +130,7 @@ class RegistroMovimientoGastoUser(APIView):
                 file_bytes = imagen_file.read()
                 
                 # ✅ LLAMADA CORRECTA al método que SÍ existe
-                resultado = supabase_storage.upload_gasto_image(
+                resultado = r2_storage.upload_gasto_image(
                     file_bytes=file_bytes,
                     file_name=imagen_file.name  # ← nombre correcto del parámetro
                 )
@@ -185,7 +186,7 @@ class RegistroMovimientoGastoUser(APIView):
                 # opcionalmente loguear el error
                 error_archivo=""
                 if imagen_url:
-                    resultado = supabase_storage.delete_gasto_image(imagen_url)
+                    resultado = r2_storage.delete_gasto_image(imagen_url)
                     if not resultado['success']:
                        error_archivo=f'; el archivo asociado no fue eliminado, el error :{ resultado.get('details', resultado.get('error'))}'
                     else:
@@ -369,7 +370,7 @@ class EditarMovimientoGastoUser(APIView):
                 id_empresa_actual=instancia_movimiento.Empresa
                 if imagen_file:
                     if imagen_url:
-                        resultado = supabase_storage.delete_gasto_image(imagen_url)
+                        resultado = r2_storage.delete_gasto_image(imagen_url)
                         if not resultado['success']:
                             return Response({
                                 'message': 'Fallo al eliminar imagen asociada',
@@ -380,7 +381,7 @@ class EditarMovimientoGastoUser(APIView):
                     file_bytes = imagen_file.read()
                     
                     
-                    resultado = supabase_storage.upload_gasto_image(
+                    resultado = r2_storage.upload_gasto_image(
                         file_bytes=file_bytes,
                         file_name=imagen_file.name  # ← nombre correcto del parámetro
                     )
@@ -479,7 +480,7 @@ class EliminarMovimientoGastoUser(APIView):
                     instancia_movimiento.movimiento_gasto_cabecera_medio.all().delete() # se eliminar los medios de pagos
                     instancia_movimiento.delete() # se eliminar la cabecera
                     if imagen_url:
-                        resultado = supabase_storage.delete_gasto_image(imagen_url) # se elimina la imagen
+                        resultado = r2_storage.delete_gasto_image(imagen_url) # se elimina la imagen
                     
             except Exception as e:
                 msg=f'Error al eliminar el movimiento de gasto: {str(e)}'
