@@ -23,7 +23,8 @@ from FinTrackApp.Serializadores.SerializadoresValidaciones.MovimientosIngresosVa
 from FinTrackApp.Serializadores.SerilizadoresModelos.MovimientosIngresosSerializers import InfoMovimientoIngresoSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.IngresosSerializers import InfoIngresoSerializer,InfoReferencialesIngresoSerializer
 from FinTrackApp.Serializadores.SerilizadoresModelos.EmpresasSerializers import InfoEmpresasReferecianlSerializer
-from FinTrackApp.Utils.supabase_client import *
+# from FinTrackApp.Utils.supabase_client import *
+from FinTrackApp.Utils.r2_storage import *
 
 class RegistroMovimientoIngresoUser(APIView):
 
@@ -64,7 +65,7 @@ class RegistroMovimientoIngresoUser(APIView):
                 file_bytes = imagen_file.read()
                 
                 # ✅ LLAMADA CORRECTA al método que SÍ existe
-                resultado = supabase_storage.upload_ingreso_image(
+                resultado = r2_storage.upload_ingreso_image(
                     file_bytes=file_bytes,
                     file_name=imagen_file.name  # ← nombre correcto del parámetro
                 )
@@ -102,7 +103,7 @@ class RegistroMovimientoIngresoUser(APIView):
                 # opcionalmente loguear el error
                 error_archivo=""
                 if imagen_url:
-                    resultado = supabase_storage.delete_ingreso_image(imagen_url)
+                    resultado = r2_storage.delete_ingreso_image(imagen_url)
                     if not resultado['success']:
                        error_archivo=f'; el archivo asociado no fue eliminado, el error :{ resultado.get('details', resultado.get('error'))}'
                     else:
@@ -165,7 +166,7 @@ class EditarMovimientoIngresoUser(APIView):
                 empresa_actual=instancia_movimiento.Empresa
                 if imagen_file:
                     if imagen_url:
-                        resultado = supabase_storage.delete_ingreso_image(imagen_url)
+                        resultado = r2_storage.delete_ingreso_image(imagen_url)
                         if not resultado['success']:
                             return Response({
                                 'message': 'Fallo al eliminar imagen asociada',
@@ -176,7 +177,7 @@ class EditarMovimientoIngresoUser(APIView):
                     file_bytes = imagen_file.read()
                     
                     
-                    resultado = supabase_storage.upload_ingreso_image(
+                    resultado = r2_storage.upload_ingreso_image(
                         file_bytes=file_bytes,
                         file_name=imagen_file.name  # ← nombre correcto del parámetro
                     )
@@ -241,7 +242,7 @@ class EliminarMovimientoIngresoUser(APIView):
             
                     instancia_movimiento.delete() # se eliminar la cabecera
                     if imagen_url:
-                        resultado = supabase_storage.delete_ingreso_image(imagen_url) # se elimina la imagen
+                        resultado = r2_storage.delete_ingreso_image(imagen_url) # se elimina la imagen
                     
             except Exception as e:
                 msg=f'Error al eliminar el movimiento de iongreso: {str(e)}'

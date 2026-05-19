@@ -31,6 +31,7 @@ R2_SECRET_ACCESS_KEY = config('R2_SECRET_ACCESS_KEY', 'tu-secret-access-key')
 # Endpoint: el que te dio Cloudflare
 # Ejemplo: https://xxxxxxxxxxxx.r2.cloudflarestorage.com
 R2_ENDPOINT_URL = config('R2_ENDPOINT_URL', 'https://xxxx.r2.cloudflarestorage.com')
+
 # URL pública para acceso directo (opcional pero recomendado)
 # La obtienes en: R2 → Tu bucket → Settings → Public Access
 # Ejemplo: https://pub-xxxxxxxxxxxx.r2.dev
