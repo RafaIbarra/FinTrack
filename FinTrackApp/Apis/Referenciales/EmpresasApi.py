@@ -7,32 +7,30 @@ from django.db import transaction
 from FinTrackApp.Decoradores.DecoradoresSeguridad import AutenticacionToken
 from FinTrackApp.Modelos.Empresas import Empresas
 from FinTrackApp.Serializadores.SerilizadoresModelos.EmpresasSerializers import *
+from FinTrackApp.Utils.r2_storage import r2_storage
+
 
 class ListadoEmpresas(APIView):
     @AutenticacionToken
-    
     def get(self, request, id_empresa=0, *args, **kwargs):
         try:
             user_info = getattr(request, 'user_info', {})
             user_login = user_info.get("username")
             id_usuario = user_info.get('usuario_id')
-            
-            # Mejorar la lógica de consulta
+
             if id_empresa == 0:
-                # Obtener todas las empresas (con optimización si hay relaciones)
                 empresas = Empresas.objects.all()
-                
+
                 if not empresas.exists():
                     return Response(
                         {'message': 'No hay empresas cargadas.', 'data': []},
                         status=status.HTTP_200_OK
                     )
-                
+
                 serializer = InfoEmpresasSerializer(empresas, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
-            
+
             else:
-                # Obtener una empresa específica
                 try:
                     empresa = Empresas.objects.get(Id=id_empresa)
                     serializer = InfoEmpresasSerializer(empresa)
@@ -42,12 +40,13 @@ class ListadoEmpresas(APIView):
                         {'message': f'No existe una empresa con ID {id_empresa}'},
                         status=status.HTTP_404_NOT_FOUND
                     )
-            
+
         except Exception as e:
             return Response(
                 {'message': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
 
 class OperacionesEmpresas(APIView):
 
@@ -60,53 +59,58 @@ class OperacionesEmpresas(APIView):
 
             nombre_empresa = request.data.get('nombre', '').strip()
             ruc = request.data.get('ruc', '')
-            
-            # El logo es opcional - puede ser None
-            imagen_file = request.FILES.get('logo')  # Puede ser None
-            
-            # Preparar datos para el serializer
+            imagen_file = request.FILES.get('logo')
+
+            # Preparar datos para el serializer (sin logo, eso se maneja aparte)
             data_registrar = {
                 'NombreEmpresa': nombre_empresa,
                 'Ruc': ruc,
             }
-            
-            # Solo agregar UrlImg si se envió un archivo
-            if imagen_file:
-                data_registrar['UrlImg'] = imagen_file
-            
-            # ObsImg puede ser opcional o null
-            
-            
-            
+
             serializer = RegistroEmpresaSerializer(data=data_registrar)
-            
+
             if not serializer.is_valid():
-                # Concatenar errores
                 mensajes_error = []
                 for campo, mensajes in serializer.errors.items():
                     for mensaje in mensajes:
                         mensajes_error.append(f"{campo}: {mensaje}")
-                
+
                 error_concatenado = "; ".join(mensajes_error)
-                
+
                 return Response({
                     'message': error_concatenado,
                     'detalles': serializer.errors
                 }, status=status.HTTP_400_BAD_REQUEST)
-            
-            # ✅ IMPORTANTE: llamar al método save()
+
+            # Guardar empresa en DB (sin logo por ahora)
             empresa_save = serializer.save()
-            
-            # Serializar para respuesta
+
+            # Si hay logo, subir a R2 y actualizar UrlImg
+            if imagen_file:
+                file_bytes = imagen_file.read()
+                resultado = r2_storage.upload_logo_empresa(
+                    file_bytes=file_bytes,
+                    file_name=imagen_file.name
+                )
+
+                if resultado['success']:
+                    empresa_save.UrlImg = resultado['url']
+                    empresa_save.save(update_fields=['UrlImg'])
+                else:
+                    # Si falló la subida a R2, podés decidir qué hacer:
+                    # Opción A: Dejar la empresa sin logo (como ahora)
+                    # Opción B: Eliminar la empresa y devolver error
+                    print(f"⚠️ Error subiendo logo a R2: {resultado['message']}")
+
             detail_serializer = InfoEmpresasSerializer(empresa_save)
             return Response(detail_serializer.data, status=status.HTTP_201_CREATED)
-          
+
         except Exception as e:
             return Response(
                 {'message': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-        
+
     @AutenticacionToken
     def put(self, request, id_empresa, *args, **kwargs):
         try:
@@ -117,73 +121,82 @@ class OperacionesEmpresas(APIView):
                     {'message': 'El ID de empresa debe ser un número válido'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
-            empresa=Empresas.objects.filter(Id=id_empresa)
+
+            empresa = Empresas.objects.filter(Id=id_empresa)
             if not empresa.exists():
-                return Response({'message': f'No existe una empresa con ID {id_empresa}'}, status=status.HTTP_404_NOT_FOUND)
-            
+                return Response(
+                    {'message': f'No existe una empresa con ID {id_empresa}'}, 
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            instancia_empresa = empresa.first()
+
             nombre_empresa = request.data.get('nombre', '').strip()
             ruc = request.data.get('ruc', '')
             nuevo_logo = request.FILES.get('logo')
-            
-            instancia_empresa=empresa.first()
-            
+
             with transaction.atomic():
-                # Eliminar logo anterior SOLO si se envía nuevo logo
-                if nuevo_logo and instancia_empresa.UrlImg:
-                    try:
-                        if instancia_empresa.UrlImg.path and os.path.isfile(instancia_empresa.UrlImg.path):
-                            os.remove(instancia_empresa.UrlImg.path)
-                    except OSError as e:
-                        # Si no se puede eliminar, continuar igual (el logo se reemplazará)
-                        print(f"Advertencia: No se pudo eliminar {instancia_empresa.UrlImg.path}: {e}")
-                
-                # Construir datos a actualizar
-                instancia_empresa=empresa.first()
+                # Preparar datos a actualizar (sin logo)
                 data_actualizar = {
-                'NombreEmpresa': nombre_empresa,
-                'Ruc': ruc,
+                    'NombreEmpresa': nombre_empresa,
+                    'Ruc': ruc,
                 }
-                
-                if nuevo_logo:
-                    data_actualizar['UrlImg'] = nuevo_logo
-                
-                serializer = RegistroEmpresaSerializer(instance=instancia_empresa,data=data_actualizar)
+
+                serializer = RegistroEmpresaSerializer(
+                    instance=instancia_empresa,
+                    data=data_actualizar
+                )
+
                 if not serializer.is_valid():
-                    # Obtener todos los mensajes de error
-                    errores = serializer.errors
-                    
-                    # Concatenar todos los mensajes en un solo string
                     mensajes_error = []
-                    
-                    for campo, mensajes in errores.items():
-                        # Cada campo puede tener una lista de mensajes
+                    for campo, mensajes in serializer.errors.items():
                         for mensaje in mensajes:
-                            # Agregar el campo al mensaje
                             mensajes_error.append(f"{campo}: {mensaje}")
-                    
-                    # Unir todos los mensajes con punto y coma
+
                     error_concatenado = "; ".join(mensajes_error)
-                    
+
                     return Response({
                         'message': error_concatenado,
                         'detalles': serializer.errors
                     }, status=status.HTTP_400_BAD_REQUEST)
-                
+
                 empresa_save = serializer.save()
+
+                # Si hay nuevo logo
+                if nuevo_logo:
+                    # Eliminar logo anterior de R2 si existe
+                    if instancia_empresa.UrlImg:
+                        resultado_delete = r2_storage.delete_logo_empresa(
+                            instancia_empresa.UrlImg
+                        )
+                        if not resultado_delete['success']:
+                            print(f"⚠️ Error eliminando logo anterior: {resultado_delete}")
+
+                    # Subir nuevo logo a R2
+                    file_bytes = nuevo_logo.read()
+                    resultado = r2_storage.upload_logo_empresa(
+                        file_bytes=file_bytes,
+                        file_name=nuevo_logo.name
+                    )
+
+                    if resultado['success']:
+                        empresa_save.UrlImg = resultado['url']
+                        empresa_save.save(update_fields=['UrlImg'])
+                    else:
+                        print(f"⚠️ Error subiendo nuevo logo a R2: {resultado['message']}")
+
                 detail_serializer = InfoEmpresasSerializer(empresa_save)
                 return Response(detail_serializer.data, status=status.HTTP_200_OK)
-          
+
         except Exception as e:
             return Response(
                 {'message': f'Error interno del servidor: {str(e)}'}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-    
-    
+
     @AutenticacionToken
     def delete(self, request, id_empresa, *args, **kwargs):
         try:
-            # Verificar que id_empresa sea válido
             try:
                 id_empresa = int(id_empresa)
             except (TypeError, ValueError):
@@ -191,34 +204,33 @@ class OperacionesEmpresas(APIView):
                     {'message': 'El ID de empresa debe ser un número válido'},
                     status=status.HTTP_400_BAD_REQUEST
                 )
-            
-            
-            empresa_reg=Empresas.objects.filter(Id=id_empresa)
+
+            empresa_reg = Empresas.objects.filter(Id=id_empresa)
             if not empresa_reg.exists():
                 return Response(
                     {'message': f'No existe una empresa con Id={id_empresa}.'},
                     status=status.HTTP_404_NOT_FOUND
                 )
-            instancia_empresa=empresa_reg.first()
-            
-            # Guardar la ruta del logo antes de eliminar
-            logo_path = None
-            if instancia_empresa.UrlImg and instancia_empresa.UrlImg.path:
-                logo_path = instancia_empresa.UrlImg.path
-            
-            # Iniciar transacción atómica
+
+            instancia_empresa = empresa_reg.first()
+
+            # Guardar URL del logo antes de eliminar
+            logo_url = instancia_empresa.UrlImg
+
             with transaction.atomic():
                 # Primero eliminar el registro de la base de datos
                 instancia_empresa.delete()
-                
-                # Luego eliminar el archivo del logo (si existe)
-                if logo_path and os.path.isfile(logo_path):
-                    os.remove(logo_path)
-            
+
+                # Luego eliminar el logo de R2 (si existe)
+                if logo_url:
+                    resultado = r2_storage.delete_logo_empresa(logo_url)
+                    if not resultado['success']:
+                        print(f"⚠️ Error eliminando logo de R2: {resultado}")
+
             return Response({
                 'message': f'Empresa con ID {id_empresa} eliminada exitosamente'
             }, status=status.HTTP_200_OK)
-            
+
         except Exception as e:
             return Response(
                 {'message': f'Error interno del servidor: {str(e)}'}, 

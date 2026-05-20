@@ -94,7 +94,7 @@ class R2Storage:
         if settings.DEBUG:
             timestamp = f'FIND_{timestamp}'
 
-        return f"imagenes/{timestamp}_{unique_id}{ext}"
+        return f"{timestamp}_{unique_id}{ext}"
 
     def _upload_image(self, bucket: str, file_bytes: bytes, file_name: str):
         """Sube archivo al bucket y retorna URL pública."""
